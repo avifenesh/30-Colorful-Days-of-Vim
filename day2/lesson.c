@@ -26,9 +26,9 @@ Your tasks:
 
 #include <stdio.h>
 
-// TASK 1: This line has an extra word.
-// TASK 2: This is the wrong text.
-// TASK 3: This is the first sentence. This is the second sentence.
+// TASK 1: This line has a word.
+// TASK 2: This is the right text.
+// TASK 3: This is the first sentence.
 
 int main() {
     printf("Vim challenge Day 2!\n");

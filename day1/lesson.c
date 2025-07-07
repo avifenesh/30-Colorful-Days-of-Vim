@@ -20,11 +20,11 @@ Your tasks:
 
 #include <stdio.h>
 
-// TASK 1: cORRECT tHE cASING oF tHIS lINE.
-// TASK 2: There are X apples. (Replace X with 5)
+// TASK 1: Correct The Casing Of This Line.
+// TASK 2: There are 5 apples.
 
 int main() {
-    // TASK 3: This is the wrong line.
+    // TASK 3: This is the right line.
     printf("Vim challenge Day 1!\n");
     return 0;
 }
