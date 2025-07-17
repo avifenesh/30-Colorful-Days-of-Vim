@@ -22,9 +22,9 @@ Your tasks:
 */
 
 fn main() {
-    // TASK 1: Yank this line.
     println!("Vim challenge Day 3!");
     // TASK 2: Put the yanked line below this one.
+    // TASK 1: Yank this line.
 
-    // TASK 3: This is a line of Rust code.
+    // TASK 3: This is a line of code.Rust
 }
