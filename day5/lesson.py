@@ -20,13 +20,12 @@ Your tasks:
 3.  Select the first character of each line from "# TASK 3" to the end of the file and delete them.
 """
 
-# TASK 1
-# TASK 1
 
-# TASK 2: hello world
 
-# TASK 3: one
-# TASK 3: two
-# TASK 3: three
+# TASK 2: HELLO WORLD
 
-print("Vim challenge Day 5!")
+ TASK 3: one
+ TASK 3: two
+ TASK 3: three
+
+rint("Vim challenge Day 5!")
