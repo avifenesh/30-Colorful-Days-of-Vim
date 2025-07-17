@@ -18,10 +18,6 @@ Your tasks:
 2.  On the line with the comment "// TASK 2", delete the word "one" and then use the repeat command to delete "two" and "three".
 */
 
-// TASK 1
-// TASK 1
-// TASK 1
-
-// TASK 2: one two three
+// TASK 2:
 
 console.log("Vim challenge Day 4!");
