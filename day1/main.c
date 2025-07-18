@@ -24,19 +24,19 @@ Your tasks:
 // TASK 1: Fix the casing in the return string
 char* string_case_fix() {
     // cORRECT tHE cASING oF tHIS lINE
-    return "cORRECT tHE cASING oF tHIS lINE";
+    return "Correct The Casing Of This Line";
 }
 
 // TASK 2: Fix the return value
 int count_apples() {
     // There are X apples (Replace X with 5)
-    return 0;  // Fix this to return 5
+    return 5;  // Fix this to return 5
 }
 
 // TASK 3: Fix the return string
 char* get_status() {
     // This is the wrong line
-    return "wrong";  // Change this to "right"
+    return "right";  // Change this to "right"
 }
 
 // Test functions
@@ -69,10 +69,10 @@ void test_status() {
 
 int main() {
     printf("=== Vim Challenge Day 1 ===\n\n");
-    
+
     test_case_fix();
     test_count();
     test_status();
-    
+
     return 0;
 }
