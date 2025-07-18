@@ -19,25 +19,25 @@ Your tasks:
 
 -- Task 1: Fix indentation (should be 4 spaces)
 function format_output(msg)
-return msg .. "!"  -- This needs indentation
+	return msg .. "!" -- This needs indentation
 end
 
 -- Task 2: Fix nested indentation
 function check_value(x)
-    if x > 0 then
-if x < 10 then  -- This needs proper indentation
-return "single digit"
-else  -- This too
-return "multiple digits"
-end  -- And this
-    end
-    return "not positive"
+	if x > 0 then
+		if x < 10 then -- This needs proper indentation
+			return "single digit"
+		else -- This too
+			return "multiple digits"
+		end -- And this
+	end
+	return "not positive"
 end
 
 -- Task 3: Fix function alignment
-   function misaligned_function()  -- This should start at column 1
-    return "fixed"
-   end
+function misaligned_function() -- This should start at column 1
+	return "fixed"
+end
 
 -- Test the functions
 print("=== Vim Challenge Day 6 ===\n")
@@ -45,9 +45,9 @@ print("=== Vim Challenge Day 6 ===\n")
 -- Test 1: Check if format_output is properly indented
 local test1 = format_output("Hello")
 if test1 == "Hello!" then
-    print("✓ Task 1 passed! (but check indentation manually)")
+	print("✓ Task 1 passed! (but check indentation manually)")
 else
-    print("✗ Task 1 failed. Expected 'Hello!', got '" .. test1 .. "'")
+	print("✗ Task 1 failed. Expected 'Hello!', got '" .. test1 .. "'")
 end
 
 -- Test 2: Check if check_value works correctly
@@ -56,17 +56,17 @@ local test2b = check_value(15)
 local test2c = check_value(-5)
 
 if test2a == "single digit" and test2b == "multiple digits" and test2c == "not positive" then
-    print("✓ Task 2 passed! (but check indentation manually)")
+	print("✓ Task 2 passed! (but check indentation manually)")
 else
-    print("✗ Task 2 failed. Function not working correctly")
+	print("✗ Task 2 failed. Function not working correctly")
 end
 
 -- Test 3: Check if misaligned_function works
 local test3 = misaligned_function()
 if test3 == "fixed" then
-    print("✓ Task 3 passed! (but check alignment manually)")
+	print("✓ Task 3 passed! (but check alignment manually)")
 else
-    print("✗ Task 3 failed.")
+	print("✗ Task 3 failed.")
 end
 
 print("\nNote: This day focuses on indentation. Make sure to visually verify")
