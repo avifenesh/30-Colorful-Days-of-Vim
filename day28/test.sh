@@ -1,16 +1,21 @@
 #!/bin/bash
 
-# This test script will not modify the file, but rather check if the user has interacted with the external commands.
-# For this, we'll just check if the file content is unchanged, except for the date line.
+# Run the JavaScript test
+output=$(node main.js 2>&1)
 
-# Get the current date and time in the format expected in the solution file
-CURRENT_DATE=$(date "+%a %b %e %I:%M:%S %p %Z %Y")
+if [ $? -ne 0 ]; then
+    echo "Execution failed! Check your syntax."
+    echo "$output"
+    exit 1
+fi
 
-# Replace the placeholder date in the solution file with the current date for comparison
-sed -i "s/Fri Jul  5 12:34:56 PM UTC 2025/$CURRENT_DATE/g" solution.js
-
-if diff -q lesson.js solution.js >/dev/null; then
-    echo "Day 28 Test Passed!"
+# Check if all tests passed
+if echo "$output" | grep -q "✗"; then
+    echo "$output"
+    echo -e "\nDay 28 Test Failed. Keep practicing!"
+    exit 1
 else
-    echo "Day 28 Test Failed. Keep trying!"
+    echo "$output"
+    echo -e "\nDay 28 Test Passed! JavaScript mastery growing!"
+    exit 0
 fi

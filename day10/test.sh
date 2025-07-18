@@ -1,7 +1,21 @@
 #!/bin/bash
 
-if diff -q lesson.js solution.js >/dev/null; then
-    echo "Day 10 Test Passed!"
+# Run the JavaScript test
+output=$(node main.js 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo "Execution failed! Check your syntax."
+    echo "$output"
+    exit 1
+fi
+
+# Check if all tests passed
+if echo "$output" | grep -q "✗"; then
+    echo "$output"
+    echo -e "\nDay 10 Test Failed. Keep practicing!"
+    exit 1
 else
-    echo "Day 10 Test Failed. Keep trying!"
+    echo "$output"
+    echo -e "\nDay 10 Test Passed! JavaScript mastery growing!"
+    exit 0
 fi

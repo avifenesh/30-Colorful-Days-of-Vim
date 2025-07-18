@@ -20,12 +20,12 @@ Your tasks:
 ]]
 
 -- TASK 1: Indent this line.
-    -- TASK 2: Un-indent this line.
+-- TASK 2: Un-indent this line.
 
 function my_function()
--- TASK 3: one
--- TASK 3: two
--- TASK 3: three
+	-- TASK 3: one
+	-- TASK 3: two
+	-- TASK 3: three
 end
 
 print("Vim challenge Day 6!")
