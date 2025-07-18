@@ -23,7 +23,7 @@ Your tasks:
 
 fn main() {
     println!("=== Vim Challenge Day 3 ===\n");
-    
+
     // Test 1: Duplicate line
     let result1 = duplicate_line();
     if result1.contains("COPY_ME: Yank this line") && result1.lines().count() == 2 {
@@ -32,7 +32,7 @@ fn main() {
         println!("✗ Task 1 failed. Expected two lines with 'COPY_ME: Yank this line'");
         println!("  Got: {:?}", result1);
     }
-    
+
     // Test 2: Append word
     let result2 = append_word();
     if result2 == "This is a line of code Rust" {
@@ -47,13 +47,13 @@ fn main() {
 fn duplicate_line() -> String {
     // COPY_ME: Yank this line
     // PUT THE YANKED LINE HERE
-    
     // Return both lines
-    "COPY_ME: Yank this line".to_string()
+    "COPY_ME: Yank this line\n COPY_ME: Yank this line".to_string()
 }
 
 // TASK 2: Yank the word "Rust" from the comment and append it to the return string
 fn append_word() -> String {
     // This line contains the word Rust that you need to yank
-    "This is a line of code".to_string()
+    "This is a line of code Rust".to_string()
 }
+
