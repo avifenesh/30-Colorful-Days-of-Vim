@@ -1,0 +1,44 @@
+# Build artifacts
+*.o
+*.exe
+*.out
+*.class
+*.pyc
+__pycache__/
+
+# Language-specific build directories
+target/     # Rust
+build/      # Various
+dist/       # Various
+bin/        # Various
+
+# C/C++ executables
+vim_day*
+a.out
+
+# Java class files
+*.class
+
+# Python
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Progress tracking
+.vim_progress
+
+# Cargo
+Cargo.lock
+*.rs.bk
+
+# Debug files
+*.dSYM/
+*.pdb
