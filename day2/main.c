@@ -26,46 +26,49 @@ Your tasks:
 #include <string.h>
 #include <stdlib.h>
 
-// TASK 1: Delete the word "bug" from this function
-char* fix_message() {
-    return "This is a bug test";  // Delete "bug"
+// TASK 1: This line has an extra word.
+char* task1_result() {
+    return "This line has an extra word.";
 }
 
-// TASK 2: Delete everything inside the parentheses
-char* get_greeting() {
-    return "Hello (delete this text) World!";
+// TASK 2: This is the wrong text.
+char* task2_result() {
+    return "This is the wrong text.";
 }
 
-// TASK 3: Change "wrong" to "right"
-char* get_status() {
-    return "This is wrong";  // Change to "right"
+// TASK 3: This is the first sentence. This is the second sentence.
+char* task3_result() {
+    return "This is the first sentence. This is the second sentence.";
 }
 
 int main() {
     printf("=== Vim Challenge Day 2 ===\n\n");
     
-    // Test 1
-    char* msg = fix_message();
-    if (strstr(msg, "bug") == NULL) {
+    // Test 1: Check if "extra" was deleted
+    char* result1 = task1_result();
+    if (strcmp(result1, "This line has an word.") == 0) {
         printf("✓ Task 1 passed!\n");
     } else {
-        printf("✗ Task 1 failed. Still contains 'bug'\n");
+        printf("✗ Task 1 failed. Expected: 'This line has an word.'\n");
+        printf("  Got: '%s'\n", result1);
     }
     
-    // Test 2
-    char* greeting = get_greeting();
-    if (strcmp(greeting, "Hello  World!") == 0) {
+    // Test 2: Check if "wrong" was changed to "right"
+    char* result2 = task2_result();
+    if (strcmp(result2, "This is the right text.") == 0) {
         printf("✓ Task 2 passed!\n");
     } else {
-        printf("✗ Task 2 failed. Expected: 'Hello  World!', Got: '%s'\n", greeting);
+        printf("✗ Task 2 failed. Expected: 'This is the right text.'\n");
+        printf("  Got: '%s'\n", result2);
     }
     
-    // Test 3
-    char* status = get_status();
-    if (strstr(status, "right") != NULL && strstr(status, "wrong") == NULL) {
+    // Test 3: Check if second sentence was deleted
+    char* result3 = task3_result();
+    if (strcmp(result3, "This is the first sentence.") == 0) {
         printf("✓ Task 3 passed!\n");
     } else {
-        printf("✗ Task 3 failed. Should contain 'right', not 'wrong'\n");
+        printf("✗ Task 3 failed. Expected: 'This is the first sentence.'\n");
+        printf("  Got: '%s'\n", result3);
     }
     
     return 0;
