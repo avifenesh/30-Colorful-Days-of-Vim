@@ -5,8 +5,12 @@ New concepts for today:
     - `g;`: Go to the next change in the change list.
     - `g,`: Go to the previous change in the change list.
 
-Reminder from Day 23:
-    - Undo tree (`g-`, `g+`, `:earlier`, `:later`).
+REMINDERS - Keys from previous days:
+    Day 23: Undo tree - `g-` (older), `g+` (newer), `:earlier`, `:later`
+    Day 11: Marks - `` `. `` (last change position), `` `' `` (last change line)
+    Day 10: Marks - `''` (jump back to position before last jump)
+    Day 8: Macros - `qa` (record changes), `@a` (replay changes)
+    Day 6: Visual mode - `gv` (reselect last visual selection)
 
 
 Your tasks:

@@ -9,6 +9,13 @@ New keys for today:
     - `@{register}`: Play back the macro from {register}.
     - `@@`: Repeat the last played macro.
 
+REMINDERS - Keys from previous days:
+    Day 7: Search/replace - `/`, `?`, `n`, `N`, `:%s/old/new/g`
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v`, `>`, `<`, `=`
+    Day 5: Replace commands - `:s/old/new/`, `:%s/old/new/g`
+    Day 4: Repeat/counts - `.` (repeat), `3w`, `2dd`
+    Day 3: Yank/paste - `yy`, `p`, `P`
+
 Your tasks:
 1. Use a macro to add semicolons to the end of each line in the array initialization
 2. Use a macro to convert the function names from camelCase to snake_case

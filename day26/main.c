@@ -7,8 +7,12 @@ New concepts for today:
     - `Ctrl-t`: Jump back from a tag definition.
     - `:tags`: Show the tag stack.
 
-Reminder from Day 25:
-    - Jump list (`Ctrl-o`, `Ctrl-i`).
+REMINDERS - Keys from previous days:
+    Day 25: Jump list - `Ctrl-o` (older), `Ctrl-i` (newer), `:jumps`
+    Day 21: Quickfix - `:cn`, `:cp` (navigate errors like tags!)
+    Day 15: Command history - `q:` (useful for tag commands)
+    Day 11: Marks - `ma`, `'a` (mark positions before jumping)
+    Day 7: Search - `*` (search word under cursor), `#` (backwards)
 
 
 Your tasks:

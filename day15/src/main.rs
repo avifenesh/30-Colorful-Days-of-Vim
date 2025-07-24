@@ -6,8 +6,12 @@ New commands for today:
     - `q/`: Open the command-line window for search history.
     - `Ctrl-f`: Enter the command-line window from command mode.
 
-Reminder from Day 14:
-    - `Ctrl-n`, `Ctrl-p` for auto-completion.
+REMINDERS - Keys from previous days:
+    Day 14: Autocomplete - `Ctrl-n` (next), `Ctrl-p` (previous)
+    Day 12: Global commands - `:g/pattern/d`, `:g/pattern/command`
+    Day 11: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
+    Day 7: Search/Replace - `/text`, `?text`, `:%s/old/new/g`
+    Day 5: Search - `*` (word under cursor), `#` (backwards), `n`, `N`
 
 
 Your tasks:

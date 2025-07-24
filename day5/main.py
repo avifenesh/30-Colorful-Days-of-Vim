@@ -12,6 +12,12 @@ New keys for today:
     - `:s/old/new/g`: Replace all occurrences of 'old' with 'new' on the current line.
     - `:%s/old/new/g`: Replace all occurrences of 'old' with 'new' in the entire file.
 
+REMINDERS - Keys from previous days:
+    Day 4: Counts & repeat - `.` (repeat last change), `3w`, `5j`, `2dd`, `3x`
+    Day 3: Yank/paste - `yy`, `p`, `P`, `yw`, `y$`
+    Day 2: Delete/change - `dw`, `cw`, `d$`, `c$`
+    Day 1: Movement - `w`, `b`, `e`, `0`, `$`, `h`, `j`, `k`, `l`
+
 Your tasks:
 1. Fix all occurrences of 'feature' to 'feature' in the get_features function
 2. Fix all incorrect animal names in the get_animals function

@@ -7,8 +7,12 @@ New concepts for today:
     - `:earlier 1h`: Go back 1 hour in undo history.
     - `:later 30m`: Go forward 30 minutes in undo history.
 
-Reminder from Day 22:
-    - Location list (`:lvim`, `:lopen`).
+REMINDERS - Keys from previous days:
+    Day 22: Location list - `:lopen`, `:lnext`, `:lprev` (per-window quickfix)
+    Day 17: Registers - `"0p` (paste last yank, not affected by deletes)
+    Day 11: Marks - `` `. `` (jump to last change), `` `' `` (line of last change)
+    Day 4: Repeat - `.` (repeat last change), `u` (undo), `Ctrl-r` (redo)
+    Day 2: Change - `ciw`, `cc` (make changes to track in undo tree)
 
 
 Your tasks:

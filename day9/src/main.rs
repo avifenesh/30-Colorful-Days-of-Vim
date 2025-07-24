@@ -13,6 +13,13 @@ New concepts:
 - `it`: Inner tag (HTML/XML)
 - `at`: A tag (HTML/XML)
 
+REMINDERS - Keys from previous days:
+    Day 8: Macros - `q{register}` (record), `q` (stop), `@{register}` (play), `@@` (repeat)
+    Day 7: Search/replace - `:%s/old/new/g`, `:%s/old/new/gc`
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
+    Day 5: Search - `/`, `?`, `n`, `N`
+    Day 2: Delete/change - `dw`, `cw` (combine with text objects: `diw`, `ciw`!)
+
 Your tasks:
 1. Delete the content inside the quotes but keep the quotes
 2. Change the content inside the parentheses

@@ -7,8 +7,12 @@ New concepts for today:
     - `:%s/old/new/g`: Replace all occurrences in the entire file.
     - `:.,$s/old/new/g`: Replace from current line to end of file.
 
-Reminder from Day 26:
-    - Tag stack (`:tag`, `Ctrl-]`, `Ctrl-t`).
+REMINDERS - Keys from previous days:
+    Day 26: Tags - `Ctrl-]` (jump to definition), `Ctrl-t` (jump back)
+    Day 12: Global commands - `:g/pattern/d` (you already know this!)
+    Day 7: Replace - `:%s/old/new/g` (review the variations!)
+    Day 6: Visual mode - `V` (select lines), `:s/old/new/g` (replace in selection)
+    Day 2: Delete - `dd`, `d10j` (delete current + 10 lines down)
 
 
 Your tasks:

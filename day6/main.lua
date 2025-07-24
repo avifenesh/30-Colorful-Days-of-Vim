@@ -11,6 +11,13 @@ New keys for today:
     - `<`: Un-indent the selected text.
     - `=`: Auto-indent the selected text.
 
+REMINDERS - Keys from previous days:
+    Day 5: Search/replace - `/` (search forward), `?` (search backward), `n`/`N` (next/prev)
+    Day 5: Replace - `:s/old/new/`, `:s/old/new/g`, `:%s/old/new/g`
+    Day 4: Counts - `.` (repeat), `3w`, `2dd`, `3x`
+    Day 3: Yank/paste - `yy`, `p`, `P`
+    Day 2: Delete/change - `dw`, `cw`
+
 Your tasks:
 1. Fix the indentation in the format_output function
 2. Properly indent the nested if statements in check_value

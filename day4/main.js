@@ -10,8 +10,12 @@ New keys for today:
     - `2dd`: Delete 2 lines.
     - `3x`: Delete 3 characters.
 
-Reminder from Day 3:
-    - `yy`, `p`, `P` for yanking and putting.
+REMINDERS - Keys from previous days:
+    Day 3: Yank/paste - `yy` (yank line), `p` (paste after), `P` (paste before)
+    Day 3: Yank variations - `yw`, `yb`, `ye`, `y$`, `y0`
+    Day 2: Delete - `dw`, `db`, `de`, `d$`, `d0`
+    Day 2: Change - `cw`, `cb`, `ce`, `c$`, `c0`
+    Day 1: Movement - `w`, `b`, `e`, `0`, `$`
 
 Your tasks:
 1. Remove all the "DELETE_ME" lines from the getCleanArray function

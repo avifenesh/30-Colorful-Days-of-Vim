@@ -7,8 +7,12 @@ New concepts for today:
     - `"_d`: Delete to black hole register (don't save to any register).
     - `"0p`: Paste the last yanked text (from register 0).
 
-Reminder from Day 16:
-    - `zf`, `za`, `zc`, `zo` for folding.
+REMINDERS - Keys from previous days:
+    Day 16: Folding - `zfap` (fold paragraph), `za` (toggle), `zc`/`zo` (close/open)
+    Day 11: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
+    Day 8: Macros - `qa` (record to a), `@a` (play) - works with registers!
+    Day 3: Yank/paste - `yy`, `p`, `P` (default register)
+    Day 2: Delete - `dd`, `dw`, `d$` (saves to default register)
 
 
 Your tasks:

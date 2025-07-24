@@ -8,8 +8,12 @@ New concepts for today:
     - `:lnext`: Go to the next error in the location list.
     - `:lprev`: Go to the previous error in the location list.
 
-Reminder from Day 21:
-    - Quickfix list (`:make`, `:copen`).
+REMINDERS - Keys from previous days:
+    Day 21: Quickfix - `:make`, `:copen`, `:cn`, `:cp` (location list is similar!)
+    Day 20: Argument list - `:args`, `:next` (process multiple files)
+    Day 13: Windows - `:split`, `:vsplit`, `Ctrl-w w` (view lists alongside code)
+    Day 12: Global commands - `:g/error/` (find all errors)
+    Day 11: Marks - `ma`, `'a` (mark error locations)
 
 
 Your tasks:

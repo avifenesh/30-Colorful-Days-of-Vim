@@ -10,8 +10,12 @@ New commands for today:
     - `zR`: Open all folds.
     - `zM`: Close all folds.
 
-Reminder from Day 15:
-    - `q:`, `q/` for command and search history.
+REMINDERS - Keys from previous days:
+    Day 15: Command history - `q:` (command window), `q/` (search history), `Ctrl-f`
+    Day 13: Windows - `:split`, `:vsplit`, `Ctrl-w w` (navigate windows)
+    Day 9: Text objects - `ap` (a paragraph), `ip` (inner paragraph)
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v` (visual block)
+    Day 3: Yank/paste - `yy`, `p`, `P`
 
 
 Your tasks:

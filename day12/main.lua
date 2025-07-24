@@ -6,8 +6,12 @@ New commands for today:
     - `:g/pattern/m.`: Move all lines containing "pattern" to the end of the file.
     - `:g/pattern/s/old/new/g`: Replace "old" with "new" on all lines containing "pattern".
 
-Reminder from Day 11:
-    - `ma`, `` `a `` for marks.
+REMINDERS - Keys from previous days:
+    Day 11: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
+    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(` (combine with d, c, y!)
+    Day 7: Replace - `:%s/old/new/g` (works great with :g!)
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v` (visual block)
+    Day 5: Search - `/pattern`, `n`, `N`, `*`, `#`
 
 
 Your tasks:

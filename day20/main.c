@@ -10,8 +10,12 @@ New commands for today:
     - `:argadd <filename>`: Add a file to the argument list.
     - `:argdelete <filename>`: Remove a file from the argument list.
 
-Reminder from Day 19:
-    - Custom commands (`:command`).
+REMINDERS - Keys from previous days:
+    Day 19: Custom commands - `:command MyCmd`, `:command -nargs=1`
+    Day 13: Windows - `:split`, `:vsplit` (open multiple files side by side)
+    Day 12: Global commands - `:g/pattern/command` (apply to multiple files!)
+    Day 11: Marks - `ma` (set mark a), `'a` (jump to line)
+    Day 10: Buffers - `:ls`, `:b#`, `:bn`, `:bp` (similar to args!)
 
 
 Your tasks:

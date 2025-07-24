@@ -5,8 +5,12 @@ New concepts for today:
     - `Ctrl-n` and `Ctrl-p`: Cycle through auto-completion suggestions.
     - Snippets: (This is more about configuring your nvim, but we'll simulate it.)
 
-Reminder from Day 13:
-    - `:split`, `:vsplit`, `Ctrl-w w` for windows.
+REMINDERS - Keys from previous days:
+    Day 13: Windows - `:split`, `:vsplit`, `Ctrl-w w`, `Ctrl-w h/j/k/l`
+    Day 9: Text objects - `iw`, `aw`, `i"`, `a"` (great with autocomplete!)
+    Day 7: Replace - `:%s/old/new/g`
+    Day 4: Repeat - `.` (repeat last change), `[count]command`
+    Day 1: Movement - `w`, `b`, `e`, `0`, `$`, `gg`, `G`
 
 
 Your tasks:

@@ -7,8 +7,12 @@ New concepts for today:
     - `:map <lhs> <rhs>`: Create a key mapping.
     - `:unmap <lhs>`: Remove a key mapping.
 
-Reminder from Day 29:
-    - Abbreviations (`:iabbrev`, `:cabbrev`).
+REMINDERS - Keys from previous days:
+    Day 29: Abbreviations - `:iabbrev`, `:cabbrev` (create shortcuts)
+    Day 19: Custom commands - `:command` (create complex mappings)
+    Day 15: Command history - `q:` (review and learn from your command history)
+    Day 8: Macros - `qa`, `@a` (record complex sequences - great to map!)
+    Day 1-30: Everything! - Time to combine all you've learned!
 
 
 Your tasks:

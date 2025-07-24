@@ -6,8 +6,12 @@ New concepts for today:
     - `Ctrl-i`: Go to newer position in the jump list.
     - `:jumps`: Show the jump list.
 
-Reminder from Day 24:
-    - Change list (`g;`, `g,`).
+REMINDERS - Keys from previous days:
+    Day 24: Change list - `g;` (next change), `g,` (previous change)
+    Day 11: Marks - `''` (jump back), `` `. `` (last change)
+    Day 10: Marks - `ma` (set), `'a` (jump to line)
+    Day 7: Search - `/text`, `?text`, `n`, `N` (create jump points)
+    Day 1: Movement - `gg`, `G`, `{`, `}` (all create jump points)
 
 
 Your tasks:

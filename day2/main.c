@@ -1,6 +1,9 @@
 /*
 Welcome to Day 2 of your Vim challenge!
 
+Today's lesson focuses on deletion and change operations.
+
+New keys for today:
     - `dw`: Delete from the cursor to the beginning of the next word.
     - `db`: Delete from the cursor to the beginning of the previous word.
     - `de`: Delete from the cursor to the end of the current word.
@@ -12,8 +15,10 @@ Welcome to Day 2 of your Vim challenge!
     - `c$`: Change from the cursor to the end of the line.
     - `c0`: Change from the cursor to the beginning of the line.
 
-Reminder from Day 1:
-    - `w`, `b`, `e`, `0`, `$` for movement.
+REMINDERS - Keys from previous days:
+    Day 1: Word/line movement - `w`, `b`, `e`, `0`, `$`
+    Day 1: Character operations - `~` (toggle case), `r` (replace character)
+    Basics: `h`, `j`, `k`, `l` for movement, `i` for insert mode, `ESC` for normal mode
 
 
 Your tasks:

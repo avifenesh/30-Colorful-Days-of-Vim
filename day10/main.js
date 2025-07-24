@@ -10,6 +10,13 @@ New keys for today:
     - `:marks`: List all marks
     - `''`: Jump back to position before last jump
 
+REMINDERS - Keys from previous days:
+    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(` (combine with d, c, y!)
+    Day 8: Macros - `qa` (record to a), `q` (stop), `@a` (play), `@@` (repeat)
+    Day 7: Replace - `:%s/old/new/g`
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
+    Day 3: Yank/paste - `yy`, `p`, `P`
+
 Your tasks:
 1. Mark the TODO locations and complete them
 2. Use marks to jump between related functions and fix them

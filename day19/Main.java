@@ -6,8 +6,12 @@ New concepts for today:
     - `:MyCommand`: Execute the custom command.
     - `:command -nargs=1 MyEcho echo "You typed: <args>"`: Define a command with arguments.
 
-Reminder from Day 18:
-    - Auto-commands (`:autocmd`).
+REMINDERS - Keys from previous days:
+    Day 18: Autocommands - `:autocmd BufRead`, `:autocmd BufWritePost`
+    Day 17: Registers - `"ay` (yank to a), `"ap` (paste from a), `"_d` (black hole)
+    Day 15: Command history - `q:` (command window) - great for editing commands!
+    Day 8: Macros - `qa` (record to a), `@a` (play), `@@` (repeat)
+    Day 4: Repeat - `.` (repeat last change)
 
 
 Your tasks:

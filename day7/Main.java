@@ -11,6 +11,13 @@ New keys for today:
     - `:%s/old/new/g`: Replace all occurrences of "old" with "new".
     - `:%s/old/new/gc`: Replace all occurrences of "old" with "new" with confirmation.
 
+REMINDERS - Keys from previous days:
+    Day 6: Visual mode - `v` (visual), `V` (visual line), `Ctrl-v` (visual block)
+    Day 6: Indentation - `>` (indent), `<` (un-indent), `=` (auto-indent)
+    Day 5: Search - `/`, `?`, `n`, `N` (already covered again today!)
+    Day 4: Repeat - `.` (repeat last change), counts like `3w`, `2dd`
+    Day 3: Yank/paste - `yy`, `p`, `P`
+
 Your tasks:
 1. Replace all occurrences of "bug" with "feature"
 2. Replace all "FIXME" with "TODO"

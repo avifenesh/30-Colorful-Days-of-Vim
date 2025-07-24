@@ -7,8 +7,12 @@ New concepts for today:
     - `:unabbrev <abbr>`: Remove an abbreviation.
     - `:abclear`: Clear all abbreviations.
 
-Reminder from Day 28:
-    - External commands (`:!`, `:r!`, `:w!`).
+REMINDERS - Keys from previous days:
+    Day 28: External commands - `:!ls`, `:r!date`, `:w !sudo tee %`
+    Day 19: Custom commands - `:command` (similar to abbreviations!)
+    Day 18: Autocommands - `:autocmd` (trigger actions automatically)
+    Day 14: Autocomplete - `Ctrl-n`, `Ctrl-p` (works with abbreviations)
+    Day 4: Repeat - `.` (doesn't work with abbreviations - they expand automatically!)
 
 
 Your tasks:

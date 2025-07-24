@@ -12,6 +12,14 @@ New keys for today:
     - `~`: Change the case of the character under the cursor.
     - `r`: Replace the character under the cursor.
 
+REMINDERS - Keys from previous days:
+    - Basic movement: `h` (left), `j` (down), `k` (up), `l` (right)
+    - `i`: Enter insert mode
+    - `ESC`: Return to normal mode
+    - `:w`: Save file
+    - `:q`: Quit vim
+    - `:wq`: Save and quit
+
 Your tasks:
 1. Fix the string_case_fix function to return the correct string
 2. Fix the count_apples function to return the correct number

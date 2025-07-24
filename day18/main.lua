@@ -5,8 +5,12 @@ New concepts for today:
     - `:autocmd`: Define an auto-command.
     - `:autocmd BufWritePost *.lua echo "Lua file saved!"`: Example auto-command.
 
-Reminder from Day 17:
-    - Registers (`"a`, `"_`, `"0`).
+REMINDERS - Keys from previous days:
+    Day 17: Registers - `"ay` (yank to a), `"ap` (paste from a), `"_d` (black hole)
+    Day 15: Command history - `q:` (command window), `q/` (search history)
+    Day 12: Global commands - `:g/pattern/command` (execute on matching lines)
+    Day 7: Replace - `:%s/old/new/g`
+    Day 5: Search - `/pattern`, `?pattern`, `*`, `#`
 
 
 Your tasks:

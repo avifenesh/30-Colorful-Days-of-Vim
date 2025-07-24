@@ -9,8 +9,12 @@ New commands for today:
     - `:close`: Close the current window.
     - `:only`: Close all other windows.
 
-Reminder from Day 12:
-    - `:g` for global commands.
+REMINDERS - Keys from previous days:
+    Day 12: Global commands - `:g/pattern/d`, `:g/pattern/m.`, `:g/pattern/s/old/new/g`
+    Day 11: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
+    Day 8: Macros - `qa` (record to a), `q` (stop), `@a` (play), `@@` (repeat)
+    Day 3: Yank/paste - `yy`, `p`, `P` (use between windows!)
+    Day 2: Delete/change - `dd`, `dw`, `ciw`, `cc`
 
 
 Your tasks:

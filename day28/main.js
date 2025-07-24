@@ -8,8 +8,12 @@ New concepts for today:
     - `!{motion}command`: Filter a motion through an external command.
     - `!{range}command`: Filter a range through an external command.
 
-Reminder from Day 27:
-    - Global command and ranges (`:g`, `:s`).
+REMINDERS - Keys from previous days:
+    Day 27: Ranges - `:10,20d`, `:.,$s/old/new/g` (use with external commands!)
+    Day 19: Custom commands - `:command` (create shortcuts for shell commands)
+    Day 9: Text objects - `ap`, `ip` (select text to filter through commands)
+    Day 6: Visual mode - `V` (select lines), `!sort` (filter selection)
+    Day 1: Movement - `{`, `}` (navigate to select text for filtering)
 
 
 Your tasks:

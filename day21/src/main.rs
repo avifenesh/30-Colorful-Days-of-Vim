@@ -8,8 +8,12 @@ New concepts for today:
     - `:cn`: Go to the next error in the quickfix list.
     - `:cp`: Go to the previous error in the quickfix list.
 
-Reminder from Day 20:
-    - Argument list (`:args`, `:next`, `:prev`).
+REMINDERS - Keys from previous days:
+    Day 20: Argument list - `:args`, `:next`, `:prev`, `:argadd`
+    Day 15: Command history - `q:` (useful for repeating :make commands!)
+    Day 13: Windows - `:split`, `:vsplit` (view quickfix alongside code)
+    Day 7: Search/Replace - `:%s/old/new/g` (fix errors quickly)
+    Day 5: Search - `/error`, `n`, `N` (navigate compilation errors)
 
 
 Your tasks:

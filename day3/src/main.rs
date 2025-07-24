@@ -13,8 +13,12 @@ New keys for today:
     - `y$`: Yank from the cursor to the end of the line.
     - `y0`: Yank from the cursor to the beginning of the line.
 
-Reminder from Day 2:
-    - `dw`, `cw` for deleting and changing words.
+REMINDERS - Keys from previous days:
+    Day 2: Delete operations - `dw`, `db`, `de`, `d$`, `d0`
+    Day 2: Change operations - `cw`, `cb`, `ce`, `c$`, `c0`
+    Day 1: Word movement - `w` (forward), `b` (backward), `e` (end of word)
+    Day 1: Line movement - `0` (start of line), `$` (end of line)
+    Day 1: Character ops - `~` (toggle case), `r` (replace)
 
 Your tasks:
 1. Copy the COPY_ME string and place it in the duplicate_line function

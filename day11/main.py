@@ -7,8 +7,12 @@ Welcome to Day 11 of your Vim challenge!
     - `` `. ``: Jump to the last change.
     - `` `' ``: Jump to the beginning of the line of the last change.
 
-Reminder from Day 10:
-    - `:e`, `:ls`, `:b`, `:bn`, `:bp` for working with buffers.
+REMINDERS - Keys from previous days:
+    Day 10: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
+    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(` (combine with d, c, y!)
+    Day 8: Macros - `qa` (record to a), `q` (stop), `@a` (play), `@@` (repeat)
+    Day 7: Replace - `:%s/old/new/g`, `/text` (search), `n`/`N` (next/prev)
+    Day 3: Yank/paste - `yy`, `p`, `P`
 
 
 Your tasks:
