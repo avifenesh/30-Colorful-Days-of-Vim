@@ -29,19 +29,19 @@ public class Main {
         System.out.println("=== Vim Challenge Day 7 ===\n");
 
         // Task 1: Replace bug with feature
-        String message1 = "This is a feature in the code";
-        String message2 = "Another feature was found";
-        String message3 = "No more features please";
+        String message1 = "This is a bug in the code";
+        String message2 = "Another bug was found";
+        String message3 = "No more bugs please";
 
         // Task 2: Replace FIXME with TODO
-        // TODO: This needs attention
-        // TODO: Update this logic
-        String fixmeCount = "TODO: 2";  // Should show TODO: 2 after replacements
+        // FIXME: This needs attention
+        // FIXME: Update this logic
+        String fixmeCount = "FIXME: 2";  // Should show TODO: 2 after replacements
 
         // Task 3: Fix misspellings
-        String text1 = "the quick brown fox";
-        String text2 = "This is the best";
-        String text3 = "Check the documentation";
+        String text1 = "teh quick brown fox";
+        String text2 = "This is teh best";
+        String text3 = "Check teh documentation";
 
         // Tests
         boolean task1Pass = !message1.contains("bug") && message1.contains("feature") &&

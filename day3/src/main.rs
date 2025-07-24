@@ -52,12 +52,12 @@ fn duplicate_line() -> String {
     // COPY_ME: Yank this line
     // PUT THE YANKED LINE HERE
     // Return both lines
-    "COPY_ME: Yank this line\n COPY_ME: Yank this line".to_string()
+    "COPY_ME: Yank this line".to_string()
 }
 
 // TASK 2: Yank the word "Rust" from the comment and append it to the return string
 fn append_word() -> String {
     // This line contains the word Rust that you need to yank
-    "This is a line of code Rust".to_string()
+    "This is a line of code".to_string()
 }
 

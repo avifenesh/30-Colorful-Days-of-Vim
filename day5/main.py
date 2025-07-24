@@ -19,18 +19,18 @@ REMINDERS - Keys from previous days:
     Day 1: Movement - `w`, `b`, `e`, `0`, `$`, `h`, `j`, `k`, `l`
 
 Your tasks:
-1. Fix all occurrences of 'feature' to 'feature' in the get_features function
+1. Fix all occurrences of 'bug' to 'feature' in the get_features function
 2. Fix all incorrect animal names in the get_animals function
 """
 
 
 def get_features():
-    """TASK 1: Replace all occurrences of 'feature' with 'feature'"""
+    """TASK 1: Replace all occurrences of 'bug' with 'feature'"""
     items = [
-        "This is a feature in the code",
-        "Another feature was found",
-        "Fix this feature please",
-        "No more features allowed",
+        "This is a bug in the code",
+        "Another bug was found",
+        "Fix this bug please",
+        "No more bugs allowed",
     ]
     return items
 
@@ -38,10 +38,10 @@ def get_features():
 def get_animals():
     """TASK 2: Fix the incorrect animal names (dgo -> dog, cta -> cat)"""
     animals = [
-        "I have a dog",
-        "My cat is sleeping",
-        "The dog is barking",
-        "A cat walked by",
+        "I have a dgo",
+        "My cta is sleeping",
+        "The dgo is barking",
+        "A cta walked by",
     ]
     return animals
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     if all_features:
         print("✓ Task 1 passed!")
     else:
-        print("✗ Task 1 failed. Still contains 'feature' instead of 'feature'")
+        print("✗ Task 1 failed. Still contains 'bug' instead of 'feature'")
         for item in features:
             if "feature" in item:
                 print(f"  Found: {item}")

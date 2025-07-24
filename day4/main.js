@@ -26,7 +26,10 @@ Your tasks:
 function getCleanArray() {
   const lines = [
     "Keep this line",
+    "DELETE_ME: Remove this line",
     "This line should stay",
+    "DELETE_ME: This should be removed",
+    "DELETE_ME: Another line to delete",
     "Final line to keep",
   ];
 
@@ -36,7 +39,7 @@ function getCleanArray() {
 
 function getEmptyString() {
   // TASK 2: Delete all the number words to return an empty string
-  return "";
+  return "one two three four five";
 }
 
 // Run tests

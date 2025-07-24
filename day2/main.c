@@ -33,17 +33,17 @@ Your tasks:
 
 // TASK 1: This line has an extra word.
 char* task1_result() {
-    return "This line has an word.";
+    return "This line has an extra word.";
 }
 
 // TASK 2: This is the wrong text.
 char* task2_result() {
-    return "This is the right text.";
+    return "This is the wrong text.";
 }
 
 // TASK 3: This is the first sentence. This is the second sentence.
 char* task3_result() {
-    return "This is the first sentence.";
+    return "This is the first sentence. This is the second sentence.";
 }
 
 int main() {

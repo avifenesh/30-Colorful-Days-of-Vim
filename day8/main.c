@@ -29,26 +29,23 @@ Your tasks:
 // The following lines are missing semicolons and will cause a compilation error.
 // Use a macro to add semicolons at the end of each line.
 int numbers[] = {
-	1,
-	2,
-	3,
-	4,
+	1
+	2
+	3
+	4
 	5
 };
 
 // Task 2: Convert function names to snake_case
-int calculate_sum(int a, int b) {
-	printf("Function: calculate_sum\n");
+int calculateSum(int a, int b) {
 	return a + b;
 }
 
-int find_maximum(int a, int b) {
-	printf("Function: find_maximum\n");
+int findMaximum(int a, int b) {
 	return a > b ? a : b;
 }
 
-int get_string_length(char* str) {
-	printf("Function: get_string_length\n");
+int getStringLength(char* str) {
 	return strlen(str);
 }
 
@@ -71,9 +68,9 @@ int main() {
 	}
 
 	// Test function return values
-	int sum_result = calculate_sum(5, 3);
-	int max_result = find_maximum(10, 7);
-	int len_result = get_string_length("hello");
+	int sum_result = calculateSum(5, 3);
+	int max_result = findMaximum(10, 7);
+	int len_result = getStringLength("hello");
 
 	// Verify function logic works correctly
 	if (sum_result == 8 && max_result == 10 && len_result == 5) {
@@ -89,9 +86,9 @@ int main() {
 	printf("\nActual function output:\n");
 
 	// Call functions again to show their printf output
-	calculate_sum(1, 1);
-	find_maximum(1, 1);
-	get_string_length("test");
+	calculateSum(1, 1);
+	findMaximum(1, 1);
+	getStringLength("test");
 
 	return 0;
 }

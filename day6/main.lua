@@ -26,25 +26,25 @@ Your tasks:
 
 -- Task 1: Fix indentation (should be 4 spaces)
 function format_output(msg)
-	return msg .. "!" -- This needs indentation
+return msg .. "!" -- This needs indentation
 end
 
 -- Task 2: Fix nested indentation
 function check_value(x)
 	if x > 0 then
-		if x < 10 then -- This needs proper indentation
-			return "single digit"
-		else -- This too
-			return "multiple digits"
-		end -- And this
+	if x < 10 then -- This needs proper indentation
+	return "single digit"
+	else -- This too
+	return "multiple digits"
+	end -- And this
 	end
 	return "not positive"
 end
 
 -- Task 3: Fix function alignment
-function misaligned_function() -- This should start at column 1
+    function misaligned_function() -- This should start at column 1
 	return "fixed"
-end
+    end
 
 -- Test the functions
 print("=== Vim Challenge Day 6 ===\n")

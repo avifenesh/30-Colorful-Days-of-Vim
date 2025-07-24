@@ -30,10 +30,10 @@ fn main() {
     println!("=== Vim Challenge Day 9 ===\n");
 
     // Task 1: Delete content inside quotes (use di")
-    let message = ""; // Should become ""
+    let message = "Delete this text"; // Should become ""
 
     // Task 2: Change content inside parentheses (use ci()
-    let result = calculate(42); // Change to just (42)
+    let result = calculate(multiply(10, 2) + add(15, 7)); // Change to just (42)
 
     // Task 3: Delete function body (use di{)
     let value = get_value();
@@ -62,7 +62,18 @@ fn calculate(x: i32) -> i32 {
     x
 }
 
+fn multiply(a: i32, b: i32) -> i32 {
+    a * b
+}
+
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
 fn get_value() -> i32 {
-    return 0;
+    let x = 10;
+    let y = 20;
+    let z = x + y;
+    return z - 30;
 }
 

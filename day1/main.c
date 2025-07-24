@@ -32,19 +32,19 @@ Your tasks:
 // TASK 1: Fix the casing in the return string
 char* string_case_fix() {
     // cORRECT tHE cASING oF tHIS lINE
-    return "Correct The Casing Of This Line";
+    return "cORRECT tHE cASING oF tHIS lINE";
 }
 
 // TASK 2: Fix the return value
 int count_apples() {
     // There are X apples (Replace X with 5)
-    return 5;  // Fix this to return 5
+    return X;  // Fix this to return 5
 }
 
 // TASK 3: Fix the return string
 char* get_status() {
     // This is the wrong line
-    return "right";  // Change this to "right"
+    return "wrong";  // Change this to "right"
 }
 
 // Test functions

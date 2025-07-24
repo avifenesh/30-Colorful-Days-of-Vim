@@ -25,19 +25,18 @@ Your tasks:
 
 // TODO: Set mark 'a' here and fix this function to return the sum
 function addNumbers(a, b) {
-  return a + b; // Fix this
+  return a - b; // Fix this
 }
 
 // ERROR: This function name is wrong - should be 'multiply'
-function multiplyNumbers(x, y) {
-  return x * y; // ERROR: Wrong operation
+function multiply(x, y) {
+  return x + y; // ERROR: Wrong operation
 }
 
 // TODO: Set mark 'b' here and implement string reversal
 function reverseString(str) {
-  str = str.split(""); // Convert string to array
-  str.reverse(); // Reverse the array
-  return str.join(""); // Convert back to string
+  // TODO: Implement string reversal
+  return str;
 }
 
 // Related to addNumbers - use marks to jump back and verify consistency
@@ -46,7 +45,7 @@ function testAddition() {
 }
 
 // ERROR: Function name typo - should be 'findMaximum'
-function findMaximum(arr) {
+function findMaxium(arr) {
   return Math.max(...arr);
 }
 
@@ -59,7 +58,7 @@ if (addNumbers(5, 3) === 8) {
   console.log("✗ Task 1a failed. addNumbers not working correctly");
 }
 
-if (multiplyNumbers(4, 5) === 20) {
+if (multiply(4, 5) === 20) {
   console.log("✓ Task 2a passed!");
 } else {
   console.log("✗ Task 2a failed. multiplyNumbers not working correctly");
