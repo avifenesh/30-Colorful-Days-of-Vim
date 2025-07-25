@@ -19,7 +19,7 @@ REMINDERS - Keys from previous days:
 
 Your tasks for Day 11:
 1. Set mark 'b' at the TODO marker in calculate_score function
-2. Set mark 'a' at the FIXME line in validate_input function  
+2. Set mark 'a' at the FIXME line in validate_input function
 3. Jump back to mark 'b' and fix the return value (should be score not 0)
 4. Jump to mark 'a' and fix the condition (should be >= not <=)
 5. Use `` `. `` to jump between your last changes to verify both fixes
@@ -31,13 +31,13 @@ def calculate_score(items):
     for item in items:
         score += item * 2
     # TODO: Fix the return value here (set mark 'b' here)
-    return 0  # This should return score, not 0
+    return score
 
 
 def validate_input(value):
     """Validate that input is positive"""
     # FIXME: The condition below is wrong (set mark 'a' here)
-    if value <= 0:  # Should check if value is >= 0
+    if value >= 0:  # Should check if value is >= 0
         return True
     return False
 
@@ -58,7 +58,7 @@ def test_calculate_score():
     test_items = [1, 2, 3, 4, 5]
     result = calculate_score(test_items)
     expected = 30  # (1+2+3+4+5) * 2 = 30
-    
+
     if result == expected:
         print("✓ calculate_score test passed!")
         return True
@@ -71,17 +71,17 @@ def test_validate_input():
     """Test the validate_input function"""
     test_cases = [
         (5, True),    # Positive number should be valid
-        (0, True),    # Zero should be valid  
+        (0, True),    # Zero should be valid
         (-1, False),  # Negative should be invalid
     ]
-    
+
     all_passed = True
     for value, expected in test_cases:
         result = validate_input(value)
         if result != expected:
             print(f"✗ validate_input({value}) failed! Expected {expected}, got {result}")
             all_passed = False
-    
+
     if all_passed:
         print("✓ validate_input test passed!")
     return all_passed
@@ -92,7 +92,7 @@ def test_process_data():
     test_data = [1, -2, 3, 0, 5]
     result = process_data(test_data)
     expected = [2, 6, 0, 10]  # Only positive values processed: [1*2, 3*2, 0*2, 5*2]
-    
+
     if result == expected:
         print("✓ process_data test passed!")
         return True
@@ -103,14 +103,14 @@ def test_process_data():
 
 if __name__ == "__main__":
     print("=== Vim Challenge Day 11 ===\n")
-    
+
     all_passed = True
-    
+
     # Run all tests
     all_passed &= test_calculate_score()
     all_passed &= test_validate_input()
     all_passed &= test_process_data()
-    
+
     if all_passed:
         print("\n✓ All tests passed! Great work with marks!")
     else:
