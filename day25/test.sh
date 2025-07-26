@@ -18,6 +18,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 25 Test Passed! Java journey progressing!"
+    echo -e "\nDay 25 Test Passed! Jump navigation mastered!"
     exit 0
 fi

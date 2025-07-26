@@ -16,6 +16,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 29 Test Passed! Python prowess proven!"
+    echo -e "\nDay 29 Test Passed! Abbreviation aptitude achieved!"
     exit 0
 fi

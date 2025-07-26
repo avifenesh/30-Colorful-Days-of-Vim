@@ -19,6 +19,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 26 Test Passed! Great work!"
+    echo -e "\nDay 26 Test Passed! Tag navigation triumph!"
     exit 0
 fi

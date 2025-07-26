@@ -18,6 +18,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 27 Test Passed! Excellent Rust skills!"
+    echo -e "\nDay 27 Test Passed! Range mastery achieved!"
     exit 0
 fi
