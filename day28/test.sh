@@ -16,6 +16,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 28 Test Passed! JavaScript mastery growing!"
+    echo -e "\nDay 28 Test Passed! External command expertise!"
     exit 0
 fi

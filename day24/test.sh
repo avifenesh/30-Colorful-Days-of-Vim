@@ -16,6 +16,6 @@ if echo "$output" | grep -q "✗"; then
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 24 Test Passed! Lua skills leveling up!"
+    echo -e "\nDay 24 Test Passed! Session skills are superb!"
     exit 0
 fi
