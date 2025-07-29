@@ -45,9 +45,9 @@ Your tasks for Day 14:
 #include <string.h>
 #include <stdlib.h>
 // Task 3: Complete these includes using Ctrl-x Ctrl-f
-// #include <stdint.h>  // Uncomment and complete
-// #include <stdbool.h>  // Uncomment and complete
-// #include <time.h>  // Uncomment and complete
+// #include <stdi  // Uncomment and complete to stdint.h
+// #include <stdbo  // Uncomment and complete to stdbool.h
+// #include <ti  // Uncomment and complete to time.h
 
 // Constants for testing
 #define MAX_BUFFER_SIZE 1024
@@ -63,12 +63,12 @@ const char* ERROR_MESSAGES[] = {
 
 // Add SUCCESS_MESSAGES here using line completion
 
-// Task 4: Complete the struct member types (add missing characters)
+// Task 4: Complete the struct member types using Ctrl-n/Ctrl-p
 typedef struct {
-    char name[50];      // Task: ch* should be completed to char*
-    int age;            // Task: in should be completed to int  
-    float salary;       // Task: flo should be completed to float
-    int is_active;      // Task: bo should be completed to bool (after including stdbool.h)
+    ch name[50];        // Complete ch to char
+    in age;             // Complete in to int  
+    flo salary;         // Complete flo to float
+    bo is_active;       // Complete bo to bool (after including stdbool.h)
 } Person;
 
 // Existing functions for completion reference
@@ -86,17 +86,17 @@ void process_person(Person* person) {
     }
 }
 
-// Task 1: Complete these function names using Ctrl-n
-void init() {            // Should be initialize_buffer
+// Task 1: Complete these function names using Ctrl-n/Ctrl-p
+void ini() {             // Complete ini to initialize_buffer
     // Implementation
 }
 
-int val() {              // Should be validate_input  
+int va() {               // Complete va to validate_input  
     // Implementation
     return 0;
 }
 
-void proc() {            // Should be process_person
+void pro() {             // Complete pro to process_person
     // Implementation
 }
 
@@ -106,11 +106,11 @@ void test_completion() {
     Person person = {.age = 30, .salary = 50000.0f, .is_active = 1};
     strcpy(person.name, "John");
     
-    // Complete these function calls using Ctrl-n
-    // ini(buffer, MAX_BUFFER_SIZE);     // Should be initialize_buffer
+    // Complete these function calls using Ctrl-n/Ctrl-p
+    // ini(buffer, MAX_BUFFER_SIZE);     // Complete ini to initialize_buffer
     
-    if (val("test")) {                 // Should be validate_input
-        // pro(&person);                  // Should be process_person
+    if (va("test")) {                  // Complete va to validate_input
+        // pro(&person);                  // Complete pro to process_person
     }
 }
 

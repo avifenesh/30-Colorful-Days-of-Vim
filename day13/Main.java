@@ -43,78 +43,82 @@ TIP: Use window splits to view different parts of this file simultaneously!
 For example: `:split` then navigate to different sections in each window
 */
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("=== Vim Challenge Day 13 ===\n");
-        
-        // Task 2: Add try-catch block here
-        String input = args.length > 0 ? args[0] : "default";
-        DataProcessor processor = new DataProcessor();
-        processor.processData(input);
-        
-        runTests();
-    }
-    
-    // Task 3: These validation methods should be grouped together
-    private static boolean validateInput(String input) {
-        return input != null && !input.isEmpty();
-    }
-    
-    private static void processData(String data) {
-        // Task 4: Fix indentation issues here
-    if (validateInput(data)) {
-System.out.println("Processing: " + data);
-        if (data.length() > MAX_LENGTH) {
-    System.out.println("Data too long!");
-        }
-    }
-    }
-    
-    // Task 3: This validation method should be with the other one
-    private static boolean validateLength(String input) {
-        return input.length() <= MAX_LENGTH;
-    }
-    
-    // Task 5: These constants should be at the top of the class
-    private static final int MAX_LENGTH = 100;
-    private static final String DEFAULT_VALUE = "default";
-    
-    private static void runTests() {
-        boolean allPassed = true;
-        
-        // Test 1: Check if helper class is at the top
-        boolean helperAtTop = true; // Placeholder - would check actual position
-        
-        // Test 2: Check if try-catch exists
-        boolean hasTryCatch = false; // Should be true after task completion
-        
-        // Test 3: Check if validation methods are grouped
-        boolean methodsGrouped = false; // Should be true after task completion
-        
-        // Test 4: Check indentation
-        boolean indentationFixed = false; // Should be true after task completion
-        
-        // Test 5: Check if constants are at top
-        boolean constantsAtTop = false; // Should be true after task completion
-        
-        // Display results
-        System.out.println(hasTryCatch ? "✓ Try-catch block added" : "✗ Try-catch block missing");
-        System.out.println(helperAtTop ? "✓ Helper class at top" : "✗ Helper class not at top");
-        System.out.println(methodsGrouped ? "✓ Validation methods grouped" : "✗ Validation methods not grouped");
-        System.out.println(indentationFixed ? "✓ Indentation fixed" : "✗ Indentation needs fixing");
-        System.out.println(constantsAtTop ? "✓ Constants at top" : "✗ Constants not at top");
-        
-        if (hasTryCatch && helperAtTop && methodsGrouped && indentationFixed && constantsAtTop) {
-            System.out.println("\n✓ All tests passed!");
-        } else {
-            System.out.println("\n✗ Some tests failed. Keep practicing window management!");
-        }
-    }
+class DataProcessor {
+	public void processData(String data) {
+		System.out.println("DataProcessor: " + data);
+	}
 }
 
-// Task 1: This helper class should be moved to the top of the file (after the comment block)
-class DataProcessor {
-    public void processData(String data) {
-        System.out.println("DataProcessor: " + data);
-    }
+public class Main {
+
+	// Task 5: These constants should be at the top of the class
+	private static final int MAX_LENGTH = 100;
+	private static final String DEFAULT_VALUE = "default";
+
+	public static void main(String[] args) {
+		System.out.println("=== Vim Challenge Day 13 ===\n");
+
+		// Task 2: Add try-catch block here
+		try {
+			String input = args.length > 0 ? args[0] : "default";
+			DataProcessor processor = new DataProcessor();
+			processor.processData(input);
+		} catch (Exception e) {
+			System.err.println("Error processing data: " + e.getMessage());
+		}
+		runTests();
+	}
+
+	// Task 3: These validation methods should be grouped together
+	private static boolean validateInput(String input) {
+		return input != null && !input.isEmpty();
+	}
+
+	// Task 3: This validation method should be with the other one
+	private static boolean validateLength(String input) {
+		return input.length() <= MAX_LENGTH;
+	}
+	private static void processData(String data) {
+		// Task 4: Fix indentation issues here
+		if (validateInput(data)) {
+			System.out.println("Processing: " + data);
+			if (data.length() > MAX_LENGTH) {
+				System.out.println("Data too long!");
+			}
+		}
+	}
+
+
+
+	private static void runTests() {
+		boolean allPassed = true;
+
+		// Test 1: Check if helper class is at the top
+		boolean helperAtTop = true; // Placeholder - would check actual position
+
+		// Test 2: Check if try-catch exists
+		boolean hasTryCatch = true; // Should be true after task completion
+
+		// Test 3: Check if validation methods are grouped
+		boolean methodsGrouped = true; // Should be true after task completion
+
+		// Test 4: Check indentation
+		boolean indentationFixed = true; // Should be true after task completion
+
+		// Test 5: Check if constants are at top
+		boolean constantsAtTop = true; // Should be true after task completion
+
+		// Display results
+		System.out.println(hasTryCatch ? "✓ Try-catch block added" : "✗ Try-catch block missing");
+		System.out.println(helperAtTop ? "✓ Helper class at top" : "✗ Helper class not at top");
+		System.out.println(methodsGrouped ? "✓ Validation methods grouped" : "✗ Validation methods not grouped");
+		System.out.println(indentationFixed ? "✓ Indentation fixed" : "✗ Indentation needs fixing");
+		System.out.println(constantsAtTop ? "✓ Constants at top" : "✗ Constants not at top");
+
+		if (hasTryCatch && helperAtTop && methodsGrouped && indentationFixed && constantsAtTop) {
+			System.out.println("\n✓ All tests passed!");
+		} else {
+			System.out.println("\n✗ Some tests failed. Keep practicing window management!");
+		}
+	}
 }
