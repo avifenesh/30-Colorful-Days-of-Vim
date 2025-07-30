@@ -91,7 +91,7 @@ void ini() {             // Complete ini to initialize_buffer
 	// Implementation
 }
 
-int va() {               // Complete va to validate_input  
+int va() {               // Complete va to validate_input
 	// Implementation
 	return 0;
 }
@@ -133,29 +133,29 @@ int main() {
 	// Test 2: Check if SUCCESS_MESSAGES exists
 	int success_messages_added = 0;
 	// This will only compile if SUCCESS_MESSAGES is defined
-	#ifdef SUCCESS_MESSAGES_COMPLETE
+#ifdef SUCCESS_MESSAGES_COMPLETE
 	if (sizeof(SUCCESS_MESSAGES) / sizeof(SUCCESS_MESSAGES[0]) == 3) {
 		success_messages_added = 1;
 	}
-	#endif
+#endif
 
 	// Test 3: Check if includes are completed
 	int includes_completed = 0;
 	// These header guards will only be defined if headers are included
-	#if defined(__STDINT_H) && defined(_STDBOOL_H) && defined(_TIME_H)
+#if defined(__STDINT_H) && defined(_STDBOOL_H) && defined(_TIME_H)
 	includes_completed = 1;
-	#endif
+#endif
 
 	// Test 4: Check if struct types are completed
 	int struct_completed = 0;
 	// This will fail to compile if struct has wrong types
-	#ifdef STRUCT_COMPLETE
+#ifdef STRUCT_COMPLETE
 	Person test_person = {.age = 25, .salary = 40000.0f, .is_active = true};
 	strcpy(test_person.name, "Test");
 	if (test_person.age == 25) {
 		struct_completed = 1;
 	}
-	#endif
+#endif
 
 	// Test 5: Check if function calls are completed in test_completion
 	int calls_completed = 0;
