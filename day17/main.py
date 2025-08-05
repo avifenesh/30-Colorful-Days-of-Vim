@@ -102,28 +102,37 @@ def run_tests():
     tests_passed = 0
     total_tests = 5
     
-    # Test 1: Check if config values are in correct registers
-    config_in_registers = False  # Would check registers a, b, c
+    # Test 1: Check if config values are stored in registers (manual check)
+    # User must mark this as done after using registers a, b, c
+    config_in_registers = False  # Mark True when registers practiced
     print(f"{'✓' if config_in_registers else '✗'} Config values stored in registers")
     if config_in_registers: tests_passed += 1
     
     # Test 2: Check if debug comments are removed
-    debug_removed = True  # Would check for DEBUG comments
+    # Read the file to check for DEBUG comments
+    with open(__file__, 'r') as f:
+        content = f.read()
+    debug_removed = '# DEBUG:' not in content
     print(f"{'✓' if debug_removed else '✗'} Debug comments removed")
     if debug_removed: tests_passed += 1
     
     # Test 3: Check if function is assembled
-    function_assembled = False  # Would check if process_data is complete
+    # Check if process_data function has actual implementation
+    import inspect
+    source = inspect.getsource(process_data)
+    function_assembled = 'pass' not in source and 'validate input' in source.lower() and 'return' in source
     print(f"{'✓' if function_assembled else '✗'} Function assembled from parts")
     if function_assembled: tests_passed += 1
     
-    # Test 4: Check if errors collected
-    errors_collected = False  # Would check register E
+    # Test 4: Check if error messages collected in register E (manual check)
+    # User must mark this as done after using uppercase register E to append
+    errors_collected = False  # Mark True when register E used
     print(f"{'✓' if errors_collected else '✗'} Error messages collected")
     if errors_collected: tests_passed += 1
     
-    # Test 5: Check recovery practice
-    recovery_practiced = True  # Placeholder
+    # Test 5: Check recovery practice (manual check)
+    # User must mark this as done after deleting and recovering important_function
+    recovery_practiced = False  # Mark True when deletion/recovery practiced
     print(f"{'✓' if recovery_practiced else '✗'} Deletion recovery practiced")
     if recovery_practiced: tests_passed += 1
     
