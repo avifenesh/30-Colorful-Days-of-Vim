@@ -18,26 +18,26 @@ New commands for today:
     - `:g/^#/normal I//` - Comment out all lines starting with #
 
 REMINDERS - Keys from previous days:
-    Day 20: Argument list - `:args`, `:argdo`
-    Day 19: Custom commands - `:command`
-    Day 18: Autocommands - `:autocmd`
-    Day 17: Registers - `"ay`, `"ap`
-    Day 16: Folding - `zfap`, `za`
-    Day 15: Command history - `q:`
-    Day 14: Autocomplete - `Ctrl-n`
-    Day 13: Windows - `:split`, `:vsplit`
-    Day 12: Search/replace - `:%s/old/new/g`
-    Day 11: Marks - `ma`, `'a`
-    Day 10: Visual mode practice
-    Day 9: Text objects - `iw`, `aw`
-    Day 8: Macros - `qa`, `@a`
-    Day 7: Replace - `:%s/old/new/g`
-    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
-    Day 5: Search - `/pattern`, `n`, `N`
-    Day 4: Repeat - `.`, `3w`, `2dd`
-    Day 3: Yank/paste - `yy`, `p`, `P`
-    Day 2: Delete/change - `dw`, `cw`
-    Day 1: Movement - `w`, `b`, `e`, `0`, `$`
+    Day 20: Autocomplete & abbreviations - `Ctrl-n`, `Ctrl-x Ctrl-f`, `:ab`
+    Day 19: Folding - `zf`, `za`, `zM`, `zR`
+    Day 18: Macros - `qa`, `@a`, `@@`
+    Day 17: Tabs - `:tabnew`, `gt`, `gT`
+    Day 16: Windows - `:split`, `:vsplit`, `Ctrl-w w`
+    Day 15: Buffers - `:ls`, `:bnext`, `:bprev`
+    Day 14: Visual mastery - `gv`, `o`, `Ctrl-v`
+    Day 13: Registers - `"ay`, `"ap`, `:reg`
+    Day 12: Marks & jumps - `ma`, `'a`, `Ctrl-o`
+    Day 11: Advanced text objects - `ip`, `ap`, `it`, `at`
+    Day 10: Text objects intro - `iw`, `aw`, `i"`
+    Day 9: Repeat & counts - `.`, `3w`, `2dd`
+    Day 8: Search & replace - `/pattern`, `:%s/old/new/g`
+    Day 7: Visual mode - `v`, `V`, `Ctrl-v`
+    Day 6: Insert mode - `i`, `a`, `I`, `A`
+    Day 5: Character search - `f`, `F`, `%`
+    Day 4: Yank & undo - `yy`, `p`, `u`, `Ctrl-r`
+    Day 3: Delete/change - `dw`, `cw`, `dd`
+    Day 2: Navigation - `gg`, `G`, `H/M/L`
+    Day 1: Movement basics - `w`, `b`, `e`, `0`, `$`
 
 Your tasks for Day 21:
 1. Delete all lines containing "REMOVE_ME" using `:g/REMOVE_ME/d`
@@ -219,15 +219,13 @@ fn main() {
         .enumerate()
         .filter(|(_, line)| line.trim_start().starts_with("pub fn"))
         .all(|(line_num, _)| {
-            // Check next few lines for logging statement
             source.lines()
                 .skip(line_num + 1)
                 .take(5)
                 .any(|line| line.contains("println!") || line.contains("log::"))
         });
 
-    // For this demo, we'll mark it as passed if the structure is correct
-    let task6_passed = true; // Placeholder - would need more sophisticated checking
+    let task6_passed = pub_functions_have_logging;
     println!("{} Task 6: Logging added to public functions", if task6_passed { "✓" } else { "✗" });
     if task6_passed { tests_passed += 1; }
 
@@ -242,7 +240,9 @@ fn main() {
     println!("  :v/important/d                    # Delete non-important lines");
     println!("  :g/TODO/normal @q                 # Run macro q on TODO lines");
 
-    if tests_passed == total_tests {
+    let success = tests_passed == total_tests;
+
+    if success {
         println!("\n✓ Excellent! You've mastered global commands!");
         println!("Global commands are one of Vim's most powerful features for batch operations.");
     } else {
@@ -256,5 +256,11 @@ fn main() {
     match processor.process("sample data") {
         Ok(result) => println!("\nProcessed: {}", result),
         Err(e) => println!("\nError: {}", e),
+    }
+
+    if success {
+        std::process::exit(0);
+    } else {
+        std::process::exit(1);
     }
 }

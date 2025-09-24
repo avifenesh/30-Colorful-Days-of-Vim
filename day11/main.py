@@ -64,13 +64,7 @@ Third paragraph remains.
 This should stay.
     """
 
-    # After using dip on middle paragraph:
-    # Blank lines remain
-
-    # After using dap on middle paragraph:
-    # Blank lines also deleted
-
-    return "paragraph deleted"
+    return text
 
 
 def task2_sentence_objects():
@@ -85,10 +79,7 @@ def task2_sentence_objects():
         "Third sentence stays. Another one remains."
     )
 
-    # Position on "DELETE THIS SENTENCE" and use dis or das
-    # Result: "First sentence here.  Third sentence stays. Another one remains."
-
-    return "sentence operations complete"
+    return paragraph
 
 
 def task3_html_tag_objects():
@@ -106,12 +97,7 @@ def task3_html_tag_objects():
     </div>
     """
 
-    # Position inside second <p> tag and use cit
-    # Changes content but keeps tags
-
-    # Use dat to delete entire tag including <p></p>
-
-    return "tags handled"
+    return html
 
 
 def task4_code_block_objects():
@@ -131,10 +117,10 @@ def task4_code_block_objects():
 
     markdown = "`delete this code` but keep this"
 
-    # Use di{ inside function to clear it
-    # Use da` to delete backticks and content
-
-    return "blocks processed"
+    return {
+        "code": code,
+        "markdown": markdown,
+    }
 
 
 def task5_count_combinations():
@@ -157,16 +143,15 @@ More of paragraph 3.
 Paragraph 4 remains.
     """
 
-    # Position at start and use 2dap to delete first 2 paragraphs
-
     multi_sentences = (
         "Delete one. Delete two. Delete three. "
         "Keep four. Keep five."
     )
 
-    # Use 3dis to delete first 3 sentences
-
-    return "count combinations work"
+    return {
+        "multi_paragraphs": multi_paragraphs,
+        "multi_sentences": multi_sentences,
+    }
 
 
 def task6_real_world_scenarios():
@@ -175,14 +160,14 @@ def task6_real_world_scenarios():
     Refactor code, edit documentation, clean HTML
     """
 
-    # Scenario 1: Refactor function body
-    def old_function():
-        # Use di{ to delete all and rewrite
-        old_code = "replace"
-        more_old = "all this"
-        return "stuff"
+    old_function = """
+def old_function():
+    # Use di{ to delete all and rewrite
+    old_code = "replace"
+    more_old = "all this"
+    return "stuff"
+    """
 
-    # Scenario 2: Edit markdown documentation
     markdown_doc = """
 ## Section 1
 This paragraph needs to be completely rewritten.
@@ -192,7 +177,6 @@ Use dap to delete it all at once.
 This sentence is wrong. This one is correct. Fix using dis.
     """
 
-    # Scenario 3: Clean up HTML
     html_cleanup = """
     <article>
         <header>Title</header>
@@ -202,7 +186,11 @@ This sentence is wrong. This one is correct. Fix using dis.
     </article>
     """
 
-    return "real world complete"
+    return {
+        "old_function": old_function,
+        "markdown_doc": markdown_doc,
+        "html_cleanup": html_cleanup,
+    }
 
 
 # Test runner
@@ -212,51 +200,73 @@ def run_tests():
 
     # Test 1
     result1 = task1_paragraph_objects()
-    if result1 == "paragraph deleted":
+    if (
+        "DELETE THIS ENTIRE PARAGRAPH" not in result1
+        and "Second paragraph starts here." not in result1
+        and "This continues the second paragraph." not in result1
+    ):
         print("✓ Task 1: Paragraph objects mastered")
         passed += 1
     else:
-        print("✗ Task 1: Practice dip and dap for paragraphs")
+        print("✗ Task 1: Practice dip/dap to remove the middle paragraph entirely")
 
     # Test 2
     result2 = task2_sentence_objects()
-    if result2 == "sentence operations complete":
+    if "DELETE THIS SENTENCE" not in result2:
         print("✓ Task 2: Sentence objects mastered")
         passed += 1
     else:
-        print("✗ Task 2: Practice dis and das for sentences")
+        print("✗ Task 2: Use dis/das so the incorrect sentence disappears")
 
     # Test 3
     result3 = task3_html_tag_objects()
-    if result3 == "tags handled":
+    if "DELETE THIS CONTENT" not in result3:
         print("✓ Task 3: HTML tag objects mastered")
         passed += 1
     else:
-        print("✗ Task 3: Practice dit and dat for HTML tags")
+        print("✗ Task 3: Use cit/dat to clean up the second <p> tag")
 
     # Test 4
     result4 = task4_code_block_objects()
-    if result4 == "blocks processed":
+    code_cleared = "DELETE" not in result4["code"] and "BLOCK" not in result4["code"]
+    markdown_cleared = "delete this code" not in result4["markdown"]
+    if code_cleared and markdown_cleared:
         print("✓ Task 4: Code block objects mastered")
         passed += 1
     else:
-        print("✗ Task 4: Practice with braces and backticks")
+        print("✗ Task 4: Use di{/da` to remove the placeholder content")
 
     # Test 5
     result5 = task5_count_combinations()
-    if result5 == "count combinations work":
+    paragraphs_clean = (
+        "Paragraph 1" not in result5["multi_paragraphs"]
+        and "Paragraph 2" not in result5["multi_paragraphs"]
+        and "Paragraph 3" in result5["multi_paragraphs"]
+        and "Paragraph 4" in result5["multi_paragraphs"]
+    )
+    sentences_clean = (
+        "Delete one." not in result5["multi_sentences"]
+        and "Delete two." not in result5["multi_sentences"]
+        and "Delete three." not in result5["multi_sentences"]
+        and "Keep four." in result5["multi_sentences"]
+        and "Keep five." in result5["multi_sentences"]
+    )
+    if paragraphs_clean and sentences_clean:
         print("✓ Task 5: Count combinations mastered")
         passed += 1
     else:
-        print("✗ Task 5: Combine counts with text objects")
+        print("✗ Task 5: Combine counts with dip/dap and dis/das")
 
     # Test 6
     result6 = task6_real_world_scenarios()
-    if result6 == "real world complete":
+    old_function_clean = "replace" not in result6["old_function"] and "more_old" not in result6["old_function"]
+    markdown_clean = "completely rewritten." not in result6["markdown_doc"] and "This sentence is wrong." not in result6["markdown_doc"]
+    html_clean = "DELETE THIS ENTIRE ASIDE" not in result6["html_cleanup"]
+    if old_function_clean and markdown_clean and html_clean:
         print("✓ Task 6: Real-world scenarios mastered")
         passed += 1
     else:
-        print("✗ Task 6: Apply text objects to real code")
+        print("✗ Task 6: Clean up the scenario strings with the suggested text objects")
 
     print(f"\nDay 11 Progress: {passed}/{total} tasks completed\n")
 

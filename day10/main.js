@@ -47,46 +47,71 @@ function runTests() {
     const total = 6;
 
     // Test each task
-    if (task1_word_objects() === "middle") {
+    const { text, text2 } = task1_word_objects();
+    if (text === "word1  word3" && text2 === "word1 word3") {
         console.log("✓ Task 1: Word text objects successful");
         passed++;
     } else {
-        console.log("✗ Task 1: Use diw to delete inner word, keep spaces");
+        console.log("✗ Task 1: Use diw on 'middle' and daw on 'remove'");
     }
 
-    if (task2_quote_objects() === "new content") {
+    const { string1, string2, string3 } = task2_quote_objects();
+    if (string1 === '"new content"' && string2 === "'replaced'" && string3 === "''") {
         console.log("✓ Task 2: Quote text objects successful");
         passed++;
     } else {
-        console.log("✗ Task 2: Use ci\" to change content inside quotes");
+        console.log("✗ Task 2: Use ci\"/ca\"/di' to fix the strings");
     }
 
-    if (task3_parentheses_objects() === "function()") {
+    const { code, code2, array } = task3_parentheses_objects();
+    if (code === "function()" && code2 === "function" && array === "[new, items]") {
         console.log("✓ Task 3: Parentheses text objects successful");
         passed++;
     } else {
-        console.log("✗ Task 3: Use di( to delete inside parentheses");
+        console.log("✗ Task 3: Use di(/da(/ci[ on the sample strings");
     }
 
-    if (task4_brace_objects()) {
+    const { obj, expected, block } = task4_brace_objects();
+    if (JSON.stringify(obj) === JSON.stringify(expected) && block === "if (true)  remaining") {
         console.log("✓ Task 4: Brace text objects successful");
         passed++;
     } else {
-        console.log("✗ Task 4: Use ci{ to change inside braces");
+        console.log("✗ Task 4: Use ci{ and da{ to edit the brace examples");
     }
 
-    if (task5_combined_objects()) {
+    const operations = task5_combined_objects();
+    const task5Passed = operations.every((op) => {
+        switch (op.command) {
+            case "yiw":
+                return op.result === "word";
+            case 'vi"':
+                return op.result === 'text';
+            case "ci(":
+                return op.result === "(new)";
+            case "da{":
+                return op.result === "";
+            default:
+                return false;
+        }
+    });
+    if (task5Passed) {
         console.log("✓ Task 5: Combined text objects successful");
         passed++;
     } else {
-        console.log("✗ Task 5: Combine text objects with various operators");
+        console.log("✗ Task 5: Update the results column using the suggested commands");
     }
 
-    if (task6_efficient_selection()) {
+    const efficiency = task6_efficient_selection();
+    if (
+        efficiency.oldFunctionParams === 2 &&
+        efficiency.newFunctionParams === 2 &&
+        efficiency.message.includes("'new message'") &&
+        efficiency.dataLength === 0
+    ) {
         console.log("✓ Task 6: Efficient text selection successful");
         passed++;
     } else {
-        console.log("✗ Task 6: Master text object selection efficiency");
+        console.log("✗ Task 6: Adjust parameters, message, and array as instructed");
     }
 
     console.log(`\nDay 10 Progress: ${passed}/${total} tasks completed\n`);
@@ -107,15 +132,13 @@ function runTests() {
 function task1_word_objects() {
     // Use diw to delete just the word, not the spaces
     let text = "word1 middle word3";
-    // Position on "middle" and use diw
-    // Result should be: "word1  word3" (two spaces remain)
+    // Result should end up as: "word1  word3"
 
-    // Use daw to delete word WITH spaces
+    // Use daw to delete word WITH surrounding whitespace
     let text2 = "word1 remove word3";
-    // Position on "remove" and use daw
-    // Result should be: "word1 word3" (one space)
+    // Result should end up as: "word1 word3"
 
-    return "middle";  // Should be deleted with diw
+    return { text, text2 };
 }
 
 // TASK 2: Quote text objects
@@ -129,7 +152,7 @@ function task2_quote_objects() {
     // Use di' for single quotes
     let string3 = "'inner text'";  // Delete inner text only
 
-    return "new content";  // Result after ci"
+    return { string1, string2, string3 };
 }
 
 // TASK 3: Parentheses and bracket objects
@@ -143,7 +166,7 @@ function task3_parentheses_objects() {
     // Use ci[ to change inside brackets
     let array = "[old, values]";  // Change to "[new, items]"
 
-    return "function()";  // After di(
+    return { code, code2, array };
 }
 
 // TASK 4: Brace text objects
@@ -162,7 +185,7 @@ function task4_brace_objects() {
     let block = "if (true) { delete all } remaining";
     // After da{: "if (true)  remaining"
 
-    return JSON.stringify(obj) === JSON.stringify(expected);
+    return { obj, expected, block };
 }
 
 // TASK 5: Combine text objects with operators
@@ -175,35 +198,39 @@ function task5_combined_objects() {
 
     let operations = [
         { command: "yiw", target: "word", result: "word copied" },
-        { command: "vi\"", target: '"text"', result: "text selected" },
-        { command: "ci(", target: "(old)", result: "(new)" },
-        { command: "da{", target: "{block}", result: "" }
+        { command: 'vi"', target: '"text"', result: "text selected" },
+        { command: "ci(", target: "(old)", result: "(old)" },
+        { command: "da{", target: "{block}", result: "{block}" }
     ];
 
-    // All operations should work correctly
-    return true;
+    return operations;
 }
 
 // TASK 6: Efficient text object selection
 function task6_efficient_selection() {
     // Real-world scenario: refactor function arguments
     function oldFunction(param1, param2, param3) {
-        // Use ci( to change all parameters at once
+        return param1 + param2 + param3;
     }
 
-    // After ci(:
-    function newFunction(newParam1, newParam2) {
-        // Parameters changed efficiently
+    // After ci(: change argument list to new parameters
+    function newFunction(paramA, paramB, paramC) {
+        return paramA + paramB + paramC;
     }
 
-    // Scenario 2: Change string content
+    // Scenario 2: Change string content with ci'
     const message = "This is the 'old message' that needs updating";
-    // Use ci' to change just 'old message' to 'new message'
 
-    // Scenario 3: Delete array contents
-    const data = [1, 2, 3, 4, 5];  // Use di[ to clear array
+    // Scenario 3: Delete array contents with di[
+    const data = [1, 2, 3, 4, 5];
 
-    return true;  // All selections efficient
+    return {
+        oldFunctionParams: oldFunction.length,
+        newFunctionParams: typeof newFunction === "function" ? newFunction.length : 0,
+        message,
+        dataLength: data.length,
+        dataSnapshot: [...data],
+    };
 }
 
 // Run the tests

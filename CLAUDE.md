@@ -94,15 +94,14 @@ javac Main.java && java Main  # or just run ./test.sh
 
 ### Language Rotation Pattern
 
-The challenge follows a 6-language cycle:
-1. C → 2. Rust → 3. JavaScript → 4. Python → 5. Lua → 6. Java → (repeat)
+The curriculum opens with two back-to-back C challenges to cement fundamentals, then rotates through the remaining languages in a consistent order (Rust → JavaScript → Python → Lua → Java) before returning to C.
 
-- **C**: Days 1, 7, 14, 20, 26
-- **Rust**: Days 2, 8, 15, 21, 27
-- **JavaScript**: Days 3, 9, 16, 22, 28
-- **Python**: Days 4, 10, 17, 23, 29
-- **Lua**: Days 5, 11, 18, 24, 30
-- **Java**: Days 6, 12, 19, 25
+- **C**: Days 1, 2, 8, 14, 20, 26
+- **Rust**: Days 3, 9, 15, 21, 27
+- **JavaScript**: Days 4, 10, 16, 22, 28
+- **Python**: Days 5, 11, 17, 23, 29
+- **Lua**: Days 6, 12, 18, 24, 30
+- **Java**: Days 7, 13, 19, 25
 
 ### File Organization
 

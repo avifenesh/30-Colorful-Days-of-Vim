@@ -14,6 +14,19 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Verify the variable rename task
+if command -v rg >/dev/null 2>&1; then
+    if rg -q "wrong_name" main.c; then
+        echo "The identifier 'wrong_name' is still present. Use G/{/} commands to rename it to 'data_size'."
+        exit 1
+    fi
+else
+    if grep -q "wrong_name" main.c; then
+        echo "The identifier 'wrong_name' is still present. Use G/{/} commands to rename it to 'data_size'."
+        exit 1
+    fi
+fi
+
 # Run the test and capture output
 output=$(./vim_day2)
 
