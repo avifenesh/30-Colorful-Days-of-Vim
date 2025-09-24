@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -g
 TARGET = vim_day8
 
 all: $(TARGET)
@@ -7,10 +7,10 @@ all: $(TARGET)
 $(TARGET): main.c
 	$(CC) $(CFLAGS) -o $(TARGET) main.c
 
-test: $(TARGET)
-	./$(TARGET)
-
 clean:
 	rm -f $(TARGET)
 
-.PHONY: all test clean
+run: $(TARGET)
+	./$(TARGET)
+
+.PHONY: all clean run

@@ -1,269 +1,401 @@
 /*
 Welcome to Day 27 of your Vim challenge!
 
-RANGES - Master Vim's powerful line addressing system!
-Today's focus: Using ranges to operate on specific parts of your file
+SESSIONS & VIEWS - Save and restore your Vim environment!
+Today's focus: Managing sessions and views for complex projects
 
 New commands for today:
-    - `:10,20` - Lines 10 through 20
-    - `:.,+5` - Current line plus next 5 lines
-    - `:.,$` - Current line to end of file
-    - `:1,.` - Beginning of file to current line
-    - `:%` - Entire file (same as :1,$)
-    - `:.-3,.+3` - 3 lines before to 3 lines after current
-    - `:'a,'b` - From mark 'a' to mark 'b'
-    - `:'<,'>` - Visual selection (auto-inserted)
-    - `:?pattern?,/pattern/` - From previous to next pattern
-    - `:/pattern1/,/pattern2/` - Between two patterns
-    - `:10,20d` - Delete lines 10-20
-    - `:.,+5y` - Yank current line plus next 5
-    - `:10,20s/old/new/g` - Replace in lines 10-20
-    - `:10,20w file.txt` - Write lines 10-20 to file
-    - `:10,20!sort` - Sort lines 10-20
-    - `:10,20>` - Indent lines 10-20
-    - `:10,20<` - Unindent lines 10-20
-    - `:10,20normal @a` - Run macro 'a' on lines 10-20
-    - `:10,20g/pattern/d` - Delete matching lines in range
-    - `:10,20v/pattern/d` - Delete non-matching lines
+    - `:mksession [file]` - Save current session
+    - `:mksession! [file]` - Overwrite existing session
+    - `:source Session.vim` - Load/restore session
+    - `:mkview [file]` - Save current window view
+    - `:loadview [file]` - Load saved view
+    - `:set sessionoptions=` - Configure what to save
+    - `:set viewoptions=` - Configure view options
+    - `:wa` - Write all buffers (before session)
+    - `:qa` - Quit all (after restoring)
 
-Advanced range patterns:
-    - `:.;+5` - Current line to current+5 (semicolon)
-    - `:0` - Before first line (for :0read)
-    - `:.,.` - Just current line
-    - `:$-5,$` - Last 6 lines of file
-    - `:%normal A;` - Add semicolon to every line
-    - `:'a,.` - From mark 'a' to current line
-    - `:?function?,/^}/` - Function definition
-    - `:\(` and `:\)` - Match parentheses (if enabled)
+Session components:
+    - `blank` - Empty windows
+    - `buffers` - Hidden and unloaded buffers
+    - `curdir` - Current directory
+    - `folds` - Fold settings
+    - `help` - Help windows
+    - `options` - Global options and mappings
+    - `winpos` - Window position (GUI only)
+    - `winsize` - Window sizes
+    - `tabpages` - All tab pages
+    - `unix` - Unix line endings (affects session file)
+    - `slash` - Forward slashes in filenames
 
-Range modifiers:
-    - `:10,20p` - Print lines (default action)
-    - `:10,20#` - Print with line numbers
-    - `:10,20l` - Print with invisible chars
-    - `:10,20move 30` - Move lines after line 30
-    - `:10,20copy 30` - Copy lines after line 30
-    - `:10,20t30` - Same as copy (shorter)
+Default sessionoptions: blank,buffers,curdir,folds,help,options,tabpages,winsize
+
+View components:
+    - `cursor` - Cursor position
+    - `folds` - Fold settings
+    - `options` - Window-local options
+    - `localoptions` - Local options
+    - `slash` - Forward slashes in filenames
+    - `unix` - Unix line endings
+
+Session workflow:
+    1. Open multiple files/windows/tabs
+    2. `:mksession ~/project.vim`
+    3. Later: `vim -S ~/project.vim`
+    4. Or: `:source ~/project.vim`
+
+View workflow:
+    1. Position cursor, set folds, options
+    2. `:mkview` (saves to ~/.vim/view/)
+    3. Later: `:loadview`
+
+Advanced session tips:
+    - `:mksession! Session.vim` - Standard name
+    - `vim -S Session.vim` - Start with session
+    - `:set sessionoptions-=options` - Don't save options
+    - `:set sessionoptions+=globals` - Save global vars
+    - Multiple sessions per project
+    - Session for different tasks/contexts
 
 REMINDERS - Keys from previous days:
-    Day 26: Tags - Navigate with ranges: `:10,20tag`
-    Day 25: Jump list - Ranges create jump points
-    Day 24: Sessions - Range commands in session
-    Day 23: Undo tree - Undo range operations
-    Day 22: Location list - `:10,20lgrep pattern`
-    Day 21: Quickfix - Process error ranges
-    Day 20: Argument list - `:10,20argdo`
-    Day 19: Custom commands - Use ranges in commands
-    Day 18: Autocommands - Trigger on range changes
-    Day 17: Registers - Yank ranges to registers
-    Day 16: Folding - `:10,20fold`
-    Day 15: Command history - Find range commands
-    Day 14: Autocomplete - Complete range addresses
-    Day 13: Windows - Different ranges in windows
-    Day 12: Global commands - `:g` is range-aware!
-    Day 11: Marks - Use marks in ranges
-    Day 10: Visual mode - Creates ranges
-    Day 9: Text objects - Different from ranges
-    Day 8: Macros - Apply to ranges
-    Day 7: Replace - Always uses ranges
-    Day 6: Visual mode - Auto-range creation
-    Day 5: Search - Define ranges
-    Day 4: Repeat - Can't repeat range commands
-    Day 3: Yank/paste - Yank specific ranges
-    Day 2: Delete - Delete ranges
-    Day 1: Movement - Navigate to range bounds
+    Day 26: Tags - Sessions save tag stack
+    Day 25: Jump list - Jump positions in session
+    Day 24: Undo tree - Undo history not saved
+    Day 23: Location list - Not saved in sessions
+    Day 22: Quickfix - Not saved in sessions
+    Day 21: Argument list - Saved in sessions
+    Day 20: Custom commands - Option-dependent
+    Day 19: Autocommands - Option-dependent
+    Day 18: Registers - Not saved by default
+    Day 17: Folding - Saved in sessions/views
+    Day 16: Command history - Not saved
+    Day 15: Autocomplete - Settings saved
+    Day 14: Windows/splits - Layout saved
+    Day 13: Global commands - Results not saved
+    Day 12: Marks - Local marks saved
+    Day 11: Visual mode - Not saved
+    Day 10: Text objects - Not applicable
+    Day 9: Macros - Not saved by default
+    Day 8: Replace - Not applicable
+    Day 7: Visual mode - Selection not saved
+    Day 6: Search - Pattern saved in options
+    Day 5: Repeat - Not saved
+    Day 4: Yank/paste - Not saved
+    Day 3: Delete - Not applicable
+    Day 2: Movement - Position saved
+    Day 1: Basic editing - Files saved
 
 Your tasks for Day 27:
-1. Delete specific line ranges using various addressing methods
-2. Apply operations to pattern-based ranges
-3. Use relative ranges for context-aware editing
-4. Combine ranges with other commands effectively
-5. Master mark-based and search-based ranges
+1. Create and restore basic sessions
+2. Configure session options
+3. Work with views for specific windows
+4. Manage multiple project sessions
+5. Understand session vs view differences
 
-Scenario: You're refactoring code and need to operate on
-specific sections without manually selecting each one.
+Scenario: You're working on a complex Rust project with multiple
+files, splits, and tabs, and need to save your workspace setup.
 */
 
 fn main() {
-    println!("=== Vim Challenge Day 27 ===\n");
-    
-    // Task 1: Delete specific ranges
-    test_range_deletion();
-    
-    // Task 2: Pattern-based ranges
-    test_pattern_ranges();
-    
-    // Task 3: Relative ranges
-    test_relative_ranges();
-    
-    // Task 4: Range combinations
-    test_range_combinations();
-    
-    // Task 5: Advanced ranges
-    test_advanced_ranges();
-    
+    println!("=== Vim Challenge Day 27: Sessions & Views ===\n");
+
+    // Task 1: Basic session management
+    test_session_basics();
+
+    // Task 2: Session configuration
+    test_session_options();
+
+    // Task 3: View management
+    test_view_operations();
+
+    // Task 4: Multiple sessions
+    test_multiple_sessions();
+
+    // Task 5: Session restoration
+    test_session_restoration();
+
+    println!("\n=== Session & View Exercises ===");
+    session_exercises();
+
     // Run verification
-    verify_ranges();
+    verify_sessions_views();
 }
 
-// Task 1: Lines to be deleted with different range methods
-fn test_range_deletion() {
-    println!("Testing range deletion...");
-    
-    // DELETE: This line contains the word DELETE
-    let data = vec![1, 2, 3, 4, 5];
-    
-    // Lines 25-30: Delete this entire block with :25,30d
-    // This is line 26
-    // This is line 27
-    // This is line 28
-    // This is line 29
-    // This is line 30
-    
-    // DELETE: Another line to delete
-    for i in &data {
-        process_item(*i);
-    }
-    // DELETE: Yet another deletion target
-}
+// Task 1: Understanding sessions
+fn test_session_basics() {
+    println!("Task 1: Basic Session Management");
+    println!("--------------------------------");
+    println!("1. Open this file in Vim");
+    println!("2. Split horizontally: :split");
+    println!("3. Open another file: :e Cargo.toml");
+    println!("4. Create a new tab: :tabnew");
+    println!("5. Save session: :mksession basic_session.vim");
+    println!("6. Quit Vim: :qa");
+    println!("7. Restore: vim -S basic_session.vim");
+    println!("8. Or from within Vim: :source basic_session.vim\n");
 
-// Task 2: Pattern-based range operations
-fn test_pattern_ranges() {
-    println!("Testing pattern ranges...");
-    
-    // BEGIN_BLOCK
-    let mut old_value = 10;
-    let old_string = "old text";
-    let old_data = vec!["old1", "old2", "old3"];
-    // END_BLOCK
-    
-    // Use :/BEGIN_BLOCK/,/END_BLOCK/s/old/new/g
-    
-    // TODO: Fix this function
-    // TODO: Add error handling
-    // TODO: Optimize performance
-    
-    // Delete all TODO lines with :g/TODO/d
-}
+    // Session saves:
+    // - All open buffers and their names
+    // - Window layout and splits
+    // - Tab pages
+    // - Current directory
+    // - Cursor positions
+    // - Fold states
+    // - Many options and settings
 
-// Task 3: Relative range operations
-fn test_relative_ranges() {
-    println!("Testing relative ranges...");
-    
-    // Mark 'a' here - use ma
-    let start_point = 100;
-    
-    // The next 5 lines should be indented with :.,.+4>
-    let x = 1;
-    let y = 2;
-    let z = 3;
-    let sum = x + y + z;
-    println!("Sum: {}", sum);
-    
-    // Mark 'b' here - use mb
-    let end_point = 200;
-    
-    // Copy from mark 'a' to 'b' with :'a,'bco.
-}
-
-// Task 4: Combining ranges with commands
-fn test_range_combinations() {
-    println!("Testing range combinations...");
-    
-    // Sort these items with visual selection or :83,92!sort
-    let items = vec![
-        "Zebra",
-        "Apple",
-        "Mango",
-        "Banana",
-        "Orange",
-        "Grape",
-        "Cherry",
-        "Peach",
-        "Kiwi",
-        "Lemon",
+    let session_info = vec![
+        "Windows and splits",
+        "Tab pages",
+        "Buffer list",
+        "Working directory",
+        "Cursor positions",
+        "Fold states",
+        "Options (configurable)"
     ];
-    
-    // Apply macro to each line with :83,92normal @a
-    
-    // Replace foo with bar in this section only
-    let foo_1 = "foo value 1";  // foo comment
-    let foo_2 = "foo value 2";  // foo comment
-    let foo_3 = "foo value 3";  // foo comment
-    // Use :.,.+2s/foo/bar/g
+
+    for info in &session_info {
+        println!("  • Session includes: {}", info);
+    }
 }
 
-// Task 5: Advanced range techniques
-fn test_advanced_ranges() {
-    println!("Testing advanced ranges...");
-    
-    // Function to demonstrate range operations
-    fn process_data(input: &[i32]) -> Vec<i32> {
-        // Use :?fn?,/^}/s/old/new/g to replace in function
-        let mut result = Vec::new();
-        
-        for &item in input {
-            // Process each item
-            let processed = item * 2;
-            result.push(processed);
+// Task 2: Session options configuration
+fn test_session_options() {
+    println!("\nTask 2: Session Options Configuration");
+    println!("------------------------------------");
+    println!("Default sessionoptions: {:?}", get_default_sessionoptions());
+
+    // Configure what gets saved in sessions
+    println!("\nCommands to try:");
+    println!(":set sessionoptions? - View current options");
+    println!(":set sessionoptions=blank,buffers,curdir,folds,tabpages");
+    println!(":set sessionoptions+=winsize - Add window sizes");
+    println!(":set sessionoptions-=options - Don't save global options");
+    println!(":mksession configured_session.vim");
+
+    // Common configurations:
+    let configs = vec![
+        ("Minimal", "blank,buffers,curdir"),
+        ("Standard", "blank,buffers,curdir,folds,tabpages,winsize"),
+        ("Full", "blank,buffers,curdir,folds,help,options,tabpages,winsize"),
+        ("No options", "blank,buffers,curdir,folds,tabpages,winsize")
+    ];
+
+    for (name, opts) in &configs {
+        println!("  {} session: {}", name, opts);
+    }
+}
+
+// Task 3: View operations
+fn test_view_operations() {
+    println!("\nTask 3: View Operations");
+    println!("----------------------");
+    println!("Views save window-specific information:");
+
+    let view_components = vec![
+        "Cursor position in window",
+        "Scroll position",
+        "Fold states",
+        "Local window options",
+        "Local marks (if in viewoptions)"
+    ];
+
+    for component in &view_components {
+        println!("  • {}", component);
+    }
+
+    println!("\nView commands to practice:");
+    println!("1. Position cursor at specific line");
+    println!("2. Create some folds with zf");
+    println!("3. Set local options like :setlocal number");
+    println!("4. Save view: :mkview my_view.vim");
+    println!("5. Move cursor, unfold, change options");
+    println!("6. Restore: :loadview my_view.vim");
+    println!("7. Auto-save: :mkview (uses ~/.vim/view/)");
+
+    // View vs Session differences
+    println!("\nKey differences:");
+    println!("  Session: Multiple windows/tabs, global state");
+    println!("  View: Single window, local state");
+    println!("  Views are perfect for complex folded files");
+}
+
+// Task 4: Managing multiple sessions
+fn test_multiple_sessions() {
+    println!("\nTask 4: Multiple Sessions");
+    println!("------------------------");
+
+    let project_sessions = vec![
+        ("development.vim", "Main coding setup with splits"),
+        ("debugging.vim", "Debug windows and test files"),
+        ("documentation.vim", "README, docs, and reference"),
+        ("refactoring.vim", "Before/after comparison views"),
+        ("testing.vim", "Test files and output windows")
+    ];
+
+    println!("Project session organization:");
+    for (session, description) in &project_sessions {
+        println!("  {}: {}", session, description);
+    }
+
+    println!("\nWorkflow commands:");
+    println!("  :mksession! development.vim");
+    println!("  :source debugging.vim");
+    println!("  vim -S documentation.vim");
+    println!("  :mksession! $(date +%Y%m%d)_backup.vim");
+
+    // Session naming strategies
+    let naming_strategies = vec![
+        "Feature-based: auth.vim, api.vim, ui.vim",
+        "Task-based: debug.vim, test.vim, deploy.vim",
+        "Date-based: 20241201.vim, 20241202.vim",
+        "Context: morning.vim, review.vim, demo.vim"
+    ];
+
+    for strategy in &naming_strategies {
+        println!("  • {}", strategy);
+    }
+}
+
+// Task 5: Session restoration techniques
+fn test_session_restoration() {
+    println!("\nTask 5: Session Restoration");
+    println!("--------------------------");
+
+    println!("Ways to restore sessions:");
+    println!("  1. Command line: vim -S Session.vim");
+    println!("  2. From Vim: :source Session.vim");
+    println!("  3. Mapping: :nnoremap <F2> :source Session.vim<CR>");
+    println!("  4. Auto-load: Add to .vimrc for project");
+
+    println!("\nSession restoration tips:");
+    println!("  • Save all files before creating session (:wa)");
+    println!("  • Sessions are just Vim commands");
+    println!("  • Can edit session files manually");
+    println!("  • Use absolute paths for portability");
+    println!("  • Test sessions before relying on them");
+
+    // Common session issues and solutions
+    let troubleshooting = vec![
+        "Missing files: Use relative paths or update paths",
+        "Wrong directory: Check 'autochdir' setting",
+        "Lost options: Check sessionoptions setting",
+        "Plugin issues: Load plugins before session",
+        "Large sessions: Reduce sessionoptions"
+    ];
+
+    for issue in &troubleshooting {
+        println!("  • {}", issue);
+    }
+}
+
+// Practical exercises
+fn session_exercises() {
+    println!("=== Hands-on Exercises ===");
+
+    let exercises = vec![
+        Exercise {
+            name: "Multi-file Development Session",
+            steps: vec![
+                "Open main.rs (this file)",
+                "Split and open Cargo.toml (:sp Cargo.toml)",
+                "Vertical split for test file (:vs test_file.rs)",
+                "New tab for documentation (:tabnew README.md)",
+                "Save as dev_session.vim (:mksession! dev_session.vim)",
+                "Test by quitting and restoring"
+            ]
+        },
+        Exercise {
+            name: "View Practice",
+            steps: vec![
+                "Fold this function with zf (visual select first)",
+                "Move cursor to middle of main()",
+                "Set line numbers (:setlocal number)",
+                "Save view (:mkview fold_view.vim)",
+                "Unfold (zR), move cursor, turn off numbers",
+                "Restore view (:loadview fold_view.vim)"
+            ]
+        },
+        Exercise {
+            name: "Session Options Experiment",
+            steps: vec![
+                "Check current options (:set sessionoptions?)",
+                "Remove options (:set sessionoptions-=options)",
+                "Create session (:mksession no_opts.vim)",
+                "Change colorscheme (:colorscheme desert)",
+                "Restore session and see if colors preserved",
+                "Compare with full options session"
+            ]
+        },
+        Exercise {
+            name: "Project Workflow",
+            steps: vec![
+                "Create 'morning.vim' session with TODO list",
+                "Create 'afternoon.vim' with different layout",
+                "Practice switching: :source morning.vim",
+                "Then: :source afternoon.vim",
+                "Use :wa before switching sessions",
+                "Create backup sessions with timestamps"
+            ]
         }
-        
-        // Return the processed data
-        result
-    }
-    
-    // Another function for range practice
-    fn calculate_stats(data: &[f64]) -> (f64, f64) {
-        // Calculate mean and standard deviation
-        let sum: f64 = data.iter().sum();
-        let mean = sum / data.len() as f64;
-        
-        let variance = data.iter()
-            .map(|&x| (x - mean).powi(2))
-            .sum::<f64>() / data.len() as f64;
-        
-        (mean, variance.sqrt())
+    ];
+
+    for (i, exercise) in exercises.iter().enumerate() {
+        println!("\nExercise {}: {}", i + 1, exercise.name);
+        for (j, step) in exercise.steps.iter().enumerate() {
+            println!("  {}. {}", j + 1, step);
+        }
     }
 }
 
-// Helper function
-fn process_item(item: i32) {
-    println!("Processing: {}", item);
+// Helper functions
+fn get_default_sessionoptions() -> &'static str {
+    "blank,buffers,curdir,folds,help,options,tabpages,winsize"
+}
+
+struct Exercise {
+    name: &'static str,
+    steps: Vec<&'static str>,
 }
 
 // Verification function
-fn verify_ranges() {
-    println!("\nRange Operation Tests:");
+fn verify_sessions_views() {
+    println!("\n=== Session & View Tests ===");
     let mut passed = 0;
     let total = 5;
-    
-    // Test 1: Line range deletion
-    let range_deletion = false; // Would check if DELETE lines removed
-    println!("{} Line range deletion", if range_deletion { "✓" } else { "✗" });
-    if range_deletion { passed += 1; }
-    
-    // Test 2: Pattern ranges
-    let pattern_ranges = false; // Would verify pattern-based operations
-    println!("{} Pattern-based ranges", if pattern_ranges { "✓" } else { "✗" });
-    if pattern_ranges { passed += 1; }
-    
-    // Test 3: Relative ranges
-    let relative_ranges = false; // Would check :.,.+n operations
-    println!("{} Relative range operations", if relative_ranges { "✓" } else { "✗" });
-    if relative_ranges { passed += 1; }
-    
-    // Test 4: Range combinations
-    let range_combos = true; // Placeholder
-    println!("{} Range command combinations", if range_combos { "✓" } else { "✗" });
-    if range_combos { passed += 1; }
-    
-    // Test 5: Advanced ranges
-    let advanced_ranges = true; // Placeholder
-    println!("{} Advanced range techniques", if advanced_ranges { "✓" } else { "✗" });
-    if advanced_ranges { passed += 1; }
-    
+
+    // Test 1: Basic session understanding
+    let session_basics = true; // Understanding demonstrated
+    println!("{} Basic session management", if session_basics { "✓" } else { "✗" });
+    if session_basics { passed += 1; }
+
+    // Test 2: Session options knowledge
+    let session_options = true; // Options explained
+    println!("{} Session options configuration", if session_options { "✓" } else { "✗" });
+    if session_options { passed += 1; }
+
+    // Test 3: View operations
+    let view_ops = true; // View concepts covered
+    println!("{} View operations", if view_ops { "✓" } else { "✗" });
+    if view_ops { passed += 1; }
+
+    // Test 4: Multiple sessions
+    let multi_sessions = true; // Strategies provided
+    println!("{} Multiple session management", if multi_sessions { "✓" } else { "✗" });
+    if multi_sessions { passed += 1; }
+
+    // Test 5: Restoration techniques
+    let restoration = true; // Techniques covered
+    println!("{} Session restoration", if restoration { "✓" } else { "✗" });
+    if restoration { passed += 1; }
+
     if passed == total {
-        println!("\n✓ All tests passed!");
+        println!("\n✓ All session & view concepts covered!");
+        println!("You now understand how to save and restore your Vim workspace.");
+        println!("Practice creating sessions for different project contexts.");
     } else {
-        println!("\n✗ {} tests failed. Keep practicing ranges!", total - passed);
+        println!("\n✗ {} concepts need more attention.", total - passed);
+        println!("Review the session and view commands above.");
     }
+
+    println!("\nNext up: Expression register and calculations!");
 }

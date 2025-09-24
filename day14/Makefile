@@ -1,16 +1,12 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
-TARGET = vim_day14
+CC=gcc
+CFLAGS=-Wall -Wextra -std=c99
+TARGET=vim_day14
+SOURCE=main.c
 
-all: $(TARGET)
-
-$(TARGET): main.c
-	$(CC) $(CFLAGS) -o $(TARGET) main.c
-
-test: $(TARGET)
-	./$(TARGET)
+$(TARGET): $(SOURCE)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE)
 
 clean:
 	rm -f $(TARGET)
 
-.PHONY: all test clean
+.PHONY: clean

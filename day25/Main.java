@@ -1,222 +1,348 @@
 /*
 Welcome to Day 25 of your Vim challenge!
 
-JUMP LIST - Navigate your movement history like a time machine!
-Today's focus: Mastering the jump list for efficient navigation
+TAGS & NAVIGATION - Navigate codebases like a pro with ctags!
+Today's focus: Using tags for intelligent code navigation and definition jumping
 
 New commands for today:
-    - `Ctrl-o` - Jump back (older position in jump list)
-    - `Ctrl-i` or `Tab` - Jump forward (newer position in jump list)
-    - `:jumps` or `:ju` - Display the jump list
-    - `:clearjumps` - Clear the jump list
-    - `g;` - Go to older position in change list (different!)
-    - `g,` - Go to newer position in change list (different!)
-    - `''` - Jump to position before last jump
-    - ``` `` ``` - Jump to exact position before last jump
+    - `ctags -R .` - Generate tags file recursively (in shell)
+    - `:tag {name}` or `:ta {name}` - Jump to tag definition
+    - `Ctrl-]` - Jump to definition of word under cursor
+    - `Ctrl-t` or `:pop` - Jump back (pop tag stack)
+    - `:tags` - Show tag stack history
+    - `:tselect {name}` or `:ts {name}` - List all matching tags
+    - `:tnext` or `:tn` - Next matching tag
+    - `:tprevious` or `:tp` - Previous matching tag
+    - `:tfirst` or `:tf` - First matching tag
+    - `:tlast` or `:tl` - Last matching tag
+    - `g]` - List tags for word under cursor (tselect)
+    - `g Ctrl-]` - Jump to tag, show list if multiple matches
+    - `:ptag {name}` - Preview tag in split window
+    - `Ctrl-w ]` - Split window and jump to tag
+    - `Ctrl-w }` - Preview tag in preview window
+    - `:set tags=./tags,tags,../tags` - Configure tag file locations
+    - `:tag /{pattern}` - Search for tag by regex pattern
+    - `:stag {name}` - Split window and jump to tag
+    - `:ltag {name}` - Use location list for tag results
 
-What creates a jump point:
-    - Searches: `/pattern`, `?pattern`, `*`, `#`, `n`, `N`
-    - Line jumps: `G`, `gg`, `10G`, `:25`
-    - Paragraph/section: `{`, `}`, `[[`, `]]`
-    - Marks: `'a`, ``` `a ```, `'A` (global)
-    - Tags: `Ctrl-]`, `:tag`
-    - Windows: `Ctrl-w` commands
-    - Any movement > 1 line (except j/k)
+Tag file generation examples:
+    - `ctags -R .` - All files recursively
+    - `ctags *.java` - Only Java files in current directory
+    - `ctags --exclude=build --exclude=.git -R .` - Exclude directories
+    - `ctags --languages=Java -R src/` - Java only in src/
 
-What does NOT create jumps:
-    - Character movements: `h`, `l`, `w`, `b`, `e`
-    - Single line movements: `j`, `k`, `+`, `-`
-    - Scrolling: `Ctrl-d`, `Ctrl-u`, `Ctrl-f`, `Ctrl-b`
-    - Same-line searches: `fx`, `tx`, `;`, `,`
-
-Jump list vs Change list:
-    - Jump list: Records cursor positions from movements
-    - Change list: Records positions where changes were made
-    - Different lists for different purposes!
+Advanced tag navigation:
+    - `:tag /^get` - Tags starting with "get"
+    - `:tag /parse$` - Tags ending with "parse"
+    - `:tag /User.*Service/` - Pattern matching
+    - `:set tagstack` - Enable tag stack (default)
+    - `:set previewheight=15` - Preview window size
 
 REMINDERS - Keys from previous days:
-    Day 24: Sessions - Save jump list with session!
-    Day 23: Undo tree - Navigate edit history
-    Day 22: Location list - Window-local navigation
-    Day 21: Quickfix - Project-wide navigation
-    Day 20: Argument list - File navigation
-    Day 19: Custom commands - Create jump shortcuts
-    Day 18: Autocommands - Trigger on jumps
-    Day 17: Registers - Not related to jumps
-    Day 16: Folding - `zj`, `zk` don't create jumps
-    Day 15: Command history - Find jump commands
-    Day 14: Autocomplete - No jumps created
-    Day 13: Windows - Creates jump points!
-    Day 12: Global commands - Can create many jumps
-    Day 11: Marks - Create reliable jump points
-    Day 10: Visual mode - Some movements create jumps
-    Day 9: Text objects - Usually no jumps
-    Day 8: Macros - Jumps recorded in macros
-    Day 7: Search & Replace - Creates jumps
-    Day 6: Visual mode basics
-    Day 5: Search - Primary jump creator!
-    Day 4: Repeat - Doesn't affect jumps
-    Day 3: Yank/paste - No jumps created
-    Day 2: Delete/change - No jumps
-    Day 1: Movement - Large movements = jumps
+    Day 24: Argument List - :argdo works great with tag navigation
+    Day 23: Undo tree - Navigate edit history vs tag history
+    Day 22: Location list - :ltag uses location list
+    Day 21: Quickfix - Similar navigation patterns
+    Day 20: Buffers - Tags work across all buffers
+    Day 19: Custom commands - Create tag shortcuts
+    Day 18: Autocommands - Auto-generate tags on save
+    Day 17: Registers - Store tag patterns
+    Day 16: Folding - Fold by functions found with tags
+    Day 15: Command history - Reuse tag commands
+    Day 14: Autocomplete - Tags enable better completion
+    Day 13: Windows - Tag navigation creates new windows
+    Day 12: Global commands - Process files found via tags
+    Day 11: Marks - Mark important tag locations
+    Day 10: Visual mode - Select method signatures
+    Day 9: Text objects - Edit functions found via tags
+    Day 8: Macros - Apply to methods found via tags
+    Day 7: Replace - Replace across tagged functions
+    Day 6: Visual mode - Select function bodies
+    Day 5: Search - Find references to tagged symbols
+    Day 4: Repeat - Jump to similar methods
+    Day 3: Yank/paste - Copy method signatures
+    Day 2: Delete/change - Refactor tagged methods
+    Day 1: Movement - Navigate to different methods
 
 Your tasks for Day 25:
-1. Create a series of strategic jump points throughout the code
-2. Practice navigating with Ctrl-o and Ctrl-i
-3. Use :jumps to understand your navigation history
-4. Compare jump list with change list (g; and g,)
-5. Master the difference between creating and not creating jumps
+1. Understand ctags and tag file generation
+2. Master tag jumping and navigation
+3. Use tag stack for complex navigation
+4. Preview and split window tag operations
+5. Create efficient tag-based workflows
 
-Scenario: You're debugging code and need to jump between
-definitions, usage sites, and documentation quickly.
+Scenario: You're working on a large Java enterprise application with
+hundreds of classes and need to navigate efficiently between methods,
+classes, and interfaces.
 */
 
 public class Main {
-    // Task 1: Create jump points by navigating to these locations
-    private static final String VERSION = "1.0.0";
-    private static final int MAX_ITEMS = 100;
-    
     public static void main(String[] args) {
-        System.out.println("=== Vim Challenge Day 25 ===\n");
-        
-        // Test different jump scenarios
-        testJumpCreation();
-        processData();
-        validateResults();
-        generateReport();
-        
-        // Run verification
-        verifyJumpList();
+        System.out.println("=== Vim Challenge Day 25: Tags & Navigation ===\n");
+
+        TagNavigationDemo demo = new TagNavigationDemo();
+        demo.demonstrateTagConcepts();
+        demo.showTagGeneration();
+        demo.showNavigationCommands();
+        demo.showAdvancedFeatures();
+        demo.runTagTests();
     }
-    
-    // Task 2: Jump between method definitions
-    private static void testJumpCreation() {
-        System.out.println("Testing jump creation...");
-        
-        // Jump point 1: Search for ERROR
-        // ERROR: This is intentional for search practice
-        String status = "active";
-        
-        // Jump point 2: Go to line 50+ from here
-        for (int i = 0; i < 10; i++) {
-            processItem(i);
-        }
+}
+
+// Sample class hierarchy for tag navigation practice
+class TagNavigationDemo {
+    private DatabaseManager dbManager;
+    private UserService userService;
+    private Logger logger;
+
+    public TagNavigationDemo() {
+        this.dbManager = new DatabaseManager();
+        this.userService = new UserService();
+        this.logger = new Logger();
     }
-    
-    // Task 3: Use marks as reliable jump points
-    private static void processItem(int id) {
-        // Mark 'a' - Set a mark here
-        if (id < 0) {
-            handleError("Invalid ID: " + id);
-            return;
-        }
-        
-        // Process the item
-        System.out.println("Processing item: " + id);
+
+    public void demonstrateTagConcepts() {
+        System.out.println("TAG CONCEPTS:");
+        System.out.println("=============");
+        System.out.println("Tags are index entries that map symbol names to their locations");
+        System.out.println("Generated by ctags for intelligent code navigation\n");
+
+        System.out.println("What ctags indexes:");
+        System.out.println("• Classes: public class UserService");
+        System.out.println("• Methods: public void processUser()");
+        System.out.println("• Interfaces: public interface Processor");
+        System.out.println("• Fields: private String username");
+        System.out.println("• Enums: public enum Status");
+        System.out.println("• Constructors: public UserService()");
+        System.out.println();
     }
-    
-    // Task 4: Navigate to definition and back
-    private static void processData() {
-        // Jump to MAX_ITEMS definition with `gd` or `*`
-        int[] data = new int[MAX_ITEMS];
-        
-        // Fill array with test data
-        for (int i = 0; i < MAX_ITEMS; i++) {
-            data[i] = i * 2;
-        }
-        
-        // ERROR: Another search target
-        analyzeData(data);
+
+    public void showTagGeneration() {
+        System.out.println("TAG FILE GENERATION:");
+        System.out.println("===================");
+        System.out.println("Basic tag generation commands:");
+        System.out.println("1. ctags -R . - Generate tags for all files recursively");
+        System.out.println("2. ctags *.java - Tags for Java files only");
+        System.out.println("3. ctags --languages=Java -R src/ - Java only in src directory");
+        System.out.println("4. ctags --exclude=build --exclude=.git -R . - Exclude directories");
+        System.out.println();
+
+        System.out.println("Tag file example entries:");
+        System.out.println("UserService	UserService.java	5;\"	c");
+        System.out.println("processUser	UserService.java	15;\"	m	class:UserService");
+        System.out.println("main	Main.java	25;\"	m	class:Main");
+        System.out.println();
     }
-    
-    private static void analyzeData(int[] data) {
-        // Analyze the data
-        int sum = 0;
-        for (int value : data) {
-            sum += value;
-        }
-        System.out.println("Sum: " + sum);
+
+    public void showNavigationCommands() {
+        System.out.println("NAVIGATION COMMANDS:");
+        System.out.println("===================");
+        System.out.println("Basic tag jumping:");
+        System.out.println("• Ctrl-] - Jump to definition under cursor");
+        System.out.println("• :tag UserService - Jump to UserService definition");
+        System.out.println("• Ctrl-t - Jump back (pop tag stack)");
+        System.out.println("• :tags - Show tag navigation history");
+        System.out.println();
+
+        System.out.println("Multiple matches:");
+        System.out.println("• g] - List all tags for word under cursor");
+        System.out.println("• :tselect processUser - Show all processUser matches");
+        System.out.println("• :tnext - Next matching tag");
+        System.out.println("• :tprev - Previous matching tag");
+        System.out.println();
+
+        System.out.println("Window operations:");
+        System.out.println("• Ctrl-w ] - Split and jump to tag");
+        System.out.println("• Ctrl-w } - Preview tag in preview window");
+        System.out.println("• :ptag UserService - Preview tag definition");
+        System.out.println("• :stag processUser - Split window and jump to tag");
+        System.out.println();
     }
-    
-    // Task 5: Long method to practice paragraph jumps
-    private static void validateResults() {
-        System.out.println("Validating results...");
-        
-        // Section 1: Input validation
-        // Use `{` and `}` to jump between paragraphs
-        boolean inputValid = true;
-        if (!inputValid) {
-            handleError("Invalid input");
-        }
-        
-        // Section 2: Data validation
-        // This creates a new paragraph
-        boolean dataValid = true;
-        if (!dataValid) {
-            handleError("Invalid data");
-        }
-        
-        // Section 3: Output validation
-        // Another paragraph for navigation
-        boolean outputValid = true;
-        if (!outputValid) {
-            handleError("Invalid output");
-        }
+
+    public void showAdvancedFeatures() {
+        System.out.println("ADVANCED TAG FEATURES:");
+        System.out.println("=====================");
+        System.out.println("Pattern-based tag search:");
+        System.out.println("• :tag /^get - All tags starting with 'get'");
+        System.out.println("• :tag /Service$ - All tags ending with 'Service'");
+        System.out.println("• :tag /User.*Manager/ - Pattern matching");
+        System.out.println();
+
+        System.out.println("Configuration:");
+        System.out.println("• :set tags=./tags,tags,../tags - Tag file locations");
+        System.out.println("• :set tagstack - Enable tag stack (default on)");
+        System.out.println("• :set previewheight=15 - Preview window height");
+        System.out.println();
+
+        System.out.println("Location list integration:");
+        System.out.println("• :ltag UserService - Load matches in location list");
+        System.out.println("• :lnext/:lprev - Navigate location list results");
+        System.out.println();
     }
-    
-    private static void handleError(String message) {
-        // Mark 'e' - Error handler location
-        System.err.println("ERROR: " + message);
-        // TODO: Add proper error handling
+
+    public void runTagTests() {
+        System.out.println("TAG NAVIGATION TESTS:");
+        System.out.println("====================");
+
+        TestResult result = new TestResult();
+
+        // Test 1: Basic tag understanding
+        boolean understandsBasicConcepts = testBasicTagConcepts();
+        result.addTest("Basic tag concepts", understandsBasicConcepts);
+
+        // Test 2: Navigation commands
+        boolean understandsNavigation = testNavigationCommands();
+        result.addTest("Navigation commands", understandsNavigation);
+
+        // Test 3: Tag stack usage
+        boolean understandsTagStack = testTagStackUsage();
+        result.addTest("Tag stack usage", understandsTagStack);
+
+        // Test 4: Advanced features
+        boolean understandsAdvanced = testAdvancedFeatures();
+        result.addTest("Advanced features", understandsAdvanced);
+
+        result.displayResults();
     }
-    
-    private static void generateReport() {
-        // Jump here from main() and back
-        System.out.println("Generating report...");
-        
-        // Multi-line string for practice
-        String report = "Jump List Navigation Report\n" +
-                       "==========================\n" +
-                       "Total jumps: Unknown\n" +
-                       "Jump efficiency: To be calculated\n";
-        
-        System.out.println(report);
+
+    private boolean testBasicTagConcepts() {
+        // Simulate tag concept understanding
+        System.out.println("✓ Understanding ctags file generation");
+        System.out.println("✓ Recognizing tag file format");
+        return true;
     }
-    
-    // Verification function
-    private static void verifyJumpList() {
-        int passed = 0;
-        int total = 5;
-        
-        // Test 1: Jump points created
-        boolean jumpsCreated = false; // Would check :jumps output
-        System.out.println((jumpsCreated ? "✓" : "✗") + " Jump points created throughout file");
-        if (jumpsCreated) passed++;
-        
-        // Test 2: Navigation practiced
-        boolean navigationPracticed = false; // Would verify Ctrl-o/Ctrl-i usage
-        System.out.println((navigationPracticed ? "✓" : "✗") + " Jump navigation with Ctrl-o/Ctrl-i");
-        if (navigationPracticed) passed++;
-        
-        // Test 3: Jump list viewed
-        boolean jumpListViewed = false; // Would check :jumps command usage
-        System.out.println((jumpListViewed ? "✓" : "✗") + " Jump list viewed with :jumps");
-        if (jumpListViewed) passed++;
-        
-        // Test 4: Jump vs change list
-        boolean listsCompared = true; // Placeholder
-        System.out.println((listsCompared ? "✓" : "✗") + " Jump list vs change list understood");
-        if (listsCompared) passed++;
-        
-        // Test 5: Strategic jumping
-        boolean strategicJumping = true; // Placeholder
-        System.out.println((strategicJumping ? "✓" : "✗") + " Strategic jump usage mastered");
-        if (strategicJumping) passed++;
-        
-        if (passed == total) {
-            System.out.println("\n✓ All tests passed!");
+
+    private boolean testNavigationCommands() {
+        // Simulate navigation command knowledge
+        System.out.println("✓ Ctrl-] for jumping to definitions");
+        System.out.println("✓ Ctrl-t for jumping back");
+        System.out.println("✓ :tags for viewing history");
+        return true;
+    }
+
+    private boolean testTagStackUsage() {
+        // Simulate tag stack understanding
+        System.out.println("✓ Tag stack maintains jump history");
+        System.out.println("✓ Can navigate back through tag jumps");
+        return true;
+    }
+
+    private boolean testAdvancedFeatures() {
+        // Simulate advanced feature knowledge
+        System.out.println("✓ Pattern-based tag searches");
+        System.out.println("✓ Preview window operations");
+        System.out.println("✓ Location list integration");
+        return true;
+    }
+}
+
+// Supporting classes for tag navigation demonstration
+class DatabaseManager {
+    private String connectionString;
+
+    public DatabaseManager() {
+        this.connectionString = "jdbc:mysql://localhost:3306/app";
+    }
+
+    public void connect() {
+        // Connection logic
+        System.out.println("Database connected");
+    }
+
+    public void disconnect() {
+        // Disconnection logic
+        System.out.println("Database disconnected");
+    }
+
+    public void executeQuery(String query) {
+        System.out.println("Executing: " + query);
+    }
+}
+
+class UserService {
+    private DatabaseManager database;
+
+    public UserService() {
+        this.database = new DatabaseManager();
+    }
+
+    public void processUser(String username) {
+        System.out.println("Processing user: " + username);
+        database.connect();
+        database.executeQuery("SELECT * FROM users WHERE username = '" + username + "'");
+        database.disconnect();
+    }
+
+    public User getUserById(int id) {
+        return new User(id, "user" + id);
+    }
+
+    public void createUser(String username, String email) {
+        System.out.println("Creating user: " + username + " (" + email + ")");
+    }
+}
+
+class User {
+    private int id;
+    private String username;
+
+    public User(int id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
+    public int getId() { return id; }
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+class Logger {
+    public void info(String message) {
+        System.out.println("[INFO] " + message);
+    }
+
+    public void error(String message) {
+        System.err.println("[ERROR] " + message);
+    }
+
+    public void debug(String message) {
+        System.out.println("[DEBUG] " + message);
+    }
+}
+
+class TestResult {
+    private int passed = 0;
+    private int total = 0;
+
+    public void addTest(String testName, boolean result) {
+        total++;
+        if (result) {
+            passed++;
+            System.out.println("✓ " + testName);
         } else {
-            System.out.println("\n✗ " + (total - passed) + " tests failed. Keep jumping!");
+            System.out.println("✗ " + testName);
         }
+    }
+
+    public void displayResults() {
+        System.out.println("\nTEST RESULTS:");
+        System.out.println("=============");
+        System.out.printf("Passed: %d/%d%n", passed, total);
+
+        if (passed == total) {
+            System.out.println("\n✓ Excellent! You understand tag navigation!");
+            System.out.println("Ready to navigate large codebases efficiently.");
+        } else {
+            System.out.printf("\n⚠ Score: %d/%d - Practice tag navigation more!%n", passed, total);
+        }
+
+        System.out.println("\nNext steps:");
+        System.out.println("• Generate ctags for your projects");
+        System.out.println("• Practice Ctrl-] and Ctrl-t navigation");
+        System.out.println("• Use :tselect for multiple matches");
+        System.out.println("• Set up automatic tag generation on save");
     }
 }

@@ -1,69 +1,203 @@
 /*
 Welcome to Day 7 of your Vim challenge!
 
-Today we'll learn about searching and replacing.
+VISUAL MODE - Select and manipulate text efficiently!
 
 New keys for today:
-    - `/text`: Search for "text".
-    - `?text`: Search backwards for "text".
-    - `n`: Go to the next match.
-    - `N`: Go to the previous match.
-    - `:%s/old/new/g`: Replace all occurrences of "old" with "new".
-    - `:%s/old/new/gc`: Replace all occurrences of "old" with "new" with confirmation.
+    - `v`: Enter character visual mode
+    - `V`: Enter line visual mode
+    - `Ctrl-v`: Enter block visual mode
+    - `o`: Switch cursor to other end of selection
+    - `O`: Switch corner in block mode
+    - `>`: Indent selection
+    - `<`: Unindent selection
+    - `=`: Auto-format selection
+    - `~`: Toggle case of selection
+    - `d`: Delete selection
+    - `c`: Change selection
+    - `y`: Yank selection
+    - `p`: Replace selection with paste
+    - `gv`: Reselect last visual selection
+    - `ESC`: Exit visual mode
 
 REMINDERS - Keys from previous days:
-    Day 6: Visual mode - `v` (visual), `V` (visual line), `Ctrl-v` (visual block)
-    Day 6: Indentation - `>` (indent), `<` (un-indent), `=` (auto-indent)
-    Day 5: Search - `/`, `?`, `n`, `N` (already covered again today!)
-    Day 4: Repeat - `.` (repeat last change), counts like `3w`, `2dd`
-    Day 3: Yank/paste - `yy`, `p`, `P`
+    Day 6: Insert mode - `i`, `a`, `I`, `A`, `o`, `O`, `Ctrl-w/u/o`
+    Day 5: Character navigation - `f`, `F`, `t`, `T`, `%`, `;`, `,`
+    Day 4: Yank/paste/undo - `yy`, `p`, `P`, `u`, `Ctrl-r`
+    Day 3: Delete/change - `dw`, `cw`, `dd`, `cc`, `D`, `C`
+    Day 2: Advanced navigation - `gg`, `G`, `Ctrl-d/u`, `H/M/L`
+    Day 1: Basic movement - `w`, `b`, `e`, `0`, `$`
 
 Your tasks:
-1. Replace all occurrences of "bug" with "feature"
-2. Replace all "FIXME" with "TODO"
-3. Fix all misspelled "teh" to "the"
+1. Use visual mode to select and delete text
+2. Use visual line mode for full-line operations
+3. Use visual block mode for column editing
+4. Practice indentation with visual selection
+5. Use visual mode with text operations
+6. Master visual mode combinations
 */
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== Vim Challenge Day 7 ===\n");
+        int passed = 0;
+        int total = 6;
 
-        // Task 1: Replace bug with feature
-        String message1 = "This is a bug in the code";
-        String message2 = "Another bug was found";
-        String message3 = "No more bugs please";
-
-        // Task 2: Replace FIXME with TODO
-        // FIXME: This needs attention
-        // FIXME: Update this logic
-        String fixmeCount = "FIXME: 2";  // Should show TODO: 2 after replacements
-
-        // Task 3: Fix misspellings
-        String text1 = "teh quick brown fox";
-        String text2 = "This is teh best";
-        String text3 = "Check teh documentation";
-
-        // Tests
-        boolean task1Pass = !message1.contains("bug") && message1.contains("feature") &&
-                           !message2.contains("bug") && message2.contains("feature") &&
-                           !message3.contains("bug") && message3.contains("feature");
-
-        boolean task3Pass = text1.contains("the") && !text1.contains("teh") &&
-                           text2.contains("the") && !text2.contains("teh") &&
-                           text3.contains("the") && !text3.contains("teh");
-
-        if (task1Pass) {
-            System.out.println("✓ Task 1 passed!");
+        // Run all tests
+        if (task1_visual_delete().equals("Keep this part only")) {
+            System.out.println("✓ Task 1: Visual mode delete successful");
+            passed++;
         } else {
-            System.out.println("✗ Task 1 failed. Still contains 'bug' instead of 'feature'");
+            System.out.println("✗ Task 1: Use v to select 'DELETE THIS' and press d");
         }
 
-        System.out.println("✓ Task 2: Manual check - verify FIXME comments are now TODO");
-
-        if (task3Pass) {
-            System.out.println("✓ Task 3 passed!");
+        if (task2_visual_line()) {
+            System.out.println("✓ Task 2: Visual line mode successful");
+            passed++;
         } else {
-            System.out.println("✗ Task 3 failed. Still contains 'teh' instead of 'the'");
+            System.out.println("✗ Task 2: Use V to select entire lines and delete");
         }
+
+        if (task3_visual_block()) {
+            System.out.println("✓ Task 3: Visual block mode successful");
+            passed++;
+        } else {
+            System.out.println("✗ Task 3: Use Ctrl-v to select column and edit");
+        }
+
+        if (task4_indentation()) {
+            System.out.println("✓ Task 4: Visual indentation successful");
+            passed++;
+        } else {
+            System.out.println("✗ Task 4: Use v or V to select, then > to indent");
+        }
+
+        if (task5_visual_operations()) {
+            System.out.println("✓ Task 5: Visual operations successful");
+            passed++;
+        } else {
+            System.out.println("✗ Task 5: Practice visual mode with y, c, ~");
+        }
+
+        if (task6_advanced_visual()) {
+            System.out.println("✓ Task 6: Advanced visual mode successful");
+            passed++;
+        } else {
+            System.out.println("✗ Task 6: Use gv to reselect, o to switch ends");
+        }
+
+        System.out.println("\nDay 7 Progress: " + passed + "/" + total + " tasks completed\n");
+
+        if (passed == total) {
+            System.out.println("🎉 Excellent! You've mastered visual mode!");
+            System.out.println("Visual mode is one of Vim's most powerful features for text manipulation.");
+            System.exit(0);
+        } else {
+            System.out.println("Keep practicing! Master v, V, Ctrl-v, and visual operations");
+            System.out.println("Tip: Visual mode + operators = powerful text manipulation!");
+            System.exit(1);
+        }
+    }
+
+    // TASK 1: Use visual mode to delete part of string
+    static String task1_visual_delete() {
+        // Use v to select "DELETE THIS " and delete it
+        String text = "Keep this DELETE THIS part only";
+        return text;
+    }
+
+    // TASK 2: Use visual line mode
+    static boolean task2_visual_line() {
+        // Use V to select entire lines for deletion
+        String[] lines = {
+            "keep this line",
+            "DELETE THIS ENTIRE LINE",
+            "keep this too",
+            "DELETE THIS ENTIRE LINE ALSO",
+            "keep this as well"
+        };
+
+        // After deletion, should have only 3 lines
+        return lines.length == 3 &&
+               lines[0].equals("keep this line") &&
+               lines[1].equals("keep this too") &&
+               lines[2].equals("keep this as well");
+    }
+
+    // TASK 3: Use visual block mode
+    static boolean task3_visual_block() {
+        // Use Ctrl-v to select the '#' column and replace with '//'
+        String[] code = {
+            "#include <stdio.h>",
+            "#include <stdlib.h>",
+            "#include <string.h>"
+        };
+
+        // Should become:
+        String[] expected = {
+            "//include <stdio.h>",
+            "//include <stdlib.h>",
+            "//include <string.h>"
+        };
+
+        return java.util.Arrays.equals(code, expected);
+    }
+
+    // TASK 4: Fix indentation using visual mode
+    static boolean task4_indentation() {
+        // Select these lines with V and indent with >
+        String code =
+            "if (true) {\n" +
+            "System.out.println(\"Line 1\");\n" +  // Needs indent
+            "System.out.println(\"Line 2\");\n" +  // Needs indent
+            "System.out.println(\"Line 3\");\n" +  // Needs indent
+            "}";
+
+        String expected =
+            "if (true) {\n" +
+            "    System.out.println(\"Line 1\");\n" +
+            "    System.out.println(\"Line 2\");\n" +
+            "    System.out.println(\"Line 3\");\n" +
+            "}";
+
+        return code.equals(expected);
+    }
+
+    // TASK 5: Various visual operations
+    static boolean task5_visual_operations() {
+        // Task 5a: Use visual mode and ~ to toggle case
+        String text1 = "make THIS lowercase";  // Should become "MAKE this LOWERCASE"
+
+        // Task 5b: Use visual mode to yank and duplicate
+        String text2 = "duplicate";  // Should become "duplicateduplicate"
+
+        // Task 5c: Use visual mode to change text
+        String text3 = "change OLD to NEW";  // Should become "change NEW to NEW"
+
+        return text1.equals("MAKE this LOWERCASE") &&
+               text2.equals("duplicateduplicate") &&
+               text3.equals("change NEW to NEW");
+    }
+
+    // TASK 6: Advanced visual techniques
+    static boolean task6_advanced_visual() {
+        // Practice these techniques:
+        // 1. Select text, ESC, then gv to reselect
+        // 2. Select text, use o to jump to other end
+        // 3. Visual block: select column, I to insert at beginning
+
+        // Add "* " to beginning of each line using Ctrl-v, I
+        String[] list = {
+            "Item 1",
+            "Item 2",
+            "Item 3"
+        };
+
+        String[] expected = {
+            "* Item 1",
+            "* Item 2",
+            "* Item 3"
+        };
+
+        return java.util.Arrays.equals(list, expected);
     }
 }

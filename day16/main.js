@@ -1,177 +1,232 @@
 /*
 Welcome to Day 16 of your Vim challenge!
 
-FOLDING - Organize your code by hiding complexity!
-Today's focus: Using Vim's folding features to manage large files
+WINDOWS - Split your workspace and work efficiently!
+Today's focus: Managing multiple windows in Vim for better productivity
 
 New commands for today:
-    - `zf{motion}` - Create a fold (e.g., `zfap` for paragraph, `zf5j` for 5 lines)
-    - `za` - Toggle fold (open/close)
-    - `zo` - Open fold
-    - `zc` - Close fold
-    - `zO` - Open fold recursively
-    - `zC` - Close fold recursively
-    - `zd` - Delete fold
-    - `zE` - Delete all folds
-    - `zR` - Open all folds
-    - `zM` - Close all folds
-    - `zr` - Reduce folding level by one
-    - `zm` - More folding level by one
-    - `zj` - Move to next fold
-    - `zk` - Move to previous fold
-    - `:set foldmethod=manual/indent/syntax/marker`
+    - `:split` or `:sp` - Split window horizontally
+    - `:vsplit` or `:vsp` - Split window vertically
+    - `Ctrl-w w` - Move to next window
+    - `Ctrl-w h/j/k/l` - Move to window left/down/up/right
+    - `Ctrl-w H/J/K/L` - Move current window to left/down/up/right
+    - `Ctrl-w =` - Make all windows equal size
+    - `Ctrl-w _` - Maximize current window height
+    - `Ctrl-w |` - Maximize current window width
+    - `Ctrl-w c` - Close current window
+    - `Ctrl-w o` - Close all windows except current
+    - `Ctrl-w s` - Split horizontally (same as :split)
+    - `Ctrl-w v` - Split vertically (same as :vsplit)
+    - `:resize N` - Resize window to N lines
+    - `:vertical resize N` - Resize window to N columns
 
 REMINDERS - Keys from previous days:
-    Day 15: Command history - `q:`, `q/`, `Ctrl-f`
-    Day 14: Autocomplete - `Ctrl-n`, `Ctrl-p`
-    Day 13: Windows - `:split`, `:vsplit`, `Ctrl-w w`
-    Day 12: Global commands - `:g/pattern/d`
-    Day 11: Marks - `ma`, `'a`
-    Day 10: Visual mode practice
-    Day 9: Text objects - `ap`, `ip`, `i{`, `a{`
-    Day 8: Macros - `qa`, `@a`
-    Day 7: Replace - `:%s/old/new/g`
-    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
-    Day 5: Search - `/pattern`, `n`, `N`
-    Day 4: Repeat - `.`, `3w`, `2dd`
-    Day 3: Yank/paste - `yy`, `p`, `P`
-    Day 2: Delete/change - `dw`, `cw`
-    Day 1: Movement - `w`, `b`, `e`, `0`, `$`
+    Day 15: Buffers - `:ls`, `:b <name>`, `:bn/:bp`
+    Day 14: Visual mode mastery - `gv`, `o` in visual mode
+    Day 13: Registers - `"ay`, `"ap`, `"+`
+    Day 12: Marks & jumps - `ma`, `'a`, `Ctrl-o/Ctrl-i`
+    Day 11: Advanced text objects - `ip`, `ap`, `it`, `at`
+    Day 10: Text objects intro - `iw`, `aw`, `i"`, `a"`
+    Day 9: Repeat & counts - `.`, `3w`, `2dd`
+    Day 8: Search & replace - `/`, `n`, `:%s//g`
+    Day 7: Visual mode basics - `v`, `V`, `Ctrl-v`
 
 Your tasks for Day 16:
-1. Create folds for each major function (use `zf` with visual mode or motion)
-2. Add fold markers to the configuration object sections
-3. Create a fold for the entire test suite section
-4. Practice navigating between folds using `zj` and `zk`
-5. Use `zM` to close all folds, then selectively open the ones you need
+1. Open multiple files in different windows using splits
+2. Practice window navigation with Ctrl-w commands
+3. Reorganize window layout by moving windows around
+4. Resize windows to optimize your workspace
+5. Use window commands to manage a multi-file editing session
+6. Practice closing and opening windows efficiently
 */
 
-console.log("=== Vim Challenge Day 16 ===\n");
+console.log("=== Vim Challenge Day 16: Windows ===\n");
 
-// Task 1: Create a fold for this entire utility section{{{{{{{{{
-// Utility Functions
-function validateInput(input) {
-  if (!input || typeof input !== "string") {
-    throw new Error("Invalid input: must be a non-empty string");
-  }
-  return input.trim();
-}
-// }}}
-function processData(data) {
-  // {{{
-  const validated = validateInput(data);
-  return validated.split(",").map((item) => item.trim());
-}
-// }}}
-function formatOutput(items) {
-  // {{{
-  return items.map((item, index) => `${index + 1}. ${item}`).join("\n");
-} // }}}
+// Task 1: Practice splitting this file into multiple windows
+// Use :split to open this file in a horizontal split
+// Use :vsplit to open this file in a vertical split
+console.log("Task 1: Window splitting practice");
 
-// Task 2: Add fold markers to organize this configuration
-const config = {
-  // Database settings {{{
-  database: {
-    host: "localhost",
-    port: 5432,
-    name: "myapp",
-    user: "admin",
-    password: "secret",
-  },
-  // }}}
-
-  // Server settings - needs fold markers{{{
-  server: {
-    port: 3000,
-    host: "0.0.0.0",
-    ssl: false,
-    compression: true,
-  },
-  // }}}
-
-  // Logging settings - needs fold markers  {{{
-  logging: {
-    level: "info",
-    format: "json",
-    destination: "stdout",
-  },
-};
-// }}}
-// Task 1: Create a fold for this main application class
-class Application {
-  // {{{
-  constructor(config) {
-    this.config = config;
-    this.data = [];
-  }
-  // }}}
-  initialize() {
-    console.log("Initializing application...");
-    this.connectDatabase();
-    this.startServer();
-  }
-  // }}}
-  connectDatabase() {
-    const { host, port, name } = this.config.database;
-    console.log(`Connecting to ${name} at ${host}:${port}`);
-  }
-
-  startServer() {
-    const { port, host } = this.config.server;
-    console.log(`Starting server on ${host}:${port}`);
-  }
-
-  processRequest(request) {
-    try {
-      const data = processData(request);
-      const formatted = formatOutput(data);
-      return { success: true, result: formatted };
-    } catch (error) {
-      return { success: false, error: error.message };
+// Configuration for our multi-window demo
+const windowConfig = {
+    layout: "grid",
+    defaultSize: "equal",
+    navigation: "ctrl-w",
+    shortcuts: {
+        split_horizontal: ":split",
+        split_vertical: ":vsplit",
+        move_next: "Ctrl-w w",
+        move_directions: "Ctrl-w h/j/k/l",
+        equalize: "Ctrl-w =",
+        maximize_height: "Ctrl-w _",
+        maximize_width: "Ctrl-w |"
     }
-  }
-} // }}}
+};
 
-// Task 3: Create a fold for this entire test suite
-// Test Suite
-function runTests() {
-  // {{{
-  let testsPassed = 0;
-  const totalTests = 5;
+// Task 2: Window navigation functions
+// Navigate between these functions using window commands
+function windowNavigationDemo() {
+    console.log("Practicing window navigation:");
+    console.log("- Use Ctrl-w w to cycle through windows");
+    console.log("- Use Ctrl-w h/j/k/l for directional movement");
+    console.log("- Practice moving between different window splits");
 
-  // Test 1: Check if folds are created
-  const foldsCreated = true; // Would check if folds exist
-  console.log(`${foldsCreated ? "✓" : "✗"} Folds created for functions`);
-  if (foldsCreated) testsPassed++;
+    return {
+        tip: "Keep your hands on home row - Ctrl-w combos are fast!",
+        practice: "Split this file multiple ways and navigate between them"
+    };
+}
 
-  // Test 2: Check fold markers
-  const foldMarkersAdded = config.database && true; // Check if markers exist
-  console.log(`${foldMarkersAdded ? "✓" : "✗"} Fold markers added to config`);
-  if (foldMarkersAdded) testsPassed++;
+// Task 3: Window layout management
+function windowLayoutManager() {
+    console.log("Window layout management:");
+    console.log("- Use Ctrl-w = to make all windows equal size");
+    console.log("- Use Ctrl-w _ to maximize current window height");
+    console.log("- Use Ctrl-w | to maximize current window width");
 
-  // Test 3: Check test suite fold
-  const testSuiteFolded = true; // Would check if this section is foldable
-  console.log(`${testSuiteFolded ? "✓" : "✗"} Test suite fold created`);
-  if (testSuiteFolded) testsPassed++;
+    const layouts = [
+        { name: "equal", command: "Ctrl-w =" },
+        { name: "maximize_height", command: "Ctrl-w _" },
+        { name: "maximize_width", command: "Ctrl-w |" }
+    ];
 
-  // Test 4: Navigation practice
-  const navigationPracticed = true; // Placeholder
-  console.log(`${navigationPracticed ? "✓" : "✗"} Fold navigation practiced`);
-  if (navigationPracticed) testsPassed++;
+    return layouts;
+}
 
-  // Test 5: Fold manipulation
-  const foldManipulation = true; // Placeholder
-  console.log(`${foldManipulation ? "✓" : "✗"} Fold open/close practiced`);
-  if (foldManipulation) testsPassed++;
+// Task 4: Window positioning
+function windowPositioning() {
+    console.log("Moving windows around:");
+    console.log("- Use Ctrl-w H to move window to far left");
+    console.log("- Use Ctrl-w J to move window to bottom");
+    console.log("- Use Ctrl-w K to move window to top");
+    console.log("- Use Ctrl-w L to move window to far right");
 
-  if (testsPassed === totalTests) {
-    console.log("\n✓ All tests passed!");
-  } else {
-    console.log(
-      `\n✗ ${totalTests - testsPassed} tests failed. Keep practicing folding!`,
-    );
-  }
-} // }}}
+    const positions = {
+        left: "Ctrl-w H",
+        bottom: "Ctrl-w J",
+        top: "Ctrl-w K",
+        right: "Ctrl-w L"
+    };
 
-// Run the tests
-runTests();
+    return positions;
+}
+
+// Task 5: Multi-file editing simulation
+class MultiFileEditor {
+    constructor() {
+        this.files = [
+            "main.js",
+            "config.js",
+            "utils.js",
+            "tests.js"
+        ];
+        this.currentWindow = 0;
+    }
+
+    // Simulate opening files in different windows
+    openInNewWindow(filename) {
+        console.log(`Opening ${filename} in new window`);
+        console.log("Commands to try:");
+        console.log("- :split " + filename);
+        console.log("- :vsplit " + filename);
+        console.log("- Navigate with Ctrl-w w");
+
+        return `${filename} opened in window ${++this.currentWindow}`;
+    }
+
+    // Task 6: Window closing practice
+    closeWindow(windowId) {
+        console.log(`Closing window ${windowId}`);
+        console.log("Window close commands:");
+        console.log("- Ctrl-w c to close current window");
+        console.log("- Ctrl-w o to close all except current");
+        console.log("- :close or :q to close current window");
+
+        return `Window ${windowId} closed`;
+    }
+
+    // Demonstrate window workflow
+    demonstrateWorkflow() {
+        console.log("\nWindow workflow demonstration:");
+        console.log("1. :vsplit to create vertical split");
+        console.log("2. :split to create horizontal split in right pane");
+        console.log("3. Use Ctrl-w navigation to move around");
+        console.log("4. Use Ctrl-w = to balance window sizes");
+        console.log("5. Use Ctrl-w H/J/K/L to rearrange layout");
+
+        return "Workflow complete!";
+    }
+}
+
+// Task completion tracking
+class WindowTasks {
+    constructor() {
+        this.tasks = [
+            "Split windows horizontally and vertically",
+            "Navigate between windows with Ctrl-w commands",
+            "Move windows to different positions",
+            "Resize and balance window layouts",
+            "Practice multi-file window management",
+            "Master window closing techniques"
+        ];
+        this.completed = [];
+    }
+
+    completeTask(taskIndex) {
+        if (taskIndex < this.tasks.length) {
+            this.completed.push(this.tasks[taskIndex]);
+            console.log(`✓ Completed: ${this.tasks[taskIndex]}`);
+        }
+    }
+
+    showProgress() {
+        console.log(`\nProgress: ${this.completed.length}/${this.tasks.length} tasks completed`);
+        if (this.completed.length === this.tasks.length) {
+            console.log("🎉 All window management tasks completed!");
+            console.log("You're now ready for advanced multi-window workflows!");
+        }
+    }
+}
+
+// Run the window management demo
+function runWindowDemo() {
+    console.log("\n=== Window Management Demo ===");
+
+    // Initialize our demo
+    const editor = new MultiFileEditor();
+    const tasks = new WindowTasks();
+
+    // Demonstrate each task
+    console.log("\n1. Window Navigation:");
+    windowNavigationDemo();
+    tasks.completeTask(1);
+
+    console.log("\n2. Layout Management:");
+    windowLayoutManager();
+    tasks.completeTask(3);
+
+    console.log("\n3. Window Positioning:");
+    windowPositioning();
+    tasks.completeTask(2);
+
+    console.log("\n4. Multi-file Workflow:");
+    editor.demonstrateWorkflow();
+    tasks.completeTask(4);
+
+    // Show final progress
+    tasks.showProgress();
+
+    console.log("\n=== Practice Instructions ===");
+    console.log("1. Open this file with: vim main.js");
+    console.log("2. Try :vsplit to create a vertical split");
+    console.log("3. Try :split in the right pane for horizontal split");
+    console.log("4. Practice Ctrl-w navigation between windows");
+    console.log("5. Use Ctrl-w = to balance, then Ctrl-w _ to maximize");
+    console.log("6. Try Ctrl-w H/J/K/L to move windows around");
+    console.log("7. Use Ctrl-w c and Ctrl-w o to close windows");
+
+    return "Window management practice complete!";
+}
+
+// Run the demo
+runWindowDemo();

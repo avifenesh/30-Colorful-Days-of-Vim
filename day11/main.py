@@ -1,117 +1,276 @@
 """
 Welcome to Day 11 of your Vim challenge!
 
-Today's focus: Marks - Setting bookmarks and jumping between them
+ADVANCED TEXT OBJECTS - Master paragraph, sentence, and tag selection!
 
-New commands to learn:
-    - `ma`: Set mark 'a' at the current cursor position
-    - `` `a ``: Jump to mark 'a' (exact position)
-    - `'a`: Jump to the beginning of the line where mark 'a' was set
-    - `` `. ``: Jump to the last change
-    - `''`: Jump to the beginning of the line of the last jump
+New text objects for today:
+    - `ip`: Inner paragraph (paragraph content)
+    - `ap`: A paragraph (including blank lines)
+    - `is`: Inner sentence
+    - `as`: A sentence (including trailing space)
+    - `it`: Inner tag (HTML/XML content)
+    - `at`: A tag (including tags themselves)
+    - `i>` / `i<`: Inner angle brackets
+    - `a>` / `a<`: A angle brackets
+    - `i` ` `: Inner backticks
+    - `a` ` `: A backticks
+
+Advanced combinations:
+    - `dip`: Delete inner paragraph
+    - `cis`: Change inner sentence
+    - `yat`: Yank entire HTML tag
+    - `vi` ` `: Visual select inside backticks
+    - `2dip`: Delete 2 paragraphs
+    - `das`: Delete a sentence
+
+Pro tips:
+    - Paragraphs are separated by blank lines
+    - Sentences end with . ! or ? followed by space/newline
+    - Tags work with HTML/XML structure
+    - Can be combined with counts
 
 REMINDERS - Keys from previous days:
-    Day 10: Visual mode - `v` (char), `V` (line), `Ctrl+v` (block)
-    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(` (combine with d, c, y!)
-    Day 8: Macros - `qa` (record to a), `q` (stop), `@a` (play), `@@` (repeat)
-    Day 7: Replace - `:%s/old/new/g`, `/text` (search), `n`/`N` (next/prev)
-    Day 3: Yank/paste - `yy`, `p`, `P`
+    Day 10: Basic text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(`
+    Day 9: Repeat/counts - `.`, `3w`, `2dd`
+    Day 8: Search/replace - `/`, `?`, `:s`, `:%s`
+    Day 7: Visual mode - `v`, `V`, `Ctrl-v`
 
-Your tasks for Day 11:
-1. Set mark 'b' at the TODO marker in calculate_score function
-2. Set mark 'a' at the FIXME line in validate_input function
-3. Jump back to mark 'b' and fix the return value (should be score not 0)
-4. Jump to mark 'a' and fix the condition (should be >= not <=)
-5. Use `` `. `` to jump between your last changes to verify both fixes
+Your tasks:
+1. Master paragraph text objects
+2. Work with sentence objects
+3. Handle HTML/XML tags
+4. Practice with code blocks
+5. Combine with counts
+6. Real-world scenarios
 """
 
-def calculate_score(items):
-    """Calculate total score from items"""
-    score = 0
-    for item in items:
-        score += item * 2
-    # TODO: Fix the return value here (set mark 'b' here)
-    return score
+
+def task1_paragraph_objects():
+    """TASK 1: Use paragraph text objects
+
+    Use dip to delete inner paragraph content
+    Use dap to delete entire paragraph including blank lines
+    """
+
+    text = """
+First paragraph here.
+This is still part of the first paragraph.
+
+Second paragraph starts here.
+This continues the second paragraph.
+DELETE THIS ENTIRE PARAGRAPH.
+
+Third paragraph remains.
+This should stay.
+    """
+
+    # After using dip on middle paragraph:
+    # Blank lines remain
+
+    # After using dap on middle paragraph:
+    # Blank lines also deleted
+
+    return "paragraph deleted"
 
 
-def validate_input(value):
-    """Validate that input is positive"""
-    # FIXME: The condition below is wrong (set mark 'a' here)
-    if value >= 0:  # Should check if value is >= 0
-        return True
-    return False
+def task2_sentence_objects():
+    """TASK 2: Use sentence text objects
+
+    Use cis to change inner sentence
+    Use das to delete entire sentence
+    """
+
+    paragraph = (
+        "First sentence here. DELETE THIS SENTENCE. "
+        "Third sentence stays. Another one remains."
+    )
+
+    # Position on "DELETE THIS SENTENCE" and use dis or das
+    # Result: "First sentence here.  Third sentence stays. Another one remains."
+
+    return "sentence operations complete"
 
 
-def process_data(data):
-    """Process data and return results"""
-    results = []
-    for item in data:
-        if validate_input(item):
-            score = calculate_score([item])
-            results.append(score)
-    return results
+def task3_html_tag_objects():
+    """TASK 3: Use tag text objects for HTML/XML
+
+    Use cit to change inner tag content
+    Use dat to delete entire tag
+    """
+
+    html = """
+    <div>
+        <p>Keep this paragraph</p>
+        <p>DELETE THIS CONTENT</p>
+        <span>Keep this too</span>
+    </div>
+    """
+
+    # Position inside second <p> tag and use cit
+    # Changes content but keeps tags
+
+    # Use dat to delete entire tag including <p></p>
+
+    return "tags handled"
 
 
-# Test functions - DO NOT EDIT BELOW THIS LINE
-def test_calculate_score():
-    """Test the calculate_score function"""
-    test_items = [1, 2, 3, 4, 5]
-    result = calculate_score(test_items)
-    expected = 30  # (1+2+3+4+5) * 2 = 30
+def task4_code_block_objects():
+    """TASK 4: Work with code blocks using braces and backticks
 
-    if result == expected:
-        print("✓ calculate_score test passed!")
-        return True
+    Use di{ for inner block
+    Use da` for backtick content
+    """
+
+    code = """
+    function example() {
+        // DELETE ALL THIS
+        // BLOCK CONTENT
+        // WITH di{
+    }
+    """
+
+    markdown = "`delete this code` but keep this"
+
+    # Use di{ inside function to clear it
+    # Use da` to delete backticks and content
+
+    return "blocks processed"
+
+
+def task5_count_combinations():
+    """TASK 5: Combine counts with advanced text objects
+
+    Use 2dip to delete 2 paragraphs
+    Use 3dis to delete 3 sentences
+    """
+
+    multi_paragraphs = """
+Paragraph 1 content.
+More of paragraph 1.
+
+Paragraph 2 content.
+More of paragraph 2.
+
+Paragraph 3 content.
+More of paragraph 3.
+
+Paragraph 4 remains.
+    """
+
+    # Position at start and use 2dap to delete first 2 paragraphs
+
+    multi_sentences = (
+        "Delete one. Delete two. Delete three. "
+        "Keep four. Keep five."
+    )
+
+    # Use 3dis to delete first 3 sentences
+
+    return "count combinations work"
+
+
+def task6_real_world_scenarios():
+    """TASK 6: Real-world text object usage
+
+    Refactor code, edit documentation, clean HTML
+    """
+
+    # Scenario 1: Refactor function body
+    def old_function():
+        # Use di{ to delete all and rewrite
+        old_code = "replace"
+        more_old = "all this"
+        return "stuff"
+
+    # Scenario 2: Edit markdown documentation
+    markdown_doc = """
+## Section 1
+This paragraph needs to be completely rewritten.
+Use dap to delete it all at once.
+
+## Section 2
+This sentence is wrong. This one is correct. Fix using dis.
+    """
+
+    # Scenario 3: Clean up HTML
+    html_cleanup = """
+    <article>
+        <header>Title</header>
+        <p>Content to keep</p>
+        <aside>DELETE THIS ENTIRE ASIDE</aside>
+        <footer>Keep footer</footer>
+    </article>
+    """
+
+    return "real world complete"
+
+
+# Test runner
+def run_tests():
+    passed = 0
+    total = 6
+
+    # Test 1
+    result1 = task1_paragraph_objects()
+    if result1 == "paragraph deleted":
+        print("✓ Task 1: Paragraph objects mastered")
+        passed += 1
     else:
-        print(f"✗ calculate_score test failed! Expected {expected}, got {result}")
-        return False
+        print("✗ Task 1: Practice dip and dap for paragraphs")
 
-
-def test_validate_input():
-    """Test the validate_input function"""
-    test_cases = [
-        (5, True),    # Positive number should be valid
-        (0, True),    # Zero should be valid
-        (-1, False),  # Negative should be invalid
-    ]
-
-    all_passed = True
-    for value, expected in test_cases:
-        result = validate_input(value)
-        if result != expected:
-            print(f"✗ validate_input({value}) failed! Expected {expected}, got {result}")
-            all_passed = False
-
-    if all_passed:
-        print("✓ validate_input test passed!")
-    return all_passed
-
-
-def test_process_data():
-    """Test the complete data processing"""
-    test_data = [1, -2, 3, 0, 5]
-    result = process_data(test_data)
-    expected = [2, 6, 0, 10]  # Only positive values processed: [1*2, 3*2, 0*2, 5*2]
-
-    if result == expected:
-        print("✓ process_data test passed!")
-        return True
+    # Test 2
+    result2 = task2_sentence_objects()
+    if result2 == "sentence operations complete":
+        print("✓ Task 2: Sentence objects mastered")
+        passed += 1
     else:
-        print(f"✗ process_data test failed! Expected {expected}, got {result}")
-        return False
+        print("✗ Task 2: Practice dis and das for sentences")
+
+    # Test 3
+    result3 = task3_html_tag_objects()
+    if result3 == "tags handled":
+        print("✓ Task 3: HTML tag objects mastered")
+        passed += 1
+    else:
+        print("✗ Task 3: Practice dit and dat for HTML tags")
+
+    # Test 4
+    result4 = task4_code_block_objects()
+    if result4 == "blocks processed":
+        print("✓ Task 4: Code block objects mastered")
+        passed += 1
+    else:
+        print("✗ Task 4: Practice with braces and backticks")
+
+    # Test 5
+    result5 = task5_count_combinations()
+    if result5 == "count combinations work":
+        print("✓ Task 5: Count combinations mastered")
+        passed += 1
+    else:
+        print("✗ Task 5: Combine counts with text objects")
+
+    # Test 6
+    result6 = task6_real_world_scenarios()
+    if result6 == "real world complete":
+        print("✓ Task 6: Real-world scenarios mastered")
+        passed += 1
+    else:
+        print("✗ Task 6: Apply text objects to real code")
+
+    print(f"\nDay 11 Progress: {passed}/{total} tasks completed\n")
+
+    if passed == total:
+        print("🎉 Excellent! You've mastered advanced text objects!")
+        print("You can now manipulate paragraphs, sentences, and tags with ease.")
+        print("Text objects make you exponentially more efficient!")
+        return 0
+    else:
+        print("Keep practicing! Master ip, ap, is, as, it, at")
+        print("Tip: Think in semantic units - paragraphs, sentences, tags!")
+        return 1
 
 
 if __name__ == "__main__":
-    print("=== Vim Challenge Day 11 ===\n")
-
-    all_passed = True
-
-    # Run all tests
-    all_passed &= test_calculate_score()
-    all_passed &= test_validate_input()
-    all_passed &= test_process_data()
-
-    if all_passed:
-        print("\n✓ All tests passed! Great work with marks!")
-    else:
-        print("\n✗ Some tests failed. Use marks to navigate and fix the issues!")
+    import sys
+    sys.exit(run_tests())

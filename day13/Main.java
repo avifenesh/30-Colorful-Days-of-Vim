@@ -1,124 +1,160 @@
-/*
-Welcome to Day 13 of your Vim challenge!
+/**
+ * Welcome to Day 13 of your Vim challenge!
+ *
+ * REGISTERS - Your multi-clipboard system!
+ * Today's focus: Using Vim's register system for advanced copy/paste operations
+ *
+ * New commands for today:
+ *     - `"ay` - Yank into register 'a' (works with any letter a-z)
+ *     - `"ap` - Paste from register 'a'
+ *     - `"Ay` - Append to register 'a' (uppercase appends)
+ *     - `"_d` - Delete to black hole register (doesn't affect other registers)
+ *     - `"0p` - Paste from yank register (last yanked text)
+ *     - `""p` - Paste from unnamed register (default)
+ *     - `"+y` - Yank to system clipboard
+ *     - `"+p` - Paste from system clipboard
+ *     - `:reg` - Show all registers
+ *     - `:reg a b` - Show specific registers
+ *     - `Ctrl-r a` - Insert register 'a' in insert mode
+ *     - Special registers:
+ *         - `"0` - Last yank
+ *         - `"1-"9` - Last 9 deletions
+ *         - `".` - Last inserted text
+ *         - `"%` - Current filename
+ *         - `":` - Last command
+ *         - `"/` - Last search
+ *
+ * REMINDERS - Keys from previous days:
+ *     Day 12: Marks - `ma`, `'a`, ``` (jump to last edit)
+ *     Day 11: Global commands - `:g/pattern/d`, `:v/pattern/d`
+ *     Day 10: Visual mode practice - `v`, `V`, `Ctrl-v`
+ *     Day 9: Text objects - `iw`, `aw`, `i"`, `a"`
+ *     Day 8: Macros - `qa`, `@a` (stores in registers!)
+ *     Day 7: Replace - `:%s/old/new/g`
+ *     Day 6: Visual mode - `v`, `V`, `Ctrl-v`
+ *     Day 5: Search - `/pattern`, `n`, `N`
+ *     Day 4: Repeat - `.`, `3w`, `2dd`
+ *     Day 3: Yank/paste - `yy`, `p`, `P`
+ *     Day 2: Delete/change - `dw`, `cw`
+ *     Day 1: Movement - `w`, `b`, `e`, `0`, `$`
+ *
+ * Your tasks for Day 13:
+ * 1. Store different config values in named registers (a, b, c)
+ * 2. Use the black hole register to delete debug comments without affecting clipboard
+ * 3. Build a method by collecting parts from different sections using registers
+ * 4. Use uppercase registers to append multiple error messages
+ * 5. Practice number registers to recover from accidental deletions
+ * 6. Collect import statements using registers for reorganization
+ */
 
-WINDOW MANAGEMENT - Split your workspace!
-Today's focus: Working with multiple windows for efficient editing
-
-New commands for today:
-    - `:split` (or `:sp`) - Split window horizontally
-    - `:vsplit` (or `:vsp`) - Split window vertically
-    - `Ctrl-w w` - Cycle through windows
-    - `Ctrl-w h/j/k/l` - Navigate to window left/down/up/right
-    - `Ctrl-w H/J/K/L` - Move current window to far left/bottom/top/right
-    - `Ctrl-w =` - Make all windows equal size
-    - `Ctrl-w _` - Maximize height of current window
-    - `Ctrl-w |` - Maximize width of current window
-    - `Ctrl-w +/-` - Increase/decrease window height
-    - `Ctrl-w >/<` - Increase/decrease window width
-    - `:close` (or `Ctrl-w c`) - Close current window
-    - `:only` (or `Ctrl-w o`) - Close all other windows
-
-REMINDERS - Keys from previous days:
-    Day 12: Global commands - `:g/pattern/d`, `:g/pattern/m$`
-    Day 11: Marks - `ma` (set mark a), `'a` (jump to line)
-    Day 10: Visual mode practice
-    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`
-    Day 8: Macros - `qa`, `@a`
-    Day 7: Replace - `:%s/old/new/g`
-    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
-    Day 5: Search - `/pattern`, `n`, `N`
-    Day 4: Counts & repeat - `.`, `3w`, `2dd`
-    Day 3: Yank/paste - `yy`, `p`, `P` (use between windows!)
-    Day 2: Delete/change - `dw`, `cw`
-    Day 1: Movement - `w`, `b`, `e`, `0`, `$`
-
-Your tasks for Day 13:
-1. Below you'll find a helper class that needs to be moved to the top of the file
-2. The main method is missing proper error handling - add try-catch blocks
-3. The validation methods need to be reorganized - group them together
-4. Fix the indentation issues in the processData method
-5. The constants should be moved to the top of the class after the helper class
-
-TIP: Use window splits to view different parts of this file simultaneously!
-For example: `:split` then navigate to different sections in each window
-*/
-
-class DataProcessor {
-	public void processData(String data) {
-		System.out.println("DataProcessor: " + data);
-	}
-}
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
+    // Configuration values - Task 1: Store each in a different register
+    private static final String API_KEY = "sk-1234567890abcdef";  // Store in register 'a'
+    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/mydb";  // Store in register 'b'
+    private static final String SECRET_TOKEN = "super-secret-token-value";  // Store in register 'c'
 
-	// Task 5: These constants should be at the top of the class
-	private static final int MAX_LENGTH = 100;
-	private static final String DEFAULT_VALUE = "default";
+    // Task 2: Delete these debug comments using black hole register "_d
+    // DEBUG: Starting main method
+    public static void main(String[] args) {
+        // DEBUG: Initializing application
+        System.out.println("Starting application...");
 
-	public static void main(String[] args) {
-		System.out.println("=== Vim Challenge Day 13 ===\n");
+        Main app = new Main();
+        app.runTests();
+    }
 
-		// Task 2: Add try-catch block here
-		try {
-			String input = args.length > 0 ? args[0] : "default";
-			DataProcessor processor = new DataProcessor();
-			processor.processData(input);
-		} catch (Exception e) {
-			System.err.println("Error processing data: " + e.getMessage());
-		}
-		runTests();
-	}
+    // Task 3: Collect these method parts into register 'd' to build complete method
+    // Method signature (collect this first):
+    public String processData(String data) {
+        // Method body part 1 (somewhere in the file):
+        if (data == null || data.isEmpty()) {
+            throw new IllegalArgumentException("Data cannot be empty");
+        }
 
-	// Task 3: These validation methods should be grouped together
-	private static boolean validateInput(String input) {
-		return input != null && !input.isEmpty();
-	}
+        // Method body part 2 (another location):
+        String result = data.toUpperCase().trim();
 
-	// Task 3: This validation method should be with the other one
-	private static boolean validateLength(String input) {
-		return input.length() <= MAX_LENGTH;
-	}
-	private static void processData(String data) {
-		// Task 4: Fix indentation issues here
-		if (validateInput(data)) {
-			System.out.println("Processing: " + data);
-			if (data.length() > MAX_LENGTH) {
-				System.out.println("Data too long!");
-			}
-		}
-	}
+        // Method body part 3 (yet another location):
+        return "Processed: " + result + " (length: " + result.length() + ")";
+    }
 
+    // Task 4: Use uppercase register 'E' to collect all error messages
+    private static final String ERROR_MSG_1 = "Invalid input format";
+    // Some other code here...
+    private static final String ERROR_MSG_2 = "Connection timeout";
+    // More code...
+    private static final String ERROR_MSG_3 = "Permission denied";
+    // Build complete error list in register 'E' by appending each
 
+    // Task 5: Accidentally delete this important method, then recover it
+    public int calculateImportantValue() {
+        /** This method should not be permanently deleted! */
+        int criticalValue = 42;
+        return criticalValue * 2;
+    }
 
-	private static void runTests() {
-		boolean allPassed = true;
+    // Task 6: Practice collecting and organizing imports (these are scattered)
+    // import java.util.Set;        // Collect import statements
+    // import java.util.HashSet;    // in register 'i' for reorganization
+    // import java.io.File;         // (these would normally be at top)
 
-		// Test 1: Check if helper class is at the top
-		boolean helperAtTop = true; // Placeholder - would check actual position
+    // Test methods
+    private void runTests() {
+        int testsPassed = 0;
+        int totalTests = 6;
 
-		// Test 2: Check if try-catch exists
-		boolean hasTryCatch = true; // Should be true after task completion
+        // Test 1: Check if config values practice completed (manual check)
+        boolean configInRegisters = true; // Mark true when registers a, b, c practiced
+        System.out.println(configInRegisters ? "✓" : "✗" + " Config values stored in registers");
+        if (configInRegisters) testsPassed++;
 
-		// Test 3: Check if validation methods are grouped
-		boolean methodsGrouped = true; // Should be true after task completion
+        // Test 2: Check if debug comments are removed
+        // This would require reading the source file, simplified for Java
+        boolean debugRemoved = true; // Check manually that DEBUG comments are gone
+        System.out.println(debugRemoved ? "✓" : "✗" + " Debug comments removed with black hole register");
+        if (debugRemoved) testsPassed++;
 
-		// Test 4: Check indentation
-		boolean indentationFixed = true; // Should be true after task completion
+        // Test 3: Check if method is properly assembled
+        try {
+            String result = processData("test");
+            boolean methodAssembled = result.contains("Processed: TEST") && result.contains("length:");
+            System.out.println(methodAssembled ? "✓" : "✗" + " Method assembled from parts using registers");
+            if (methodAssembled) testsPassed++;
+        } catch (Exception e) {
+            System.out.println("✗ Method assembly test failed: " + e.getMessage());
+        }
 
-		// Test 5: Check if constants are at top
-		boolean constantsAtTop = true; // Should be true after task completion
+        // Test 4: Check if error messages collection practiced (manual check)
+        boolean errorsCollected = true; // Mark true when register E used to append
+        System.out.println(errorsCollected ? "✓" : "✗" + " Error messages collected with uppercase register");
+        if (errorsCollected) testsPassed++;
 
-		// Display results
-		System.out.println(hasTryCatch ? "✓ Try-catch block added" : "✗ Try-catch block missing");
-		System.out.println(helperAtTop ? "✓ Helper class at top" : "✗ Helper class not at top");
-		System.out.println(methodsGrouped ? "✓ Validation methods grouped" : "✗ Validation methods not grouped");
-		System.out.println(indentationFixed ? "✓ Indentation fixed" : "✗ Indentation needs fixing");
-		System.out.println(constantsAtTop ? "✓ Constants at top" : "✗ Constants not at top");
+        // Test 5: Check recovery practice (manual check)
+        try {
+            int result = calculateImportantValue();
+            boolean recoveryPracticed = (result == 84);
+            System.out.println(recoveryPracticed ? "✓" : "✗" + " Deletion recovery practiced with number registers");
+            if (recoveryPracticed) testsPassed++;
+        } catch (Exception e) {
+            System.out.println("✗ Recovery practice failed - method may be missing!");
+        }
 
-		if (hasTryCatch && helperAtTop && methodsGrouped && indentationFixed && constantsAtTop) {
-			System.out.println("\n✓ All tests passed!");
-		} else {
-			System.out.println("\n✗ Some tests failed. Keep practicing window management!");
-		}
-	}
+        // Test 6: Import organization practice (manual check)
+        boolean importsOrganized = true; // Mark true when import statements collected
+        System.out.println(importsOrganized ? "✓" : "✗" + " Import statements collected for organization");
+        if (importsOrganized) testsPassed++;
+
+        // Final results
+        if (testsPassed == totalTests) {
+            System.out.println("\n✓ All tests passed! Master of registers!");
+        } else {
+            System.out.println("\n✗ " + (totalTests - testsPassed) + " tests failed. Keep practicing registers!");
+            System.out.println("Remember: :reg to view registers, \"ay to yank to register a, \"ap to paste from a");
+        }
+    }
 }

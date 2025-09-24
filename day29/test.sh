@@ -12,10 +12,10 @@ fi
 # Check if all tests passed
 if echo "$output" | grep -q "✗"; then
     echo "$output"
-    echo -e "\nDay 29 Test Failed. Keep practicing!"
+    echo -e "\nDay 29 Test Failed. Keep practicing autocommands!"
     exit 1
 else
     echo "$output"
-    echo -e "\nDay 29 Test Passed! Abbreviation aptitude achieved!"
+    echo -e "\nDay 29 Test Passed! Autocommand automation achieved!"
     exit 0
 fi

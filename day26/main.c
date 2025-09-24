@@ -1,359 +1,321 @@
 /*
 Welcome to Day 26 of your Vim challenge!
 
-TAGS - Navigate codebases like a pro with ctags!
-Today's focus: Using tags for intelligent code navigation
+RANGES & COMMAND-LINE MAGIC - Master precise text manipulation with ranges!
+Today's focus: Advanced range syntax and powerful ex commands for precise editing
 
 New commands for today:
-    - `ctags -R .` - Generate tags file (in shell)
-    - `:tag {name}` or `:ta {name}` - Jump to tag
-    - `Ctrl-]` - Jump to definition of word under cursor
-    - `Ctrl-t` or `:pop` - Jump back (pop tag stack)
-    - `:tags` - Show tag stack
-    - `:tselect {name}` or `:ts {name}` - List matching tags
-    - `:tnext` or `:tn` - Next matching tag
-    - `:tprevious` or `:tp` - Previous matching tag
-    - `:tfirst` or `:tf` - First matching tag
-    - `:tlast` or `:tl` - Last matching tag
-    - `g]` - List tags for word under cursor
-    - `g Ctrl-]` - Jump to tag, show list if multiple
-    - `:ptag {name}` - Preview tag in split
-    - `Ctrl-w ]` - Split window and jump to tag
-    - `Ctrl-w }` - Preview tag in preview window
-    - `:set tags=./tags,tags` - Configure tag file locations
-    - `:tag /{pattern}` - Search for tag by pattern
-    - `:tag /^get` - Tags starting with "get"
-    - `:stag {name}` - Split and jump to tag
-    - `:set tagstack` - Enable tag stack (default on)
+    Range syntax:
+    - `:10,20` - Lines 10 through 20
+    - `:.` - Current line (default if no range given)
+    - `:$` - Last line of file
+    - `:%` - Entire file (1,$)
+    - `:.,+5` - Current line plus next 5 lines
+    - `:.-3,.` - Three lines before to current line
+    - `:.,$` - Current line to end of file
+    - `:1,.` - Beginning to current line
 
-Tag file formats:
-    - ctags: Universal ctags (recommended)
-    - etags: Emacs tags
-    - cscope: More powerful, includes references
-    - Language servers: Modern alternative
+    Visual selection ranges:
+    - `:'<,'>` - Visual selection range (auto-filled)
+    - Use visual mode, then : to get this automatically
 
-Advanced tag usage:
-    - `:ltag {name}` - Use location list for tags
-    - `:tags` - View your tag navigation history
-    - `Ctrl-w z` - Close preview window
-    - `:set previewheight=20` - Preview window size
-    - Tag regex: `/^function_name$` for exact match
+    Pattern-based ranges:
+    - `:/pattern/` - Next line matching pattern
+    - `:?pattern?` - Previous line matching pattern
+    - `:/start/,/end/` - From start pattern to end pattern
+    - `:/function/,/^}` - From function to closing brace
+
+    Marks as ranges:
+    - `:'a,'b` - From mark a to mark b
+    - `:'a,.` - From mark a to current line
+
+    Advanced range modifiers:
+    - `:10;15` - Line 10, then 5 lines from there (different from :10,15)
+    - `:10+2` - Line 12 (10 + 2)
+    - `:$-5` - 5 lines before last line
+
+Commands with ranges:
+    - `:{range}d` - Delete range
+    - `:{range}y` - Yank range
+    - `:{range}s/old/new/g` - Substitute in range
+    - `:{range}p` - Print range
+    - `:{range}m{address}` - Move range to address
+    - `:{range}t{address}` or `:{range}co{address}` - Copy range to address
+    - `:{range}!{command}` - Filter range through external command
+    - `:{range}w {file}` - Write range to file
+    - `:{range}r {file}` - Read file at line (not range, just address)
+
+Global commands with ranges:
+    - `:{range}g/{pattern}/{command}` - Execute command on matching lines
+    - `:{range}v/{pattern}/{command}` - Execute on non-matching lines
 
 REMINDERS - Keys from previous days:
-    Day 25: Jump list - `Ctrl-o`, `Ctrl-i` (tags create jumps!)
-    Day 24: Sessions - Tag stack saved in session
-    Day 23: Undo tree - Different from tag history
-    Day 22: Location list - `:ltag` uses location list
-    Day 21: Quickfix - Similar navigation to tags
-    Day 20: Argument list - Different navigation method
-    Day 19: Custom commands - Create tag shortcuts
-    Day 18: Autocommands - Auto-generate tags
-    Day 17: Registers - Not related to tags
-    Day 16: Folding - Works well with tag preview
-    Day 15: Command history - Find tag commands
-    Day 14: Autocomplete - `Ctrl-x Ctrl-]` for tag completion
-    Day 13: Windows - Tag preview windows
-    Day 12: Global commands - Process tag files
-    Day 11: Marks - Mark before tag jump
-    Day 10: Visual mode - Select and jump to tag
-    Day 9: Text objects - Select function names
-    Day 8: Macros - Record tag navigation
-    Day 7: Search - `*` similar to tag jump
-    Day 6: Visual mode basics
-    Day 5: Search patterns in tags
-    Day 4: Repeat tag jumps
-    Day 3: Yank tag names
-    Day 2: Change/delete in definitions
-    Day 1: Movement to function names
+    Day 25: Tags - :tag works with ranges for jumping context
+    Day 24: Argument list - :argdo can use ranges in each file
+    Day 23: Undo tree - Different from range operations
+    Day 22: Location list - :ldo operates on ranges of locations
+    Day 21: Quickfix - :cdo operates on ranges of errors
+    Day 20: Buffers - :bufdo can apply range operations
+    Day 19: Custom commands - Create commands that use ranges
+    Day 18: Autocommands - Trigger on range operations
+    Day 17: Registers - Store range content in registers
+    Day 16: Folding - Ranges work within folds
+    Day 15: Command history - Reuse complex range commands
+    Day 14: Autocomplete - Complete addresses and patterns
+    Day 13: Windows - Range operations in specific windows
+    Day 12: Global commands - Core of range-based editing
+    Day 11: Marks - Essential for mark-based ranges
+    Day 10: Visual mode - Creates :'<,'> ranges automatically
+    Day 9: Text objects - Select text for range operations
+    Day 8: Macros - Record range operations
+    Day 7: Replace - :s command is the heart of ranges
+    Day 6: Visual mode - Foundation of range selection
+    Day 5: Search - Patterns used in range boundaries
+    Day 4: Repeat - Repeat range operations with .
+    Day 3: Yank/paste - Range yanking with :{range}y
+    Day 2: Delete/change - Range deletion with :{range}d
+    Day 1: Movement - Understanding line addressing
 
 Your tasks for Day 26:
-1. Generate a tags file for this C project
-2. Navigate between function definitions and calls
-3. Use tag stack to track your navigation path
-4. Preview tags without leaving current position
-5. Handle multiple tag matches effectively
+1. Master different range syntax patterns
+2. Combine ranges with powerful ex commands
+3. Use pattern-based and mark-based ranges
+4. Apply global commands with ranges
+5. Create complex text transformations
 
-Scenario: You're exploring a new codebase and need to understand
-how functions relate to each other.
+Scenario: You're cleaning up a large C codebase with inconsistent
+formatting and need to perform precise transformations on specific
+sections of code.
 */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-// Task 1: Create a codebase worth navigating with tags
+// Function declarations for range practice
+void demonstrate_basic_ranges(void);
+void demonstrate_pattern_ranges(void);
+void demonstrate_visual_ranges(void);
+void demonstrate_advanced_operations(void);
+void demonstrate_global_commands(void);
+int test_range_understanding(void);
 
-// Data structures
-typedef struct {
-    int id;
-    char name[50];
-    float value;
-} DataItem;
-
-typedef struct Node {
-    DataItem data;
-    struct Node* next;
-} Node;
-
-// Function declarations (tags will index these)
-void initialize_system(void);
-DataItem* create_item(int id, const char* name, float value);
-Node* create_node(DataItem item);
-void insert_node(Node** head, Node* new_node);
-Node* find_node(Node* head, int id);
-void update_node_value(Node* node, float new_value);
-void delete_node(Node** head, int id);
-void print_list(Node* head);
-void cleanup_list(Node** head);
-int validate_data(DataItem* item);
-void process_data(DataItem* item);
-void generate_report(Node* head);
-void handle_error(const char* message);
-
-// Global variables (tags will find these too)
-static Node* g_data_list = NULL;
-static int g_error_count = 0;
-static const float MAX_VALUE = 1000.0f;
-
-// Task 2: Main entry point
 int main() {
-    printf("=== Vim Challenge Day 26 ===\n\n");
-    
-    // Initialize the system
-    initialize_system();
-    
-    // Create test data
-    // Use Ctrl-] on create_item to jump to its definition
-    DataItem* item1 = create_item(1, "Alpha", 10.5f);
-    DataItem* item2 = create_item(2, "Beta", 20.7f);
-    DataItem* item3 = create_item(3, "Gamma", 30.9f);
-    
-    // Build linked list
-    // Try g] on insert_node to see multiple definitions
-    if (item1) insert_node(&g_data_list, create_node(*item1));
-    if (item2) insert_node(&g_data_list, create_node(*item2));
-    if (item3) insert_node(&g_data_list, create_node(*item3));
-    
-    // Process the data
-    print_list(g_data_list);
-    generate_report(g_data_list);
-    
-    // Cleanup
-    cleanup_list(&g_data_list);
-    
-    // Free items
-    free(item1);
-    free(item2);
-    free(item3);
-    
-    verify_tags();
+    printf("=== Vim Challenge Day 26: Ranges & Command-line Magic ===\n\n");
+
+    demonstrate_basic_ranges();
+    demonstrate_pattern_ranges();
+    demonstrate_visual_ranges();
+    demonstrate_advanced_operations();
+    demonstrate_global_commands();
+
+    int test_score = test_range_understanding();
+
+    printf("TEST RESULTS:\n");
+    printf("=============\n");
+    printf("Range Understanding Score: %d/5\n", test_score);
+
+    if (test_score == 5) {
+        printf("\n✓ Excellent! You've mastered Vim ranges!\n");
+        printf("Ready to perform precise text operations with surgical precision.\n");
+    } else {
+        printf("\n⚠ Score: %d/5 - Keep practicing range operations!\n", test_score);
+    }
+
+    printf("\nNext steps:\n");
+    printf("• Practice different range syntaxes\n");
+    printf("• Combine ranges with substitute commands\n");
+    printf("• Use global commands with ranges\n");
+    printf("• Master pattern-based range boundaries\n");
+
     return 0;
 }
 
-// Task 3: Function implementations
-void initialize_system(void) {
-    // Jump here with :tag initialize_system
-    printf("Initializing system...\n");
-    g_data_list = NULL;
-    g_error_count = 0;
+void demonstrate_basic_ranges(void) {
+    printf("BASIC RANGE SYNTAX:\n");
+    printf("==================\n");
+    printf("Understanding line addressing and basic ranges:\n\n");
+
+    printf("Single line addresses:\n");
+    printf("• :10 - Go to line 10\n");
+    printf("• :. - Current line (implicit)\n");
+    printf("• :$ - Last line of file\n\n");
+
+    printf("Range syntax examples:\n");
+    printf("• :1,10 - Lines 1 through 10\n");
+    printf("• :.,$ - Current line to end of file\n");
+    printf("• :.,$-5 - Current line to 5 lines before end\n");
+    printf("• :10,+5 - Line 10 plus next 5 lines\n");
+    printf("• :$-10,$ - 10 lines before end to end\n\n");
+
+    printf("Common range operations:\n");
+    printf("• :10,20d - Delete lines 10-20\n");
+    printf("• :.,+5y - Yank current line plus next 5\n");
+    printf("• :1,$s/old/new/g - Replace in entire file (same as %%s)\n");
+    printf("• :10,15p - Print lines 10-15\n\n");
 }
 
-DataItem* create_item(int id, const char* name, float value) {
-    // Tags make finding this function instant
-    DataItem* item = malloc(sizeof(DataItem));
-    if (!item) {
-        handle_error("Memory allocation failed");
-        return NULL;
-    }
-    
-    item->id = id;
-    strncpy(item->name, name, sizeof(item->name) - 1);
-    item->name[sizeof(item->name) - 1] = '\0';
-    item->value = value;
-    
-    if (!validate_data(item)) {
-        free(item);
-        return NULL;
-    }
-    
-    return item;
+void demonstrate_pattern_ranges(void) {
+    printf("PATTERN-BASED RANGES:\n");
+    printf("====================\n");
+    printf("Using search patterns as range boundaries:\n\n");
+
+    printf("Pattern address syntax:\n");
+    printf("• :/pattern/ - Next line matching pattern\n");
+    printf("• :?pattern? - Previous line matching pattern\n");
+    printf("• :/start/,/end/ - From start pattern to end pattern\n\n");
+
+    printf("Practical examples:\n");
+    printf("• :/function/,/^}/ - From function declaration to closing brace\n");
+    printf("• :/TODO/,/^$/ - From TODO comment to next blank line\n");
+    printf("• :?#include?,/main/ - From last #include to main function\n");
+    printf("• :/struct/,+10 - From struct keyword plus 10 lines\n\n");
+
+    printf("Code-specific patterns:\n");
+    char sample_code[] =
+        "/* Example C code structure:\n"
+        " * :/typedef/,/^}/ - Entire struct definition\n"
+        " * :/if/,/^}/ - If block with compound statement\n"
+        " * :/#define/,/^$/ - Macro definitions section\n"
+        " * :/printf/,/;/ - From printf to end of statement\n"
+        " */";
+    printf("%s\n\n", sample_code);
 }
 
-Node* create_node(DataItem item) {
-    // Use Ctrl-t to jump back after exploring
-    Node* node = malloc(sizeof(Node));
-    if (!node) {
-        handle_error("Node allocation failed");
-        return NULL;
-    }
-    
-    node->data = item;
-    node->next = NULL;
-    return node;
+void demonstrate_visual_ranges(void) {
+    printf("VISUAL SELECTION RANGES:\n");
+    printf("=======================\n");
+    printf("Working with visually selected ranges:\n\n");
+
+    printf("Visual range syntax:\n");
+    printf("• :'<,'> - Visual selection (auto-filled when you type :)\n");
+    printf("• Select text, then : automatically gives you :'<,'>|\n\n");
+
+    printf("Visual range operations:\n");
+    printf("• Select text, then :'<,'>s/old/new/g - Replace in selection\n");
+    printf("• Select block, then :'<,'>!sort - Sort selected lines\n");
+    printf("• Select function, then :'<,'>w function.c - Write to file\n");
+    printf("• Select code, then :'<,'>!indent - Auto-indent selection\n\n");
+
+    printf("Visual block ranges (Ctrl-V):\n");
+    printf("• Column-wise operations on rectangular selections\n");
+    printf("• :'<,'>s/^/  / - Add 2 spaces to start of each line\n");
+    printf("• :'<,'>s/$/;/ - Add semicolon to end of each line\n\n");
 }
 
-void insert_node(Node** head, Node* new_node) {
-    // Multiple functions might have similar names
-    if (!new_node) return;
-    
-    if (!*head) {
-        *head = new_node;
-    } else {
-        Node* current = *head;
-        while (current->next) {
-            current = current->next;
-        }
-        current->next = new_node;
-    }
+void demonstrate_advanced_operations(void) {
+    printf("ADVANCED RANGE OPERATIONS:\n");
+    printf("=========================\n");
+    printf("Powerful range-based transformations:\n\n");
+
+    printf("Copy and move operations:\n");
+    printf("• :1,5t$ - Copy lines 1-5 to end of file\n");
+    printf("• :10,15m$ - Move lines 10-15 to end of file\n");
+    printf("• :.,+3t'a - Copy current and next 3 lines to mark a\n");
+    printf("• :/function/,/^}/m'b - Move entire function to mark b\n\n");
+
+    printf("External command filtering:\n");
+    printf("• :1,10!sort - Sort first 10 lines\n");
+    printf("• :.,$!uniq - Remove duplicates from current line to end\n");
+    printf("• :/struct/,/^}/!indent -linux - Format struct with Linux style\n");
+    printf("• :%%!clang-format - Format entire file with clang-format\n\n");
+
+    printf("File operations:\n");
+    printf("• :10,20w functions.c - Write lines 10-20 to new file\n");
+    printf("• :.,+50w >>output.txt - Append range to existing file\n");
+    printf("• :/main/,/^}/w main_function.c - Write main function to file\n\n");
 }
 
-Node* find_node(Node* head, int id) {
-    // Search functionality - jump here to understand
-    Node* current = head;
-    while (current) {
-        if (current->data.id == id) {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL;
+void demonstrate_global_commands(void) {
+    printf("GLOBAL COMMANDS WITH RANGES:\n");
+    printf("============================\n");
+    printf("Combining global operations with ranges:\n\n");
+
+    printf("Basic global syntax with ranges:\n");
+    printf("• :1,100g/pattern/command - Execute command on matching lines in range\n");
+    printf("• :.,$/TODO/d - Delete all TODO lines from current to end\n");
+    printf("• :10,50v/^#/d - Delete non-comment lines in range 10-50\n\n");
+
+    printf("Complex global operations:\n");
+    printf("• :g/function/.,/^}/s/old/new/g - Replace in all functions\n");
+    printf("• :g/struct/.,+1s/$/;/ - Add semicolons after struct lines\n");
+    printf("• :v/^\\s*$/d - Delete all non-empty lines (remove blanks)\n\n");
+
+    printf("Multi-step global operations:\n");
+    printf("• :g/DEBUG/s//RELEASE/g | update - Replace and save\n");
+    printf("• :g/^#include/t$ - Copy all includes to end of file\n");
+    printf("• :g/printf/s/printf/fprintf(stderr,/g - Change all printf to fprintf\n\n");
+
+    printf("Code cleanup examples:\n");
+    printf("• :g/^\\s*$/d - Remove empty lines\n");
+    printf("• :g/\\/\\*.*\\*\\//d - Remove single-line comments\n");
+    printf("• :g/FIXME\\|TODO/s//RESOLVED/ - Replace FIXME and TODO with RESOLVED\n\n");
 }
 
-void update_node_value(Node* node, float new_value) {
-    // Modify node data
-    if (node && new_value <= MAX_VALUE) {
-        node->data.value = new_value;
-        process_data(&node->data);
-    }
+int test_range_understanding(void) {
+    printf("TESTING RANGE KNOWLEDGE:\n");
+    printf("=======================\n");
+
+    int score = 0;
+
+    // Test 1: Basic range syntax
+    printf("✓ Basic range syntax: :10,20 (lines 10 through 20)\n");
+    score++;
+
+    // Test 2: Current line ranges
+    printf("✓ Current line ranges: .,+5 (current plus next 5)\n");
+    score++;
+
+    // Test 3: Pattern ranges
+    printf("✓ Pattern ranges: /start/,/end/ (between patterns)\n");
+    score++;
+
+    // Test 4: Visual ranges
+    printf("✓ Visual ranges: '<,'> (visual selection)\n");
+    score++;
+
+    // Test 5: Global commands with ranges
+    printf("✓ Global with ranges: :g/pattern/command (on matching lines)\n");
+    score++;
+
+    return score;
 }
 
-void delete_node(Node** head, int id) {
-    // Complex function worth exploring with tags
-    if (!head || !*head) return;
-    
-    Node* current = *head;
-    Node* prev = NULL;
-    
-    while (current && current->data.id != id) {
-        prev = current;
-        current = current->next;
-    }
-    
-    if (current) {
-        if (prev) {
-            prev->next = current->next;
-        } else {
-            *head = current->next;
-        }
-        free(current);
-    }
+/*
+ * Sample function for range practice
+ * Students can practice these range operations:
+ *
+ * 1. :/main/,/^}/s/printf/puts/g
+ *    (Replace printf with puts in main function)
+ *
+ * 2. Delete comment blocks using pattern ranges
+ *    (Use visual selection or pattern ranges)
+ *
+ * 3. :/int/,+2y
+ *    (Yank function declaration and next 2 lines)
+ *
+ * 4. Add priority markers to TODO lines
+ *    (Use global commands with ranges)
+ */
+
+// TODO: Add error handling
+void sample_function_one(int param) {
+    printf("This is function one with parameter: %d\n", param);
+    // More code here
 }
 
-void print_list(Node* head) {
-    // Display all nodes
-    printf("\nData List:\n");
-    Node* current = head;
-    while (current) {
-        printf("  ID: %d, Name: %s, Value: %.2f\n",
-               current->data.id,
-               current->data.name,
-               current->data.value);
-        current = current->next;
-    }
+// TODO: Optimize this function
+void sample_function_two(char* str) {
+    printf("Processing string: %s\n", str);
+    // Implementation needed
 }
 
-void cleanup_list(Node** head) {
-    // Free all nodes
-    while (*head) {
-        Node* temp = *head;
-        *head = (*head)->next;
-        free(temp);
-    }
+// FIXME: Handle edge cases
+int sample_function_three(void) {
+    return 42;
 }
 
-int validate_data(DataItem* item) {
-    // Validation logic
-    if (!item) return 0;
-    if (item->id <= 0) {
-        handle_error("Invalid ID");
-        return 0;
-    }
-    if (item->value < 0 || item->value > MAX_VALUE) {
-        handle_error("Value out of range");
-        return 0;
-    }
-    return 1;
-}
-
-void process_data(DataItem* item) {
-    // Process individual items
-    if (!item) return;
-    
-    // Simulate processing
-    printf("Processing: %s (%.2f)\n", item->name, item->value);
-}
-
-void generate_report(Node* head) {
-    // Task 4: Generate summary report
-    printf("\nGenerating Report...\n");
-    int count = 0;
-    float sum = 0.0f;
-    
-    Node* current = head;
-    while (current) {
-        count++;
-        sum += current->data.value;
-        current = current->next;
-    }
-    
-    printf("Total items: %d\n", count);
-    printf("Sum of values: %.2f\n", sum);
-    if (count > 0) {
-        printf("Average value: %.2f\n", sum / count);
-    }
-    printf("Errors encountered: %d\n", g_error_count);
-}
-
-void handle_error(const char* message) {
-    // Task 5: Error handling
-    g_error_count++;
-    fprintf(stderr, "ERROR: %s\n", message);
-}
-
-// Verification function
-void verify_tags(void) {
-    printf("\nTag Navigation Tests:\n");
-    int passed = 0;
-    int total = 5;
-    
-    // Test 1: Tags file generated
-    int tags_generated = 0; // Would check for tags file
-    printf("%s Tags file generated\n", tags_generated ? "✓" : "✗");
-    if (tags_generated) passed++;
-    
-    // Test 2: Function navigation
-    int function_navigation = 0; // Would verify Ctrl-] usage
-    printf("%s Navigate between functions\n", function_navigation ? "✓" : "✗");
-    if (function_navigation) passed++;
-    
-    // Test 3: Tag stack used
-    int tag_stack = 0; // Would check Ctrl-t usage
-    printf("%s Tag stack navigation\n", tag_stack ? "✓" : "✗");
-    if (tag_stack) passed++;
-    
-    // Test 4: Preview used
-    int preview_tags = 1; // Placeholder
-    printf("%s Preview tags explored\n", preview_tags ? "✓" : "✗");
-    if (preview_tags) passed++;
-    
-    // Test 5: Multiple matches
-    int multiple_matches = 1; // Placeholder
-    printf("%s Multiple tag matches handled\n", multiple_matches ? "✓" : "✗");
-    if (multiple_matches) passed++;
-    
-    if (passed == total) {
-        printf("\n✓ All tests passed!\n");
-    } else {
-        printf("\n✗ %d tests failed. Keep tagging!\n", total - passed);
-    }
-}
+/*
+ * End of sample functions
+ * Practice ranges on the code above!
+ */

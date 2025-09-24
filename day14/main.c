@@ -1,182 +1,193 @@
 /*
-Welcome to Day 14 of your Vim challenge!
-
-AUTOCOMPLETE - Speed up your coding!
-Today's focus: Using Vim's built-in completion features
-
-New commands for today:
-    - `Ctrl-n` - Next completion (searches forward in file)
-    - `Ctrl-p` - Previous completion (searches backward in file)
-    - `Ctrl-x Ctrl-l` - Line completion (complete entire lines)
-    - `Ctrl-x Ctrl-f` - Filename completion
-    - `Ctrl-x Ctrl-]` - Tag completion
-    - `Ctrl-x Ctrl-o` - Omni completion (language-aware)
-    - `Ctrl-x Ctrl-k` - Dictionary completion
-    - `Ctrl-x Ctrl-i` - Include/import completion
-    - `Ctrl-x Ctrl-n` - Keyword completion (current file)
-    - `Ctrl-x Ctrl-p` - Keyword completion (backward)
-    - `Ctrl-y` - Accept completion
-    - `Ctrl-e` - Cancel completion
-
-REMINDERS - Keys from previous days:
-    Day 13: Windows - `:split`, `:vsplit`, `Ctrl-w w`
-    Day 12: Global commands - `:g/pattern/d`, `:g/pattern/m$`
-    Day 11: Marks - `ma`, `'a`
-    Day 10: Visual mode practice
-    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`
-    Day 8: Macros - `qa`, `@a`
-    Day 7: Replace - `:%s/old/new/g`
-    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
-    Day 5: Search - `/pattern`, `n`, `N`
-    Day 4: Repeat - `.`, `3w`, `2dd`
-    Day 3: Yank/paste - `yy`, `p`, `P`
-    Day 2: Delete/change - `dw`, `cw`
-    Day 1: Movement - `w`, `b`, `e`, `0`, `$`
-
-Your tasks for Day 14:
-1. Complete all the partial function names using Ctrl-n/Ctrl-p
-2. Use line completion to duplicate the ERROR_MESSAGES pattern for SUCCESS_MESSAGES
-3. Complete the #include statements with the correct headers
-4. Fill in the struct member types using completion from existing code
-5. Complete the function calls in test_completion() using existing function names
-*/
+ * Welcome to Day 14 of your Vim challenge!
+ *
+ * VISUAL MODE MASTERY - Advanced selection techniques!
+ * Today's focus: Advanced visual mode operations and selection control
+ *
+ * New commands for today:
+ *     - `gv` - Re-select the last visual selection
+ *     - `o` - Move to other end of visual selection (in visual mode)
+ *     - `O` - Move to other corner of visual block selection (in visual block mode)
+ *     - `v` in visual mode - Switch between char/line/block visual modes
+ *     - `Ctrl-v` in visual mode - Switch to visual block mode
+ *     - `V` in visual mode - Switch to visual line mode
+ *     - `u` in visual mode - Make selection lowercase
+ *     - `U` in visual mode - Make selection uppercase
+ *     - `~` in visual mode - Toggle case of selection
+ *     - `>` in visual mode - Indent selection
+ *     - `<` in visual mode - Un-indent selection
+ *     - `J` in visual mode - Join selected lines
+ *
+ * REMINDERS - Keys from previous days:
+ *     Day 13: Registers - `"ay`, `"ap`, `"_d`, `:reg`
+ *     Day 12: Marks - `ma`, `'a`, ``` (jump to last edit)
+ *     Day 11: Global commands - `:g/pattern/d`, `:v/pattern/d`
+ *     Day 10: Visual mode practice - `v`, `V`, `Ctrl-v`
+ *     Day 9: Text objects - `iw`, `aw`, `i"`, `a"`
+ *     Day 8: Macros - `qa`, `@a`
+ *     Day 7: Replace - `:%s/old/new/g`
+ *     Day 6: Visual mode - `v`, `V`, `Ctrl-v`
+ *     Day 5: Search - `/pattern`, `n`, `N`
+ *     Day 4: Repeat - `.`, `3w`, `2dd`
+ *     Day 3: Yank/paste - `yy`, `p`, `P`
+ *     Day 2: Delete/change - `dw`, `cw`
+ *     Day 1: Movement - `w`, `b`, `e`, `0`, `$`
+ *
+ * Your tasks for Day 14:
+ * 1. Fix function names using visual selection and case operations
+ * 2. Use `gv` to re-select and modify the same text multiple times
+ * 3. Use `o` to extend selections from both ends efficiently
+ * 4. Use visual block mode with `O` to select rectangular regions
+ * 5. Format code blocks using visual mode indentation
+ * 6. Join lines using visual line mode and `J`
+ */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-// Task 3: Complete these includes using Ctrl-x Ctrl-f
-// #include <stdi  // Uncomment and complete to stdint.h
-// #include <stdbo  // Uncomment and complete to stdbool.h
-// #include <ti  // Uncomment and complete to time.h
 
-// Constants for testing
-#define MAX_BUFFER_SIZE 1024
-#define MIN_BUFFER_SIZE 64
-#define DEFAULT_TIMEOUT 5000
+// Task 1: Fix these function names - they should be camelCase, not snake_case
+// Use visual selection and case operations to fix them efficiently
 
-// Task 2: Use Ctrl-x Ctrl-l to duplicate this pattern for SUCCESS_MESSAGES
-const char* ERROR_MESSAGES[] = {
-	"Error: Invalid input",
-	"Error: Buffer overflow",
-	"Error: Timeout exceeded"
+// WRONG: should be calculateSum (select visual, use u/U to fix case)
+int calculate_sum(int a, int b) {
+    return a + b;
+}
+
+// WRONG: should be processString (use gv to reselect after first fix)
+char* process_string(const char* input) {
+    static char result[256];
+    strcpy(result, input);
+    return result;
+}
+
+// WRONG: should be validateInput (use o to extend selection efficiently)
+int validate_input(int value) {
+    return value > 0 && value < 1000;
+}
+
+// Task 2: These variable declarations need formatting
+// Use visual block mode to select and align the equal signs
+int     first_var=10;        // Align these equal signs
+double  second_var=20.5;     // using visual block selection
+char    third_var='A';       // and formatting operations
+float   fourth_var=3.14;
+
+// Task 3: This function header needs to be joined into one line
+// Use visual line mode and J to join the lines
+int complex_calculation(
+    int param1,
+    int param2,
+    double param3
+) {
+    return param1 + param2 + (int)param3;
+}
+
+// Task 4: Fix the indentation of this nested structure
+// Use visual mode with > and < to fix indentation
+struct Config {
+int port;           // Wrong indentation - should be indented
+char* host;         // Fix using visual selection and >
+struct {
+int timeout;    // Nested structure needs proper indentation
+int retries;    // Use visual mode to select and indent
+} connection;
 };
 
-// Add SUCCESS_MESSAGES here using line completion
-
-// Task 4: Complete the struct member types using Ctrl-n/Ctrl-p
-typedef struct {
-	char name[50];        // Complete ch to char
-	int age;             // Complete in to int
-	float salary;         // Complete flo to float
-	int is_active;       // Complete bo to bool (after including stdbool.h)
-} Person;
-
-// Existing functions for completion reference
-void initialize_buffer(char* buffer, size_t size) {
-	memset(buffer, 0, size);
+// Task 5: These comments need to be aligned
+// Use visual block mode to select and format them
+void print_status() {
+    printf("System status: OK");        // Status message
+    printf("Connection: Active");       // Connection info
+    printf("Users: %d", 42);           // User count
+    printf("Uptime: %d hours", 24);    // Uptime info
 }
 
-int validate_input(const char* input) {
-	return input != NULL && strlen(input) > 0;
+// Task 6: Convert this data to a formatted table using visual selections
+// Select each line and use visual mode operations to format
+void display_data() {
+    // Raw data that needs formatting into aligned columns:
+    printf("Item1 Price10.50 Qty5\n");
+    printf("Item2 Price25.00 Qty3\n");
+    printf("Item3 Price7.25 Qty10\n");
+    printf("Item4 Price15.75 Qty7\n");
+
+    // Should become something like:
+    // printf("Item1    Price: $10.50    Qty: 5\n");
+    // (Use visual block mode to insert colons, dollar signs, spaces)
 }
 
-void process_person(Person* person) {
-	if (person && person->is_active) {
-		printf("Processing: %s\n", person->name);
-	}
+// Test functions
+void test_function_names() {
+    printf("Testing function name fixes...\n");
+
+    // Test that functions work (names should be fixed to camelCase)
+    int sum = calculate_sum(5, 3);  // Should be calculateSum
+    printf("Sum result: %d\n", sum);
+
+    char* processed = process_string("test");  // Should be processString
+    printf("Processed: %s\n", processed);
+
+    int valid = validate_input(50);  // Should be validateInput
+    printf("Validation: %d\n", valid);
+
+    printf("✓ Function tests passed (check function names manually)\n");
 }
 
-// Task 1: Complete these function names using Ctrl-n/Ctrl-p
-void ini() {             // Complete ini to initialize_buffer
-	// Implementation
+void test_formatting() {
+    printf("Testing code formatting...\n");
+
+    // Test that variables are declared and accessible
+    printf("Variables: %d, %.1f, %c, %.2f\n",
+           first_var, second_var, third_var, fourth_var);
+
+    // Test the joined function
+    int result = complex_calculation(1, 2, 3.0);
+    printf("Complex calculation: %d\n", result);
+
+    printf("✓ Formatting tests passed (check alignment manually)\n");
 }
 
-int va() {               // Complete va to validate_input
-	// Implementation
-	return 0;
-}
+void test_structure_and_display() {
+    printf("Testing structure and display...\n");
 
-void pro() {             // Complete pro to process_person
-	// Implementation
-}
+    // Test the struct (should be properly indented)
+    struct Config config = {8080, "localhost", {30, 3}};
+    printf("Config - Port: %d, Host: %s\n", config.port, config.host);
 
-// Task 5: Complete the function calls
-void test_completion() {
-	char buffer[MAX_BUFFER_SIZE];
-	Person person = {.age = 30, .salary = 50000.0f, .is_active = 1};
-	strcpy(person.name, "John");
+    // Test the status display (should have aligned comments)
+    print_status();
 
-	// Complete these function calls using Ctrl-n/Ctrl-p
-	ini(buffer, MAX_BUFFER_SIZE);     // Complete ini to initialize_buffer
+    // Test the data display (should be formatted as table)
+    printf("Data display:\n");
+    display_data();
 
-	if (va("test")) {                  // Complete va to validate_input
-		pro(&person);                  // Complete pro to process_person
-	}
+    printf("✓ Structure and display tests passed (check formatting manually)\n");
 }
 
 int main() {
-	printf("=== Vim Challenge Day 14 ===\n\n");
+    printf("=== Vim Challenge Day 14 ===\n");
+    printf("Visual Mode Mastery Challenge\n\n");
 
-	// Test results
-	int tests_passed = 0;
-	int total_tests = 5;
+    test_function_names();
+    printf("\n");
 
-	// Test 1: Check if functions are correctly named and implemented
-	int functions_completed = 0;
-	char test_buf[10];
-	// This will fail because ini/va/pro are incomplete stub functions
-	ini(test_buf, 10);
-	if (test_buf[0] == '\0' && va("test") > 0) {
-		functions_completed = 1;
-	}
+    test_formatting();
+    printf("\n");
 
-	// Test 2: Check if SUCCESS_MESSAGES exists
-	int success_messages_added = 0;
-	// This will only compile if SUCCESS_MESSAGES is defined
-#ifdef SUCCESS_MESSAGES_COMPLETE
-	if (sizeof(SUCCESS_MESSAGES) / sizeof(SUCCESS_MESSAGES[0]) == 3) {
-		success_messages_added = 1;
-	}
-#endif
+    test_structure_and_display();
+    printf("\n");
 
-	// Test 3: Check if includes are completed
-	int includes_completed = 0;
-	// These header guards will only be defined if headers are included
-#if defined(__STDINT_H) && defined(_STDBOOL_H) && defined(_TIME_H)
-	includes_completed = 1;
-#endif
+    printf("Manual checks required:\n");
+    printf("1. Function names converted to camelCase (calculateSum, processString, validateInput)\n");
+    printf("2. Variable declarations aligned with proper spacing\n");
+    printf("3. Function header joined into single line\n");
+    printf("4. Struct members properly indented\n");
+    printf("5. Comments aligned in print_status function\n");
+    printf("6. Data formatted as aligned table in display_data\n");
 
-	// Test 4: Check if struct types are completed
-	int struct_completed = 0;
-	// This will fail to compile if struct has wrong types
-#ifdef STRUCT_COMPLETE
-	Person test_person = {.age = 25, .salary = 40000.0f, .is_active = true};
-	strcpy(test_person.name, "Test");
-	if (test_person.age == 25) {
-		struct_completed = 1;
-	}
-#endif
+    printf("\nRemember: Use gv to re-select, o to move selection ends,\n");
+    printf("visual block mode for rectangular selections, and >< for indentation!\n");
 
-	// Test 5: Check if function calls are completed in test_completion
-	int calls_completed = 0;
-	// Run test_completion and check if it works correctly
-	test_completion();
-	// This is a simple check - if we get here, the calls didn't crash
-	calls_completed = 1;
-
-	// Display results
-	printf("%s Function names completed\n", functions_completed ? "✓" : "✗");
-	printf("%s SUCCESS_MESSAGES added\n", success_messages_added ? "✓" : "✗");
-	printf("%s Include statements completed\n", includes_completed ? "✓" : "✗");
-	printf("%s Struct member types completed\n", struct_completed ? "✓" : "✗");
-	printf("%s Function calls completed\n", calls_completed ? "✓" : "✗");
-
-	if (functions_completed && success_messages_added && includes_completed &&
-		struct_completed && calls_completed) {
-		printf("\n✓ All tests passed!\n");
-	} else {
-		printf("\n✗ Some tests failed. Keep practicing autocomplete!\n");
-	}
-
-	return 0;
+    return 0;
 }

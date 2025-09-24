@@ -38,7 +38,7 @@ char* string_case_fix() {
 // TASK 2: Fix the return value
 int count_apples() {
     // There are X apples (Replace X with 5)
-    return X;  // Fix this to return 5
+    return 5;  // Fix this to return 5
 }
 
 // TASK 3: Fix the return string

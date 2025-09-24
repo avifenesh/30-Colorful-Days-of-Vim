@@ -1,110 +1,195 @@
 --[[
 Welcome to Day 12 of your Vim challenge!
-GLOBAL COMMANDS - `:g/pattern/command`
-Today's focus: The powerful global command for applying operations to multiple lines
+
+MARKS - Your precise navigation system!
+Today's focus: Using Vim's marks for bookmarking and navigation
+
 New commands for today:
-    - `:g/pattern/d` - Delete all lines containing pattern
-    - `:g/pattern/m$` - Move all lines containing pattern to end of file
-    - `:g/pattern/s/old/new/g` - Replace on lines matching pattern
-    - `:g!/pattern/d` (or `:v/pattern/d`) - Delete lines NOT containing pattern
-    - `:g/pattern/normal @a` - Run macro 'a' on matching lines
+    - `ma` - Set mark 'a' at cursor position (any letter a-z)
+    - `'a` - Jump to line with mark 'a'
+    - `` `a`` - Jump to exact position of mark 'a'
+    - `mA` - Set global mark 'A' (works across files, A-Z)
+    - `''` - Jump back to previous position (before last jump)
+    - ``` - Jump to last edit location
+    - `'.` - Jump to line of last edit
+    - `:marks` - List all marks
+    - `:marks abc` - Show specific marks
+    - `:delmarks a` - Delete mark 'a'
+    - `:delmarks!` - Delete all lowercase marks
+
 REMINDERS - Keys from previous days:
-    Day 11: Marks - `ma` (set mark a), `'a` (jump to line), `` `a `` (jump to position)
-    Day 10: Visual mode practice
-    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`, `i(`, `a(` (combine with d, c, y!)
-    Day 8: Macros - `qa` (record to a), `@a` (play)
-    Day 7: Replace - `:%s/old/new/g` (works great with :g!)
-    Day 6: Visual mode - `v`, `V`, `Ctrl-v` (visual block)
+    Day 11: Global commands - `:g/pattern/d`, `:v/pattern/d`
+    Day 10: Visual mode practice - `v`, `V`, `Ctrl-v`
+    Day 9: Text objects - `iw`, `aw`, `i"`, `a"`
+    Day 8: Macros - `qa`, `@a`, `@@`
+    Day 7: Replace - `:%s/old/new/g`
+    Day 6: Visual mode - `v`, `V`, `Ctrl-v`
     Day 5: Search - `/pattern`, `n`, `N`
-    Day 4: Counts & repeat - `.` (repeat), `3w`, `2dd`
+    Day 4: Repeat - `.`, `3w`, `2dd`
     Day 3: Yank/paste - `yy`, `p`, `P`
     Day 2: Delete/change - `dw`, `cw`
     Day 1: Movement - `w`, `b`, `e`, `0`, `$`
+
 Your tasks for Day 12:
-3. Find all lines containing "status" and change "completed" to "completed" on those lines only
-4. Delete all blank lines (lines containing only whitespace)
-5. Add ";" to the end of all lines containing "local" (combine :g with normal mode);
+1. Set mark 'a' at the CONFIG table and fix the missing port value
+2. Set mark 'b' at the database connection function and fix the connection string
+3. Set mark 'c' at the validation function and fix the email validation
+4. Jump between marks to verify all fixes work together
+5. Use `` ``` to navigate between your last changes efficiently
+6. Set mark 'r' at the RESULTS section and verify all tests pass
+
 --]]
-print("=== Vim Challenge Day 12 ===\n")
--- Test data for global command practice
-local items = {
-	{ id = 1, name = "Task One", status = "completed" },
-	{ id = 2, name = "Task Two", status = "active" },
-	{ id = 3, name = "Task Three", status = "completed" },
-	{ id = 4, name = "Task Four", status = "completed" },
-	{ id = 5, name = "Task Five", status = "completed" },
+
+-- Configuration section
+-- Task 1: Set mark 'a' here and fix the missing port value (should be 8080)
+local CONFIG = {
+    host = "localhost",
+    -- port = nil,  -- FIXME: Add port number 8080
+    database = "myapp",
+    timeout = 30
 }
--- More test data
-local config = {
-	debug = true,
-	verbose = false,
-	log_level = "debug",
-}
-local function process_items();
-	local count = 0;
-	for _, item in ipairs(items) do
-		if item.status == "completed" then
-			count = count + 1
-		end
-	end
-	return count
+
+-- Utility functions
+local function log_message(message)
+    print("[LOG] " .. message)
 end
--- Test if tasks are completed correctly
-local tests_passed = true;
-local test_results = {};
-local function test_todos_deleted();
-	local content = debug.getinfo(1).source;
-	local has_todo = false;
-	-- We'll simulate checking by looking at the actual structure
-	if items[1] and items[3] and config.verbose ~= nil then
-		has_todo = true -- Should be false after task completion
-	end
-	return not has_todo
+
+-- Task 2: Set mark 'b' at this function and fix the connection string
+local function connect_to_database()
+    -- FIXME: Fix the connection string - should use CONFIG.host and CONFIG.port
+    local connection_string = string.format("host=%s;port=%s;db=%s",
+                                           "wrong_host",  -- Should be CONFIG.host
+                                           "9999",        -- Should be CONFIG.port
+                                           CONFIG.database)
+
+    log_message("Connecting with: " .. connection_string)
+    return connection_string
 end
-local function test_debug_moved();
-	-- For now, return true as placeholder
-	return true
+
+-- Task 3: Set mark 'c' at this function and fix the email validation
+local function validate_email(email)
+    -- FIXME: This validation is wrong - it should check for '@' symbol
+    if string.find(email, "#") then  -- Wrong symbol! Should be '@'
+        return true
+    end
+    return false
 end
--- Test 3: Check if status fields are updated
-local function test_status_updated();
-	local pending_count = 0;
-	for _, item in ipairs(items) do
-		if item.status == "pending" then
-			pending_count = pending_count + 1
-		end
-	end
-	return pending_count == 0 -- All should be "completed"
+
+local function validate_config()
+    if not CONFIG.host then
+        return false, "Host not configured"
+    end
+    if not CONFIG.port then
+        return false, "Port not configured"
+    end
+    if not CONFIG.database then
+        return false, "Database not configured"
+    end
+    return true, "Configuration valid"
 end
--- Test 4: Check blank lines removed (simulated)
-local function test_blank_lines();
-	return true -- Placeholder
+
+local function process_user(user_data)
+    if not validate_email(user_data.email) then
+        return false, "Invalid email address"
+    end
+
+    log_message("Processing user: " .. user_data.name)
+    return true, "User processed successfully"
 end
--- Test 5: Check semicolons added to local statements;
-local function test_semicolons();
-	-- In real use, would check if lines with "local" end with ";";
-	return true -- Placeholder
+
+-- Main application function
+local function run_application()
+    log_message("Starting application...")
+
+    local config_valid, config_msg = validate_config()
+    if not config_valid then
+        log_message("Error: " .. config_msg)
+        return false
+    end
+
+    local db_connection = connect_to_database()
+    if not db_connection then
+        log_message("Error: Database connection failed")
+        return false
+    end
+
+    -- Test user processing
+    local test_user = {
+        name = "John Doe",
+        email = "john@example.com"
+    }
+
+    local user_processed, user_msg = process_user(test_user)
+    if not user_processed then
+        log_message("Error: " .. user_msg)
+        return false
+    end
+
+    log_message("Application completed successfully!")
+    return true
 end
--- Run tests
-table.insert(test_results, { name = "Status fields updated", passed = test_status_updated() })
-table.insert(test_results, { name = "Blank lines removed", passed = test_blank_lines() })
-table.insert(test_results, { name = "Semicolons added to locals", passed = test_semicolons() });
--- Display results
-for _, test in ipairs(test_results) do
-	if test.passed then
-		print("✓ " .. test.name)
-	else
-		print("✗ " .. test.name)
-		tests_passed = false
-	end
-end
-if tests_passed then
-	print("\n✓ All tests passed!")
+
+-- Task 6: Set mark 'r' here for the RESULTS section
+-- RESULTS: Test suite
+print("=== Vim Challenge Day 12 ===")
+
+-- Test 1: Configuration should be valid after fix
+local config_valid, config_msg = validate_config()
+if config_valid then
+    print("✓ Configuration validation test passed")
 else
-	print("\n✗ Some tests failed. Keep practicing those global commands!")
+    print("✗ Configuration validation test failed: " .. config_msg)
 end
--- DEBUG: checking task three
--- DEBUG: testing task five
--- DEBUG: log level set to max
--- Test 2: Check if DEBUG lines are at the end
--- In a real scenario, DEBUG comments would be moved to end
-table.insert(test_results, { name = "DEBUG lines moved to end", passed = test_debug_moved() })
+
+-- Test 2: Database connection string should be correct
+local expected_connection = string.format("host=%s;port=%s;db=%s",
+                                        CONFIG.host, CONFIG.port, CONFIG.database)
+local actual_connection = connect_to_database()
+if actual_connection == expected_connection then
+    print("✓ Database connection test passed")
+else
+    print("✗ Database connection test failed")
+    print("  Expected: " .. expected_connection)
+    print("  Got: " .. actual_connection)
+end
+
+-- Test 3: Email validation should work correctly
+local test_emails = {
+    {email = "valid@example.com", should_pass = true},
+    {email = "invalid.email.com", should_pass = false},
+    {email = "another@test.org", should_pass = true}
+}
+
+local email_tests_passed = true
+for _, test in ipairs(test_emails) do
+    local result = validate_email(test.email)
+    if result ~= test.should_pass then
+        print("✗ Email validation failed for: " .. test.email)
+        email_tests_passed = false
+    end
+end
+
+if email_tests_passed then
+    print("✓ Email validation tests passed")
+end
+
+-- Test 4: Complete application should run successfully
+if run_application() then
+    print("✓ Complete application test passed")
+else
+    print("✗ Complete application test failed")
+end
+
+-- Final summary
+local all_functions_work = config_valid and
+                          (actual_connection == expected_connection) and
+                          email_tests_passed and
+                          run_application()
+
+if all_functions_work then
+    print("\n✓ All tests passed! Great work with marks navigation!")
+    print("Remember: Use marks to jump quickly between different parts of your code!")
+else
+    print("\n✗ Some tests failed. Use marks to navigate efficiently and fix the issues!")
+    print("Set marks with 'ma', jump with 'a or `a, list with :marks")
+end
