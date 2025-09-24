@@ -32,7 +32,7 @@ Your tasks:
 // TASK 1: Fix the casing in the return string
 char* string_case_fix() {
     // cORRECT tHE cASING oF tHIS lINE
-    return "cORRECT tHE cASING oF tHIS lINE";
+    return "Correct The Casing Of This Line";
 }
 
 // TASK 2: Fix the return value
@@ -44,7 +44,7 @@ int count_apples() {
 // TASK 3: Fix the return string
 char* get_status() {
     // This is the wrong line
-    return "wrong";  // Change this to "right"
+    return "right"; // Change this to "right"
 }
 
 // Test functions
