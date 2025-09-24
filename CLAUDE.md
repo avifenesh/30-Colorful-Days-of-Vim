@@ -4,75 +4,55 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is the **30-Colorful-Days-of-Vim** challenge repository - a structured 30-day program for learning Vim/Neovim. Each day introduces new Vim commands with practical coding tasks in various languages (C, Rust, Node.js, Python, Lua, Java).
+The **30-Colorful-Days-of-Vim** challenge - a structured 30-day program for mastering Vim/Neovim through practical coding tasks in 6 programming languages.
 
-## Structure
+## Commands
 
-- **Daily Challenges**: Each `dayX/` directory contains:
-  - Main file to edit: `main.c`, `src/main.rs`, `main.js`, `main.py`, `main.lua`, or `Main.java`
-  - `test.sh`: Executable test script that compiles/runs code and verifies output
-  - Build files when needed: `Makefile` (C), `Cargo.toml` (Rust)
-  - Legacy files from old format: `lesson.<ext>` and `solution.<ext>` (can be ignored)
-
-## Common Commands
-
-### Testing Daily Challenges
+### Test a Specific Day
 ```bash
 cd dayX
 ./test.sh
 ```
 
-Test scripts compile/run the code and check if all tasks pass. They provide immediate feedback on what needs to be fixed.
-
-### Running Code by Language
-
-**C files:**
+### Run All Tests
 ```bash
-make && ./vim_dayX  # or just run ./test.sh
+./test-runner.sh              # All days
+./test-runner.sh -d 5          # Specific day
+./test-runner.sh -l rust       # All Rust days
+./test-runner.sh -r 1-10       # Day range
 ```
 
-**Rust files:**
+### Track Progress
 ```bash
-cargo run  # or just run ./test.sh
+./progress.sh              # Show progress overview
+./progress.sh test 5       # Test and mark day 5 complete
+./progress.sh next         # Work on next incomplete day
 ```
 
-**JavaScript files:**
-```bash
-node main.js  # or just run ./test.sh
-```
+## Daily Challenge Structure
 
-**Python files:**
-```bash
-python main.py  # or just run ./test.sh
-```
+Each `dayX/` directory contains:
+- **Main file**: `main.c`, `src/main.rs` (Rust), `main.js`, `main.py`, `main.lua`, or `Main.java`
+- **test.sh**: Validates solution by running code and checking output
+- **Build files**: `Makefile` (C days), `Cargo.toml` (Rust days)
 
-**Lua files:**
-```bash
-lua main.lua  # or just run ./test.sh
-```
+## Language Schedule
 
-**Java files:**
-```bash
-javac Main.java && java Main  # or just run ./test.sh
-```
+- **C**: Days 1, 2, 8, 14, 20, 26
+- **Rust**: Days 3, 9, 15, 21, 27
+- **JavaScript**: Days 4, 10, 16, 22, 28
+- **Python**: Days 5, 11, 17, 23, 29
+- **Lua**: Days 6, 12, 18, 24, 30
+- **Java**: Days 7, 13, 19, 25
 
-## Key Architectural Elements
+## Architecture
 
-1. **Progressive Learning Path**: Days 1-30 gradually introduce Vim commands from basic movement to advanced features like macros and global commands.
+The challenge uses a **test-driven approach** where each day's test script:
+1. Compiles/runs the main file
+2. Checks output against expected results
+3. Reports specific tasks as passed (✓) or failed (✗)
 
-2. **Test-Driven Approach**: Each challenge includes executable tests that compile/run the code and verify the output matches expected results. Tests provide clear feedback on what needs to be fixed.
-
-3. **Multi-Language Practice**: The challenge rotates through 6 programming languages to provide diverse editing contexts while learning Vim.
-
-4. **Self-Contained Days**: Each day's challenge is independent, allowing learners to practice specific Vim skills without dependencies on previous days.
-
-## Development Notes
-
-- Tests are executable and check actual program output rather than file diffs
-- Each language uses its standard build tools (make, cargo, etc.)
-- No external dependencies beyond standard language runtimes and build tools
-- Each main file contains commented instructions explaining the day's Vim commands and tasks
-- The transformation from diff-based to test-based format provides better learning feedback
+Tests verify actual program execution rather than file diffs, providing immediate actionable feedback.
 
 ## Neovim Diff Preview Tools
 
