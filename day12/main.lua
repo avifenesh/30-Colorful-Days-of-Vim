@@ -44,7 +44,7 @@ Your tasks for Day 12:
 -- Task 1: Set mark 'a' here and fix the missing port value (should be 8080)
 local CONFIG = {
     host = "localhost",
-    -- port = nil,  -- FIXME: Add port number 8080
+    port = 8080,
     database = "myapp",
     timeout = 30
 }
@@ -58,8 +58,8 @@ end
 local function connect_to_database()
     -- FIXME: Fix the connection string - should use CONFIG.host and CONFIG.port
     local connection_string = string.format("host=%s;port=%s;db=%s",
-                                           "wrong_host",  -- Should be CONFIG.host
-                                           "9999",        -- Should be CONFIG.port
+                                           CONFIG.host,
+                                           CONFIG.port,
                                            CONFIG.database)
 
     log_message("Connecting with: " .. connection_string)
@@ -69,7 +69,9 @@ end
 -- Task 3: Set mark 'c' at this function and fix the email validation
 local function validate_email(email)
     -- FIXME: This validation is wrong - it should check for '@' symbol
-    if string.find(email, "#") then  -- Wrong symbol! Should be '@'
+    -- Basic validation: check if it contains exactly one '@'
+    local _, count = string.gsub(email, "@", "@")
+    if count == 1 then
         return true
     end
     return false
@@ -157,7 +159,11 @@ end
 local test_emails = {
     {email = "valid@example.com", should_pass = true},
     {email = "invalid.email.com", should_pass = false},
-    {email = "another@test.org", should_pass = true}
+    {email = "another@test.org", should_pass = true},
+    {email = "noat.com", should_pass = false},
+    {email = "user#example.com", should_pass = false},
+    {email = "user@domain@extra.com", should_pass = false},
+    {email = "", should_pass = false}
 }
 
 local email_tests_passed = true
