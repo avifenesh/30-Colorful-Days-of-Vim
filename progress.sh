@@ -1,17 +1,22 @@
 #!/bin/bash
 
-# Progress tracking system for 30 Days of Vim Challenge
+# Progress tracking system for ${TOTAL_DAYS} Days of Vim Challenge
+
+# Load shared configuration
+if [ -f "./config.sh" ]; then
+    source ./config.sh
+else
+    # Fallback if config.sh is missing
+    TOTAL_DAYS=30
+    GREEN='\033[0;32m'
+    RED='\033[0;31m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m'
+    BOLD='\033[1m'
+fi
 
 PROGRESS_FILE=".vim_progress"
-TOTAL_DAYS=30
-
-# Colors for output
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-BOLD='\033[1m'
 
 # Function to check if a day is completed
 check_day_completion() {
@@ -90,7 +95,7 @@ show_progress() {
     lang_completed[Lua]=0
     lang_completed[Java]=0
     
-    echo -e "\n${BOLD}=== 30 Days of Vim Challenge Progress ===${NC}\n"
+    echo -e "\n${BOLD}=== ${TOTAL_DAYS} Days of Vim Challenge Progress ===${NC}\n"
     
     # Display calendar-like view
     echo -e "${BOLD}Week 1:${NC}"
@@ -159,7 +164,7 @@ show_progress() {
     echo -e "\n"
     
     echo -e "${BOLD}Week 4+:${NC}"
-    for day in {22..30}; do
+    for ((day=22; day<=TOTAL_DAYS; day++)); do
         if check_day_completion $day; then
             echo -ne "${GREEN}[✓ Day $day]${NC} "
             completed=$((completed + 1))
@@ -224,10 +229,10 @@ show_progress() {
         echo -e "${YELLOW}📈 Making good progress! You're mastering the fundamentals!${NC}"
     elif [ $completed -lt 21 ]; then
         echo -e "${YELLOW}🔥 Halfway there! Your Vim skills are really improving!${NC}"
-    elif [ $completed -lt 30 ]; then
+    elif [ $completed -lt $TOTAL_DAYS ]; then
         echo -e "${YELLOW}💪 Almost there! You're becoming a Vim power user!${NC}"
     else
-        echo -e "${GREEN}🎉 Congratulations! You've completed the 30 Days of Vim Challenge!${NC}"
+        echo -e "${GREEN}🎉 Congratulations! You've completed the ${TOTAL_DAYS} Days of Vim Challenge!${NC}"
         echo -e "${GREEN}   You're now a Vim master! 🏆${NC}"
     fi
     echo ""
@@ -235,7 +240,7 @@ show_progress() {
 
 # Function to show help
 show_help() {
-    echo "30 Days of Vim Challenge - Progress Tracker"
+    echo "${TOTAL_DAYS} Days of Vim Challenge - Progress Tracker"
     echo ""
     echo "Usage: ./progress.sh [command] [options]"
     echo ""
@@ -255,7 +260,7 @@ show_help() {
 
 # Function to find next incomplete day
 find_next_day() {
-    for day in {1..30}; do
+    for ((day=1; day<=TOTAL_DAYS; day++)); do
         if ! check_day_completion $day; then
             echo $day
             return
@@ -298,7 +303,7 @@ case "${1:-show}" in
     next)
         next_day=$(find_next_day)
         if [ "$next_day" -eq 0 ]; then
-            echo -e "${GREEN}Congratulations! You've completed all 30 days!${NC}"
+            echo -e "${GREEN}Congratulations! You've completed all ${TOTAL_DAYS} days!${NC}"
         else
             echo -e "${BLUE}Next day to complete: Day ${next_day}${NC}"
             echo ""

@@ -1,14 +1,20 @@
 #!/bin/bash
 
-# Unified test runner for 30 Days of Vim Challenge
+# Unified test runner for ${TOTAL_DAYS} Days of Vim Challenge
 
-# Colors
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
-BOLD='\033[1m'
+# Load shared configuration
+if [ -f "./config.sh" ]; then
+    source ./config.sh
+else
+    # Fallback if config.sh is missing
+    TOTAL_DAYS=30
+    GREEN='\033[0;32m'
+    RED='\033[0;31m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m'
+    BOLD='\033[1m'
+fi
 
 # Counters
 TOTAL_TESTS=0
@@ -147,7 +153,7 @@ show_summary() {
 
 # Function to show help
 show_help() {
-    echo "Unified Test Runner for 30 Days of Vim Challenge"
+    echo "Unified Test Runner for ${TOTAL_DAYS} Days of Vim Challenge"
     echo ""
     echo "Usage: ./test-runner.sh [options]"
     echo ""
@@ -214,19 +220,19 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Main execution
-echo -e "${BOLD}=== 30 Days of Vim Challenge - Test Runner ===${NC}"
+echo -e "${BOLD}=== ${TOTAL_DAYS} Days of Vim Challenge - Test Runner ===${NC}"
 
 case $MODE in
     all)
         echo -e "\nRunning all tests..."
-        for day in {1..30}; do
+        for ((day=1; day<=TOTAL_DAYS; day++)); do
             run_day_test $day
             TOTAL_TESTS=$((TOTAL_TESTS + 1))
         done
         ;;
     day)
-        if [[ ! "$SPECIFIC_DAY" =~ ^[0-9]+$ ]] || [ "$SPECIFIC_DAY" -lt 1 ] || [ "$SPECIFIC_DAY" -gt 30 ]; then
-            echo -e "${RED}Error: Invalid day number. Must be between 1 and 30.${NC}"
+        if [[ ! "$SPECIFIC_DAY" =~ ^[0-9]+$ ]] || [ "$SPECIFIC_DAY" -lt 1 ] || [ "$SPECIFIC_DAY" -gt "$TOTAL_DAYS" ]; then
+            echo -e "${RED}Error: Invalid day number. Must be between 1 and ${TOTAL_DAYS}.${NC}"
             exit 1
         fi
         echo -e "\nRunning test for day $SPECIFIC_DAY..."
