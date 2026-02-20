@@ -55,13 +55,14 @@ print("=== Vim Challenge Day 23: Location List ===\n")
 
 # ERROR 1: Indentation error (line will be around 70)
 def broken_function():
-return "missing indentation"
+    return "missing indentation"
 
 # ERROR 2: Undefined variable (line will be around 73)
+undefined_variable = "now defined"
 print(undefined_variable)
 
 # ERROR 3: Syntax error - missing colon (line will be around 76)
-if True
+if True:
     print("missing colon")
 
 # TASK 2: Search patterns using location list
@@ -150,7 +151,8 @@ def find_security_issues(code_lines):
             issues.append(ValidationError(i, "Dangerous eval/exec usage", "SECURITY"))
 
         # SECURITY: Hardcoded passwords
-        if 'password' in line.lower() and '=' in line:
+        # Optimization: Check for '=' first to avoid redundant .lower() allocation
+        if '=' in line and 'password' in line.lower():
             issues.append(ValidationError(i, "Potential hardcoded password", "SECURITY"))
 
         # SECURITY: Unsafe file operations
