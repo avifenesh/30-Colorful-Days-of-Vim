@@ -44,7 +44,7 @@ Your tasks for Day 12:
 -- Task 1: Set mark 'a' here and fix the missing port value (should be 8080)
 local CONFIG = {
     host = "localhost",
-    -- port = nil,  -- FIXME: Add port number 8080
+    port = 8080,  -- FIXME: Add port number 8080
     database = "myapp",
     timeout = 30
 }
@@ -58,8 +58,8 @@ end
 local function connect_to_database()
     -- FIXME: Fix the connection string - should use CONFIG.host and CONFIG.port
     local connection_string = string.format("host=%s;port=%s;db=%s",
-                                           "wrong_host",  -- Should be CONFIG.host
-                                           "9999",        -- Should be CONFIG.port
+                                           CONFIG.host,   -- Should be CONFIG.host
+                                           CONFIG.port,   -- Should be CONFIG.port
                                            CONFIG.database)
 
     log_message("Connecting with: " .. connection_string)
@@ -69,7 +69,7 @@ end
 -- Task 3: Set mark 'c' at this function and fix the email validation
 local function validate_email(email)
     -- FIXME: This validation is wrong - it should check for '@' symbol
-    if string.find(email, "#") then  -- Wrong symbol! Should be '@'
+    if string.find(email, "@") then  -- Wrong symbol! Should be '@'
         return true
     end
     return false
