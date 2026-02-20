@@ -54,10 +54,11 @@ int calculate_sum(int a, int b) {
     return a + b;
 }
 
-// WRONG: should be processString (use gv to reselect after first fix)
-char* process_string(const char* input) {
+// FIXED: renamed to processString and added buffer overflow protection
+char* processString(const char* input) {
     static char result[256];
-    strcpy(result, input);
+    strncpy(result, input, sizeof(result) - 1);
+    result[sizeof(result) - 1] = '\0';
     return result;
 }
 
@@ -125,7 +126,7 @@ void test_function_names() {
     int sum = calculate_sum(5, 3);  // Should be calculateSum
     printf("Sum result: %d\n", sum);
 
-    char* processed = process_string("test");  // Should be processString
+    char* processed = processString("test");  // Should be processString
     printf("Processed: %s\n", processed);
 
     int valid = validate_input(50);  // Should be validateInput
