@@ -50,6 +50,22 @@ Each day introduces new Vim commands and concepts, accompanied by a coding task 
     
     Keep practicing until all tests pass!
 
+## Run Many Days and Track Progress
+
+From the repository root:
+
+```bash
+./test-runner.sh              # run all 30 days with a summary
+./test-runner.sh -d 5         # one day
+./test-runner.sh -r 1-10      # a range of days
+./test-runner.sh -l rust      # one language: c, rust, js, python, lua, java
+./test-runner.sh -v           # show error output for failed days
+
+./progress.sh                 # show completed days
+./progress.sh next            # show and test the next incomplete day
+./progress.sh test 5          # test one day; a pass marks it complete
+```
+
 ## Challenge Structure
 
 Each `dayX` directory contains:
